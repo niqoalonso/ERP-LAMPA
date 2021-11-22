@@ -1,0 +1,231 @@
+{
+    "navbar": {
+        "search": {
+            "text": "Chercher..."
+        },
+        "dropdown": {
+            "site": {
+                "list": {
+                    "github": "GitHub",
+                    "bitbucket": "Bitbucket",
+                    "dribbble": "Dribble",
+                    "dropbox": "Dropbox",
+                    "mailchimp": "Mail Chimp",
+                    "slack": "Molle"
+                }
+            },
+            "notification": {
+                "badge": "3",
+                "text": "Notifications",
+                "subtext": "Tout marquer comme non lu",
+                "order": {
+                    "title": "Votre commande est passée",
+                    "text": "Si plusieurs langues fusionnent la grammaire",
+                    "time": "Il y a 3 minutes"
+                },
+                "james": {
+                    "title": "James Lemire",
+                    "text": "It will seem like simplified English.",
+                    "time": "Il y a 1 heure"
+                },
+                "item": {
+                    "title": "Votre article est expédié",
+                    "text": "Si plusieurs langues fusionnent la grammaire",
+                    "time": "Il y a 3 minutes"
+                },
+                "salena": {
+                    "title": "Salena Layfield",
+                    "text": "As a skeptical Cambridge friend of mine occidental.",
+                    "time": "Il y a 1 heure"
+                },
+                "button": "Charger plus.."
+            },
+            "marcus": {
+                "text": "Marcus",
+                "list": {
+                    "profile": "Profil",
+                    "mywallet": "Mon portefeuille",
+                    "settings": "Réglages",
+                    "lockscreen": "Écran verrouillé",
+                    "logout": "Se déconnecter"
+                }
+            }
+        }
+    },
+    "menuitems": {
+        "menu": {
+            "text": "Menu"
+        },
+        "dashboard": {
+            "text": "Tableaux de bord",
+            "badge": "01"
+        },
+        "apps": {
+            "text": "Apps"
+        },
+        "calendar": {
+            "text": "Calendrier"
+        },
+        "chat": {
+            "text": "Bavarder",
+            "badge": "Nouvelle"
+        },
+        "ecommerce": {
+            "text": "Commerce électronique",
+            "list": {
+                "products": "Des produits",
+                "productdetail": "Product Detail",
+                "orders": "Ordres",
+                "customers": "Les clients",
+                "cart": "Chariot",
+                "checkout": "Check-out",
+                "shops": "Magasins",
+                "addproduct": "Ajouter un produit"
+            }
+        },
+        "email": {
+            "text": "Email",
+            "list": {
+                "inbox": "Boîte de réception",
+                "reademail": "Lire l'e-mail"
+            }
+        },
+        "invoices": {
+            "text": "Factures",
+            "list": {
+                "invoicelist": "Liste des factures",
+                "invoicedetail": "Détail de la facture"
+            }
+        },
+        "tasks": {
+            "text": "Tâches",
+            "list": {
+                "tasklist": "Liste de tâches",
+                "kanban": "Tableau Kanban",
+                "createtask": "Créer une tâche"
+            }
+        },
+        "contacts": {
+            "text": "Contacts",
+            "list": {
+                "usergrid": "Grille utilisateur",
+                "userlist": "liste d'utilisateur",
+                "profile": "Profil"
+            }
+        },
+        "pages": {
+            "text": "Pages"
+        },
+        "authentication": {
+            "text": "Authentification",
+            "list": {
+                "login": "S'identifier",
+                "register": "S'inscrire",
+                "recoverpwd": "Récupérer mot de passe",
+                "lockscreen": "Écran verrouillé"
+            }
+        },
+        "utility": {
+            "text": "Utilitaire",
+            "list": {
+                "starter": "Page de démarrage",
+                "comingsoon": "Bientôt disponible",
+                "maintenance": "Entretien",
+                "timeline": "Chronologie",
+                "faqs": "FAQ",
+                "pricing": "Tarification",
+                "error404": "Erreur 404",
+                "error500": "Erreur 500"
+            }
+        },
+        "components": {
+            "text": "Composantes"
+        },
+        "uielements": {
+            "text": "Éléments de l'interface utilisateur",
+            "list": {
+                "alerts": "Alerts",
+                "buttons": "Boutons",
+                "cards": "Cartes",
+                "carousel": "Carrousel",
+                "dropdowns": "Liste déroulante",
+                "grid": "la grille",
+                "images": "Images",
+                "modals": "Modals",
+                "rangeslider": "Curseur de plage",
+                "progressbar": "Barres de progression",
+                "sweetalert": "Sweet Alert",
+                "tabs": "Tablatures et accordéons",
+                "typography": "Typographie",
+                "video": "Vidéo",
+                "general": "Générale",
+                "colors": "Couleurs",
+                "lightbox": "Boite à lumière",
+                "cropper": "Recadrage d'image",
+                "rating": "Évaluation",
+                "notifications": "Notifications"
+            }
+        },
+        "forms": {
+            "text": "Formes",
+            "badge": "8",
+            "list": {
+                "elements": "Éléments de formulaire",
+                "layouts": "Dispositions de formulaire",
+                "validation": "Validation de formulaire",
+                "advanced": "Formulaire avancé",
+                "editor": "Éditeur de formulaires",
+                "fileupload": "Téléchargement de fichier de formulaire",
+                "repeater": "Répétiteur de formulaire",
+                "wizard": "Assistant de formulaire",
+                "mask": "Masque de forme"
+            }
+        },
+        "tables": {
+            "text": "les tables",
+            "list": {
+                "basic": "Tableaux de base",
+                "advanced": "Tableau avancé"
+            }
+        },
+        "charts": {
+            "text": "Graphiques",
+            "list": {
+                "apex": "Graphique Apex",
+                "chartjs": "Graphique Chartjs",
+                "chartist": "Graphique Chartist",
+                "echart": "Graphique E"
+            }
+        },
+        "icons": {
+            "text": "Icônes",
+            "list": {
+                "unicons": "Unicons",
+                "boxicons": "Boxicons",
+                "materialdesign": "Conception matérielle",
+                "dripicons": "Dripicons",
+                "fontawesome": "Police géniale"
+            }
+        },
+        "maps": {
+            "text": "Plans",
+            "list": {
+                "googlemap": "Google Maps",
+                "leafletmap": "Cartes de dépliant"
+            }
+        },
+        "multilevel": {
+            "text": "Multi niveaux",
+            "list": {
+                "level1": {
+                    "1": "Niveau 1.1",
+                    "2": "Niveau 1.2",
+                    "level2": {
+                        "1": "Niveau 2.1",
+                        "2": "Niveau 2.2"
+                    }
+                }
+            }
+        }
+    }
+}
