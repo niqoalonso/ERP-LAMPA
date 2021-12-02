@@ -12,7 +12,18 @@ class Remuneraciones extends Model
     protected $fillable = [
         'monto',
         'sueldo_liquido',
-        'sueldo_bruto',
+        'total_imponible',
+        'total_haberes',
+        'afc_monto',
+        'impuesto_unico',
+        'alcance_liquido',
+        'anticipo',
+        'desgaste_herramientas',
+        'otros',
+        'porcentaje_hora_extra',
+        'uf',
+        'gratificacion',
+        'participacion',
         'cantidad_horas_extras',
         'horas_extras_monto',
         'dias_trabajados',
@@ -28,4 +39,10 @@ class Remuneraciones extends Model
 
         return $this->belongsTo(Trabajador::class,'trabajador_id');
     }
+
+    public function bonos(){
+
+        return $this->hasMany(BonosRemuneracion::class,'remuneracion_id', 'id_remuneracion');
+    }
+
 }

@@ -21,6 +21,7 @@ class CreateCargasTrabajadorsTable extends Migration
             $table->string('email');
             $table->string('nacionalidad');
             $table->date('fecha_nacimiento');
+            $table->string('tipo_carga');
             $table->unsignedBigInteger('trabajador_id');
             $table->foreign('trabajador_id')->references('id_trabajador')->on('trabajadors');
             $table->unsignedBigInteger('parentezco_id');
