@@ -5,20 +5,21 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-          <div class="card-body row">
-            <div class="col-6">
-               <h4 class="card-title">Listado Trabajadores</h4>
-            </div>
-            <div class="col-6">
-              <button
+          <div class="card-body">
+            <h4 class="card-title">Listado Trabajadores</h4>
+
+            <div class="row mt-5">
+              <div class="col-12">
+                <button
                   type="button"
-                  class="btn btn-success btn-sm waves-effect waves-light float-end"
+                  class="btn btn-success waves-effect waves-light float-end"
                   v-b-modal.trabajadores
                   @click="modalNuevo"
                 >
                   <i class="fas fa-plus-circle"></i>
                   Crear Trabajadores
                 </button>
+              </div>
             </div>
           </div>
         </div>
@@ -129,7 +130,7 @@
 
       <b-modal
         id="trabajadores"
-        size="lg"
+        size="xl"
         :title="titlemodal"
         title-class="font-18"
         hide-footer
@@ -141,7 +142,7 @@
           enctype="multipart/form-data"
         >
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="rut">Rut</label>
                 <input
@@ -165,7 +166,7 @@
                 <span class="text-danger" v-if="rutexist">Rut en uso.</span>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="nombres">Nombres</label>
                 <input
@@ -188,10 +189,7 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="apellidos">Apellidos</label>
                 <input
@@ -214,7 +212,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="email">Email</label>
                 <input
@@ -237,10 +238,7 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="celular">Celular</label>
                 <input
@@ -263,7 +261,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="fecha_nacimiento">Fecha Nacimiento</label>
                 <input
@@ -289,7 +287,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="edad">Edad</label>
                 <input
@@ -310,7 +308,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="estado_civil">Estado Civil</label>
                 <input
@@ -333,10 +331,8 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="direccional">Direccional</label>
                 <input
@@ -359,7 +355,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="region">Region</label>
                 <multiselect
@@ -371,9 +370,6 @@
                 ></multiselect>
               </div>
             </div>
-          </div>
-
-          <div class="row">
             <div class="col-md-4">
               <div class="mb-3">
                 <label for="comuna">Comuna</label>
@@ -396,6 +392,9 @@
                 ></multiselect>
               </div>
             </div>
+          </div>
+
+          <div class="row">
             <div class="col-md-4">
               <div class="mb-3">
                 <label for="afp">AFP</label>
@@ -407,10 +406,7 @@
                 ></multiselect>
               </div>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="nacionalidad">Nacionalidad</label>
                 <input
@@ -433,7 +429,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="estado_civil">Carga Familiar</label>
                 <div class="row">
@@ -467,7 +463,7 @@
           <div class="row" v-if="formcarga && form.carga_familiar == '1'">
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="motivo_desvinculacion">Carga</label>
+                <label for="carga">Carga</label>
 
                 <ul class="list-group lista_estudiantes">
                   <li
@@ -577,7 +573,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="contrato">Adjuntar contrato</label>
                 <input
@@ -588,7 +584,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="fecha_contrato">Fecha Contrato</label>
                 <input
@@ -599,15 +595,49 @@
                 />
               </div>
             </div>
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="fecha_fin_contrato">Fecha Fin Contrato</label>
+                <input
+                  id="fecha_fin_contrato"
+                  v-model="form.fecha_fin_contrato"
+                  type="date"
+                  class="form-control"
+                />
+              </div>
+            </div>
             <div class="col-md-6" v-if="form.anturlpdf">
               <div class="mb-3">
-                  <a class="btn btn-success waves-effect waves-light float-end" :href="urlbackend+'/storage/'+form.anturlpdf" target="_blank" rel="noopener noreferrer">ver Contrato</a>
+                <a
+                  class="btn btn-success waves-effect waves-light float-end"
+                  :href="urlbackend + '/storage/' + form.anturlpdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >ver Contrato</a
+                >
               </div>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="tipo_contrato">Tipo Contrato</label>
+                <multiselect
+                  v-model="form.tipo_contrato"
+                  :options="optionsTipoContrato"
+                  track-by="tipo"
+                  label="tipo"
+                ></multiselect>
+                <span
+                  v-if="
+                    !$v.form.tipo_contrato.$invalid && submitted
+                  "
+                  >Tipo Contrato es requerido.</span
+                >
+              </div>
+            </div>
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="fecha_desvinculacion">Fecha Desvinculación</label>
                 <input
@@ -618,7 +648,7 @@
                 />
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="mb-3">
                 <label for="motivo_desvinculacion">motivo Desvinculacion</label>
                 <input
@@ -836,6 +866,23 @@
               >
             </div>
           </div>
+          <div class="col-md-6">
+              <div class="mb-3">
+                <label for="tipo_carga">Tipo Carga</label>
+                <multiselect
+                  v-model="formacargatemp.tipo_carga"
+                  :options="optionsTipoCarga"
+                  track-by="tipo"
+                  label="tipo"
+                ></multiselect>
+                <span
+                  v-if="
+                    !$v.formacargatemp.tipo_carga.$invalid && submitted
+                  "
+                  >Tipo Carga es requerido.</span
+                >
+              </div>
+            </div>
         </div>
 
         <button

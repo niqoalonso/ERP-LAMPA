@@ -30,6 +30,8 @@ class CreateTrabajadorsTable extends Migration
             $table->string('fecha_desvinculacion')->nullable();
             $table->string('motivo_desvinculacion')->nullable();
             $table->date('fecha_contrato');
+            $table->date('fecha_fin_contrato')->nullable();
+            $table->string('tipo_contrato');
             $table->integer('sueldo_base');
             $table->integer('colacion');
             $table->integer('movilidad');

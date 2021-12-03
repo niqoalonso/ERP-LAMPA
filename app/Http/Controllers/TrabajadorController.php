@@ -69,6 +69,8 @@ class TrabajadorController extends Controller
                                                     'fecha_desvinculacion' =>$request->fecha_desvinculacion,
                                                     'motivo_desvinculacion' =>$request->motivo_desvinculacion,
                                                     'fecha_contrato' =>$request->fecha_contrato,
+                                                    'fecha_fin_contrato' =>$request->fecha_fin_contrato,
+                                                    'tipo_contrato'=>$request->tipo_contrato,
                                                     'sueldo_base' =>$request->sueldo_base,
                                                     'colacion' =>$request->colacion,
                                                     'movilidad' =>$request->movilidad,
@@ -98,6 +100,7 @@ class TrabajadorController extends Controller
                     'email' => $request->datos_carga[$i]["email"],
                     'nacionalidad' => $request->datos_carga[$i]["nacionalidad"],
                     'fecha_nacimiento' => $request->datos_carga[$i]["fecha_nacimiento"],
+                    'tipo_carga' => $request->datos_carga[$i]["tipo_carga"]["tipo"],
                     'parentezco_id'=> $request->datos_carga[$i]["parentezco"]["id_parentezco"],
                     ];
 

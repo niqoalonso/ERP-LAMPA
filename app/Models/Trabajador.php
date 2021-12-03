@@ -27,6 +27,8 @@ class Trabajador extends Model
         'fecha_desvinculacion',
         'motivo_desvinculacion',
         'fecha_contrato',
+        'fecha_fin_contrato',
+        'tipo_contrato',
         'sueldo_base',
         'colacion',
         'movilidad',
@@ -37,7 +39,7 @@ class Trabajador extends Model
 
     public function trabajorcarga()
     {
-        return $this->belongsToMany(Parentezco::class,'cargas_trabajadors', 'trabajador_id', 'parentezco_id',)->withPivot('nombres','apellidos','rut','email','nacionalidad','fecha_nacimiento');
+        return $this->belongsToMany(Parentezco::class,'cargas_trabajadors', 'trabajador_id', 'parentezco_id',)->withPivot('nombres','apellidos','rut','email','nacionalidad','fecha_nacimiento','tipo_carga');
     }
 
     public function comuna(){

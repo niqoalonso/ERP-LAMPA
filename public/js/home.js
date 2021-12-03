@@ -9439,23 +9439,42 @@ __webpack_require__.r(__webpack_exports__);
         trabajador_id: "",
         sueldo_base: "",
         dias_trabajados: "",
-        monto: "",
+        monto: 0,
         afp: "",
-        afp_monto: "",
+        afp_monto: 0,
         salud: "",
-        salud_monto: "",
+        salud_monto: 0,
         carga_familiar: "",
-        monto_carga_familiar: "",
-        asignacion_familiar: "",
-        cantidad_horas_extras: "",
-        horas_extras_monto: "",
+        // monto_carga_familiar: "",
+        asignacion_familiar: 0,
+        cantidad_horas_extras: 0,
+        horas_extras_monto: 0,
         colacion: "",
         movilidad: "",
-        sueldo_bruto: "",
-        sueldo_liquido: "",
-        id_remuneracion: ""
+        total_imponible: 0,
+        total_haberes: 0,
+        afc_monto: 0,
+        impuesto_unico: 0,
+        alcance_liquido: 0,
+        anticipo: 0,
+        desgaste_herramientas: 0,
+        otros: 0,
+        porcentaje_hora_extra: 0,
+        uf: 0,
+        gratificacion: 0,
+        participacion: 0,
+        bonos: "",
+        sueldo_liquido: 0,
+        id_remuneracion: "",
+        saludporcentaje: 0,
+        afpporcentaje: 0,
+        porcentajerealafp: 0,
+        horas_semanales: 0
       },
+      bonostemp: [],
+      cargas: "",
       submitted: false,
+      summitedB: false,
       typeform: "create",
       titlemodal: "Crear Remuneración",
       modal: false,
@@ -9486,16 +9505,16 @@ __webpack_require__.r(__webpack_exports__);
           return "".concat(trabajador.nombres, " ").concat(trabajador.apellidos);
         }
       }, {
-        key: "sueldo_bruto",
+        key: "total_imponible",
         sortable: true,
         label: "Sueldo Bruto",
-        formatter: function formatter(sueldo_bruto) {
+        formatter: function formatter(total_imponible) {
           var formatter = new Intl.NumberFormat("es-CL", {
             style: "currency",
             currency: "CLP",
             minimumFractionDigits: 0
           });
-          return formatter.format(sueldo_bruto);
+          return formatter.format(total_imponible);
         }
       }, {
         key: "sueldo_liquido",
@@ -9529,22 +9548,55 @@ __webpack_require__.r(__webpack_exports__);
       salud_monto: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       },
-      monto_carga_familiar: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
-      },
       asignacion_familiar: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       },
       cantidad_horas_extras: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       },
+      porcentaje_hora_extra: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      afc_monto: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      uf: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      impuesto_unico: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      gratificacion: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      participacion: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      anticipo: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      desgaste_herramientas: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      alcance_liquido: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      otros: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      total_haberes: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
       horas_extras_monto: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       },
-      sueldo_bruto: {
+      total_imponible: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       },
       sueldo_liquido: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      horas_semanales: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       }
     }
@@ -9558,7 +9610,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(localStorage.getItem("token"));
     this.traerTrabajador();
     this.traerRemuneracion();
     this.totalRows = this.items.length;
@@ -9585,7 +9636,7 @@ __webpack_require__.r(__webpack_exports__);
     traerRemuneracion: function traerRemuneracion() {
       var _this2 = this;
 
-      this.axios.get("/api/obtenerremuneracion").then(function (response) {
+      this.axios.get("/api/obtenerremuneracion/").then(function (response) {
         console.log(response);
         _this2.tableData = response.data;
       });
@@ -9605,7 +9656,74 @@ __webpack_require__.r(__webpack_exports__);
       this.$v.form.$touch();
 
       if (!this.$v.form.$invalid) {
-        console.log(this.form);
+        // calculo monto
+        var monto = Math.round(parseInt(this.form.sueldo_base) / 30 * this.form.dias_trabajados);
+
+        if (monto != this.form.monto) {
+          this.successmsgerror();
+          return;
+        } // verificar porcentaje AFP
+
+
+        if (this.form.porcentajerealafp != this.form.afpporcentaje) {
+          this.successmsgerror();
+          return;
+        } // calculo horas extras
+
+
+        var factor = parseInt(this.form.sueldo_base) / 30 * 7;
+        var porcentajehoras = this.form.porcentaje_hora_extra / 100 + 1;
+        console.log(porcentajehoras);
+        var valorhora = factor / this.form.horas_semanales * porcentajehoras;
+        console.log(valorhora);
+        var montohoraextra = Math.round(valorhora * this.form.cantidad_horas_extras);
+        console.log(montohoraextra);
+
+        if (montohoraextra != this.form.horas_extras_monto) {
+          this.successmsgerror();
+          return;
+        } // suma bonos
+
+
+        var montobono = 0;
+        this.bonostemp.forEach(function (element) {
+          montobono = montobono + parseInt(element["monto"]);
+        }); // total imponible
+
+        var totalimponible = parseInt(this.form.horas_extras_monto) + parseInt(this.form.monto) + parseInt(montobono) + parseInt(this.form.gratificacion);
+        console.log(this.form.total_imponible, totalimponible);
+
+        if (this.form.total_imponible != totalimponible) {
+          this.successmsgerror();
+          return;
+        } // calculo afp
+
+
+        var afpmonto = this.form.porcentajerealafp * this.totalimponible / 100;
+
+        if (this.form.afp_monto != afpmonto) {
+          this.successmsgerror();
+          return;
+        } // calculo salud
+
+
+        var saludmonto = this.form.saludporcentaje * this.totalimponible / 100;
+
+        if (this.form.salud_monto != saludmonto) {
+          this.successmsgerror();
+          return;
+        } // total haberes
+
+
+        var totalhaberes = parseInt(this.form.colacion) + parseInt(this.form.movilidad);
+        console.log(this.form.total_haberes, totalhaberes);
+
+        if (this.form.total_haberes != totalhaberes) {
+          this.successmsgerror();
+          return;
+        }
+
+        this.form.bonos = this.bonostemp;
         this.axios.post("/api/crearremuneracion", this.form).then(function (res) {
           console.log(res);
           var title = "";
@@ -9613,7 +9731,7 @@ __webpack_require__.r(__webpack_exports__);
           var type = "";
 
           if (res.data) {
-            if (_this3.form.id_remuneracion == "") {
+            if (_this3.form.id_remuneracion) {
               title = "Crear Remuneración";
               message = "Remuneración creada con exito";
               type = "success";
@@ -9629,6 +9747,8 @@ __webpack_require__.r(__webpack_exports__);
 
             _this3.$v.form.$reset();
 
+            _this3.bonostemp = [];
+
             _this3.traerRemuneracion();
 
             _this3.successmsg(title, message, type);
@@ -9639,7 +9759,7 @@ __webpack_require__.r(__webpack_exports__);
           var message = "";
           var type = "";
 
-          if (_this3.form.id_remuneracion == "") {
+          if (_this3.form.id_remuneracion) {
             title = "Crear Remuneración";
             message = "Remuneración  creada con exito";
             type = "error";
@@ -9666,11 +9786,23 @@ __webpack_require__.r(__webpack_exports__);
       this.form.afp = this.form.trabajador_id.afp.nombre;
       this.form.salud = this.form.trabajador_id.salud;
       this.form.carga_familiar = this.form.trabajador_id.trabajorcarga.length;
+      this.cargas = this.form.trabajador_id.trabajorcarga;
       this.form.colacion = this.form.trabajador_id.colacion;
       this.form.movilidad = this.form.trabajador_id.movilidad;
+      this.form.porcentajerealafp = this.form.trabajador_id.afp.tasa_dependiente;
+    },
+    AddformData: function AddformData() {
+      this.bonostemp.push({
+        glosa: "",
+        monto: ""
+      });
+    },
+    deleteRow: function deleteRow(index) {
+      this.bonostemp.splice(index, 1);
     },
     editar: function editar(data) {
       console.log(data);
+      this.bonostemp = [];
       this.form.trabajador_id = data.trabajador;
       this.form.sueldo_base = data.trabajador.sueldo_base;
       this.form.dias_trabajados = data.dias_trabajados;
@@ -9686,9 +9818,28 @@ __webpack_require__.r(__webpack_exports__);
       this.form.horas_extras_monto = data.horas_extras_monto;
       this.form.colacion = data.trabajador.colacion;
       this.form.movilidad = data.trabajador.movilidad;
-      this.form.sueldo_bruto = data.sueldo_bruto;
+      this.form.total_imponible = data.total_imponible;
       this.form.sueldo_liquido = data.sueldo_liquido;
       this.form.id_remuneracion = data.id_remuneracion;
+      this.form.total_haberes = data.total_haberes;
+      this.form.afc_monto = data.afc_monto;
+      this.form.impuesto_unico = data.impuesto_unico;
+      this.form.alcance_liquido = data.alcance_liquido;
+      this.form.anticipo = data.anticipo;
+      this.form.desgaste_herramientas = data.desgaste_herramientas;
+      this.form.otros = data.otros;
+      this.form.porcentaje_hora_extra = data.porcentaje_hora_extra;
+      this.form.uf = data.uf;
+      this.form.gratificacion = data.gratificacion;
+      this.form.participacion = data.participacion;
+
+      for (var i = 0; i < data.bonos.length; i++) {
+        this.bonostemp.push({
+          glosa: data.bonos[i]["glosa"],
+          monto: data.bonos[i]["monto"]
+        });
+      }
+
       this.modal = true;
     },
     successmsg: function successmsg(title, message, type) {
@@ -9711,10 +9862,34 @@ __webpack_require__.r(__webpack_exports__);
         horas_extras_monto: "",
         colacion: "",
         movilidad: "",
-        sueldo_bruto: "",
+        total_imponible: "",
+        total_haberes: "",
+        afc_monto: "",
+        impuesto_unico: "",
+        alcance_liquido: "",
+        anticipo: "",
+        desgaste_herramientas: "",
+        otros: "",
+        porcentaje_hora_extra: "",
+        uf: "",
+        gratificacion: "",
+        participacion: "",
+        bonos: [{
+          glosa: "",
+          monto: ""
+        }],
         sueldo_liquido: "",
         id_remuneracion: ""
       };
+    },
+    successmsgerror: function successmsgerror() {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+        position: "center",
+        title: "Hay un error en los datos ingresados.",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000
+      });
     }
   }
 });
@@ -10720,7 +10895,9 @@ __webpack_require__.r(__webpack_exports__);
         afp_id: "",
         comuna_id: "",
         region_id: "",
-        anturlpdf: ""
+        anturlpdf: "",
+        fecha_fin_contrato: "",
+        tipo_contrato: ""
       },
       formcarga: [],
       formacargatemp: {
@@ -10731,6 +10908,7 @@ __webpack_require__.r(__webpack_exports__);
         nacionalidad: "",
         fecha_nacimiento: "",
         parentezco: "",
+        tipo_carga: "",
         index: "na"
       },
       submitted: false,
@@ -10747,6 +10925,16 @@ __webpack_require__.r(__webpack_exports__);
         name: "Fonasa"
       }, {
         name: "Isapre"
+      }],
+      optionsTipoContrato: [{
+        tipo: "Indefinido"
+      }, {
+        tipo: "Plazo"
+      }],
+      optionsTipoCarga: [{
+        tipo: "Especial"
+      }, {
+        tipo: "Normal"
       }],
       optionsAfp: [],
       optionsParentezco: [],
@@ -10843,6 +11031,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       region_id: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      tipo_contrato: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       }
     },
     formacargatemp: {
@@ -10865,6 +11056,9 @@ __webpack_require__.r(__webpack_exports__);
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       },
       parentezco: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+      },
+      tipo_carga: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
       }
     }
@@ -10923,7 +11117,7 @@ __webpack_require__.r(__webpack_exports__);
     traerTrabajador: function traerTrabajador() {
       var _this5 = this;
 
-      this.axios.get("/api/obtenertrabajador/").then(function (response) {
+      this.axios.get("api/obtenertrabajador").then(function (response) {
         _this5.tableData = response.data;
       });
     },
@@ -10976,11 +11170,13 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editar: function editar(data) {
+      var _this7 = this;
+
       console.log(data);
       this.formcarga = [];
 
-      for (var i = 0; i < data.trabajorcarga.length; i++) {
-        var formacargatemp = {
+      var _loop = function _loop(i) {
+        formacargatemp = {
           nombres: data.trabajorcarga[i].pivot.nombres,
           apellidos: data.trabajorcarga[i].pivot.apellidos,
           rut: data.trabajorcarga[i].pivot.rut,
@@ -10988,9 +11184,19 @@ __webpack_require__.r(__webpack_exports__);
           nacionalidad: data.trabajorcarga[i].pivot.nacionalidad,
           fecha_nacimiento: data.trabajorcarga[i].pivot.fecha_nacimiento,
           parentezco: data.trabajorcarga[i],
+          tipo_carga: _this7.optionsTipoCarga.find(function (option) {
+            return option.tipo === data.trabajorcarga[i].pivot.tipo_carga;
+          }),
           index: "na"
         };
-        this.formcarga.push(formacargatemp);
+
+        _this7.formcarga.push(formacargatemp);
+      };
+
+      for (var i = 0; i < data.trabajorcarga.length; i++) {
+        var formacargatemp;
+
+        _loop(i);
       }
 
       this.form.nombres = data.nombres;
@@ -11022,11 +11228,15 @@ __webpack_require__.r(__webpack_exports__);
       this.form.region_id = this.options.find(function (option) {
         return option.REG_ID === data.comuna.COM_REGION_ID;
       });
+      this.form.fecha_fin_contrato = data.fecha_fin_contrato;
+      this.form.tipo_contrato = this.optionsTipoContrato.find(function (option) {
+        return option.tipo === data.tipo_contrato;
+      });
       this.modal = true;
       this.btnCreate = false;
     },
     formSubmit: function formSubmit() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.submitted = true; // stop here if form is invalid
 
@@ -11065,6 +11275,8 @@ __webpack_require__.r(__webpack_exports__);
         fd.append("email", this.form.email);
         fd.append("datos_carga", this.formcarga);
         fd.append("id_trabajador", this.form.id_trabajador);
+        fd.append("tipo_contrato", this.form.tipo_contrato.tipo);
+        fd.append("fecha_fin_contrato", this.form.fecha_fin_contrato);
         this.axios.post("/api/creartrabajador", fd, {
           headers: {
             "content-type": "multipart/form-data"
@@ -11072,21 +11284,21 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (res) {
           console.log(res);
 
-          if (res.data && _this7.formcarga.length > 0) {
+          if (res.data && _this8.formcarga.length > 0) {
             var formdata = {
               trabajador: res.data,
-              datos_carga: _this7.formcarga
+              datos_carga: _this8.formcarga
             };
-            console.log(_this7.formcarga);
+            console.log(_this8.formcarga);
 
-            _this7.axios.post("/api/crearcarga", formdata).then(function (res) {
+            _this8.axios.post("/api/crearcarga", formdata).then(function (res) {
               console.log(res);
               var title = "";
               var message = "";
               var type = "";
 
               if (res.data) {
-                if (_this7.form.id_trabajador == "") {
+                if (_this8.form.id_trabajador == "") {
                   title = "Crear Trabajador";
                   message = "Trabajador creada con exito";
                   type = "success";
@@ -11096,17 +11308,17 @@ __webpack_require__.r(__webpack_exports__);
                   type = "success";
                 }
 
-                _this7.modal = false;
-                _this7.rutexist = false;
-                _this7.btnCreate = false;
+                _this8.modal = false;
+                _this8.rutexist = false;
+                _this8.btnCreate = false;
 
-                _this7.$v.form.$reset();
+                _this8.$v.form.$reset();
 
-                _this7.formcarga = [];
+                _this8.formcarga = [];
 
-                _this7.traerTrabajador();
+                _this8.traerTrabajador();
 
-                _this7.successmsg(title, message, type);
+                _this8.successmsg(title, message, type);
               }
             })["catch"](function (error) {
               console.log("error", error);
@@ -11114,7 +11326,7 @@ __webpack_require__.r(__webpack_exports__);
               var message = "";
               var type = "";
 
-              if (_this7.form.id_trabajador == "") {
+              if (_this8.form.id_trabajador == "") {
                 title = "Crear Trabajador";
                 message = "Trabajador  creada con exito";
                 type = "error";
@@ -11124,21 +11336,21 @@ __webpack_require__.r(__webpack_exports__);
                 type = "error";
               }
 
-              _this7.modal = false;
-              _this7.btnCreate = false;
+              _this8.modal = false;
+              _this8.btnCreate = false;
 
-              _this7.$v.form.$reset();
+              _this8.$v.form.$reset();
 
-              _this7.formcarga = [];
+              _this8.formcarga = [];
 
-              _this7.successmsg(title, message, type);
+              _this8.successmsg(title, message, type);
             });
           } else {
             var title = "";
             var message = "";
             var type = "";
 
-            if (_this7.form.id_trabajador == "") {
+            if (_this8.form.id_trabajador == "") {
               title = "Crear Trabajador";
               message = "Trabajador creada con exito";
               type = "success";
@@ -11148,17 +11360,17 @@ __webpack_require__.r(__webpack_exports__);
               type = "success";
             }
 
-            _this7.modal = false;
-            _this7.rutexist = false;
-            _this7.btnCreate = false;
+            _this8.modal = false;
+            _this8.rutexist = false;
+            _this8.btnCreate = false;
 
-            _this7.$v.form.$reset();
+            _this8.$v.form.$reset();
 
-            _this7.formcarga = [];
+            _this8.formcarga = [];
 
-            _this7.traerTrabajador();
+            _this8.traerTrabajador();
 
-            _this7.successmsg(title, message, type);
+            _this8.successmsg(title, message, type);
           }
         })["catch"](function (error) {
           console.log("error", error);
@@ -11166,7 +11378,7 @@ __webpack_require__.r(__webpack_exports__);
           var message = "";
           var type = "";
 
-          if (_this7.form.id_trabajador) {
+          if (_this8.form.id_trabajador) {
             title = "Crear Trabajador";
             message = "Trabajador  creada con exito";
             type = "error";
@@ -11176,14 +11388,14 @@ __webpack_require__.r(__webpack_exports__);
             type = "error";
           }
 
-          _this7.modal = false;
-          _this7.btnCreate = false;
+          _this8.modal = false;
+          _this8.btnCreate = false;
 
-          _this7.$v.form.$reset();
+          _this8.$v.form.$reset();
 
-          _this7.formcarga = [];
+          _this8.formcarga = [];
 
-          _this7.successmsg(title, message, type);
+          _this8.successmsg(title, message, type);
         });
       }
     },
@@ -11214,21 +11426,23 @@ __webpack_require__.r(__webpack_exports__);
         url_pdf: "",
         afp_id: "",
         comuna_id: "",
-        region_id: ""
+        region_id: "",
+        fecha_fin_contrato: "",
+        tipo_contrato: ""
       };
       this.btnCreate = true;
     },
     validarrut: function validarrut($event) {
-      var _this8 = this;
+      var _this9 = this;
 
       if ($event.target.value.length > 4) {
         this.axios.get("/api/validarrut/".concat($event.target.value)).then(function (response) {
           console.log(response);
 
           if (response.data == 1) {
-            _this8.rutexist = true;
+            _this9.rutexist = true;
           } else {
-            _this8.rutexist = false;
+            _this9.rutexist = false;
           }
         });
       }
@@ -11243,6 +11457,7 @@ __webpack_require__.r(__webpack_exports__);
         nacionalidad: "",
         fecha_nacimiento: "",
         parentezco: "",
+        tipo_carga: "",
         index: "na"
       };
     },
@@ -11257,6 +11472,9 @@ __webpack_require__.r(__webpack_exports__);
       this.formacargatemp.nacionalidad = carga.nacionalidad;
       this.formacargatemp.fecha_nacimiento = carga.fecha_nacimiento;
       this.formacargatemp.parentezco = carga.parentezco;
+      this.formacargatemp.tipo_carga = this.optionsTipoCarga.find(function (option) {
+        return option.tipo === carga.tipo_carga;
+      });
       this.formacargatemp.index = i;
       this.modaldatos = true;
     },
@@ -57998,36 +58216,36 @@ var render = function () {
       [
         _c("div", { staticClass: "col-lg-12" }, [
           _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body row" }, [
-              _c("div", { staticClass: "col-6" }, [
-                _c("h4", { staticClass: "card-title" }, [
-                  _vm._v("Listado Remuneraciones"),
-                ]),
+            _c("div", { staticClass: "card-body" }, [
+              _c("h4", { staticClass: "card-title" }, [
+                _vm._v("Listado Remuneraciones"),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-6" }, [
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "b-modal",
-                        rawName: "v-b-modal.remuneracion",
-                        modifiers: { remuneracion: true },
-                      },
-                    ],
-                    staticClass:
-                      "btn btn-success btn-sm waves-effect waves-light float-end",
-                    attrs: { type: "button" },
-                    on: { click: _vm.modalNuevo },
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-plus-circle" }),
-                    _vm._v(
-                      "\n                Crear Remuneración\n              "
-                    ),
-                  ]
-                ),
+              _c("div", { staticClass: "row mt-5" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "b-modal",
+                          rawName: "v-b-modal.remuneracion",
+                          modifiers: { remuneracion: true },
+                        },
+                      ],
+                      staticClass:
+                        "\n                                    btn btn-success\n                                    waves-effect waves-light\n                                    float-end\n                                ",
+                      attrs: { type: "button" },
+                      on: { click: _vm.modalNuevo },
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-plus-circle" }),
+                      _vm._v(
+                        "\n                                Crear Remuneración\n                            "
+                      ),
+                    ]
+                  ),
+                ]),
               ]),
             ]),
           ]),
@@ -58050,7 +58268,7 @@ var render = function () {
                         { staticClass: "d-inline-flex align-items-center" },
                         [
                           _vm._v(
-                            "\n                  Mostrar \n                  "
+                            "\n                                    Mostrar \n                                    "
                           ),
                           _c("b-form-select", {
                             attrs: { size: "sm", options: _vm.pageOptions },
@@ -58062,7 +58280,7 @@ var render = function () {
                               expression: "perPage",
                             },
                           }),
-                          _vm._v(" entradas\n                "),
+                          _vm._v(" entradas\n                                "),
                         ],
                         1
                       ),
@@ -58083,10 +58301,11 @@ var render = function () {
                         { staticClass: "d-inline-flex align-items-center" },
                         [
                           _vm._v(
-                            "\n                  Buscar:\n                  "
+                            "\n                                    Buscar:\n                                    "
                           ),
                           _c("b-form-input", {
-                            staticClass: "form-control form-control-sm ms-2",
+                            staticClass:
+                              "\n                                            form-control form-control-sm\n                                            ms-2\n                                        ",
                             attrs: { type: "search", placeholder: "Buscar..." },
                             model: {
                               value: _vm.filter,
@@ -58172,7 +58391,8 @@ var render = function () {
                                   },
                                   [
                                     _c("i", {
-                                      staticClass: "uil uil-pen font-size-18",
+                                      staticClass:
+                                        "\n                                                    uil uil-pen\n                                                    font-size-18\n                                                ",
                                     }),
                                   ]
                                 ),
@@ -58193,12 +58413,15 @@ var render = function () {
                     "div",
                     {
                       staticClass:
-                        "dataTables_paginate paging_simple_numbers float-end",
+                        "\n                                    dataTables_paginate\n                                    paging_simple_numbers\n                                    float-end\n                                ",
                     },
                     [
                       _c(
                         "ul",
-                        { staticClass: "pagination pagination-rounded mb-0" },
+                        {
+                          staticClass:
+                            "\n                                        pagination pagination-rounded\n                                        mb-0\n                                    ",
+                        },
                         [
                           _c("b-pagination", {
                             attrs: {
@@ -58283,7 +58506,7 @@ var render = function () {
                         ),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "sueldo_base" } }, [
                             _vm._v("Sueldo Base"),
@@ -58320,10 +58543,8 @@ var render = function () {
                           }),
                         ]),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "dias_trabajados" } }, [
                             _vm._v("Dias trabajados"),
@@ -58369,8 +58590,10 @@ var render = function () {
                             : _vm._e(),
                         ]),
                       ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "monto" } }, [
                             _vm._v("Monto"),
@@ -58414,7 +58637,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "afp" } }, [
                             _vm._v("AFP Trabajador"),
@@ -58444,7 +58667,41 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "afp" } }, [
+                            _vm._v("AFP Porcentaje"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.afpporcentaje,
+                                expression: "form.afpporcentaje",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "afp", type: "text" },
+                            domProps: { value: _vm.form.afpporcentaje },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "afpporcentaje",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "afp_monto" } }, [
                             _vm._v("Descuento AFP"),
@@ -58494,7 +58751,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "salud" } }, [
                             _vm._v("Salud Trabajador"),
@@ -58524,7 +58781,41 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "saludporcentaje" } }, [
+                            _vm._v("Salud Porcentaje"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.saludporcentaje,
+                                expression: "form.saludporcentaje",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "saludporcentaje", type: "text" },
+                            domProps: { value: _vm.form.saludporcentaje },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "saludporcentaje",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "salud_monto" } }, [
                             _vm._v("Descuento Salud"),
@@ -58574,6 +58865,51 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-12" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "carga" } }, [
+                            _vm._v("Carga"),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "ul",
+                            { staticClass: "list-group lista_estudiantes" },
+                            _vm._l(_vm.cargas, function (carga, i) {
+                              return _c(
+                                "li",
+                                {
+                                  key: i,
+                                  staticClass:
+                                    "\n                                        list-group-item\n                                        d-flex\n                                        justify-content-between\n                                    ",
+                                },
+                                [
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                                        Carga: " +
+                                        _vm._s(carga.pivot.nombres) +
+                                        " " +
+                                        _vm._s(carga.pivot.apellidos) +
+                                        "\n                                    "
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("span", [
+                                    _vm._v(
+                                      "\n                                        Parentesco: " +
+                                        _vm._s(carga.nombre) +
+                                        "\n                                        Tipo: " +
+                                        _vm._s(carga.pivot.tipo_carga) +
+                                        "\n                                    "
+                                    ),
+                                  ]),
+                                ]
+                              )
+                            }),
+                            0
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "carga_familiar" } }, [
@@ -58590,11 +58926,7 @@ var render = function () {
                               },
                             ],
                             staticClass: "form-control",
-                            attrs: {
-                              id: "carga_familiar",
-                              type: "text",
-                              disabled: "",
-                            },
+                            attrs: { id: "carga_familiar", type: "text" },
                             domProps: { value: _vm.form.carga_familiar },
                             on: {
                               input: function ($event) {
@@ -58609,63 +58941,6 @@ var render = function () {
                               },
                             },
                           }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-4" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c(
-                            "label",
-                            { attrs: { for: "monto_carga_familiar" } },
-                            [_vm._v("Monto por carga familiar")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.monto_carga_familiar,
-                                expression: "form.monto_carga_familiar",
-                              },
-                            ],
-                            staticClass: "form-control",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.monto_carga_familiar.$error,
-                            },
-                            attrs: {
-                              id: "monto_carga_familiar",
-                              type: "number",
-                            },
-                            domProps: { value: _vm.form.monto_carga_familiar },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "monto_carga_familiar",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted &&
-                          _vm.$v.form.monto_carga_familiar.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.monto_carga_familiar.required
-                                  ? _c("span", [
-                                      _vm._v(
-                                        "Monto por carga familiar requerido."
-                                      ),
-                                    ])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
                         ]),
                       ]),
                       _vm._v(" "),
@@ -58717,7 +58992,7 @@ var render = function () {
                                 !_vm.$v.form.asignacion_familiar.required
                                   ? _c("span", [
                                       _vm._v(
-                                        "Total asignación familiar requerido."
+                                        "Total asignación familiar\n                                    requerido."
                                       ),
                                     ])
                                   : _vm._e(),
@@ -58728,7 +59003,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c(
                             "label",
@@ -58783,7 +59058,111 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "horas_semanales" } }, [
+                            _vm._v("Horas semanales"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.horas_semanales,
+                                expression: "form.horas_semanales",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.horas_semanales.$error,
+                            },
+                            attrs: { id: "horas_semanales", type: "number" },
+                            domProps: { value: _vm.form.horas_semanales },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "horas_semanales",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.horas_semanales.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.horas_semanales.required
+                                  ? _c("span", [_vm._v("Horas semanales.")])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "porcentaje_hora_extra" } },
+                            [_vm._v("Porcentaje Extras")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.porcentaje_hora_extra,
+                                expression: "form.porcentaje_hora_extra",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.porcentaje_hora_extra.$error,
+                            },
+                            attrs: {
+                              id: "porcentaje_hora_extra",
+                              type: "number",
+                            },
+                            domProps: { value: _vm.form.porcentaje_hora_extra },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "porcentaje_hora_extra",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted &&
+                          _vm.$v.form.porcentaje_hora_extra.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.porcentaje_hora_extra.required
+                                  ? _c("span", [
+                                      _vm._v(
+                                        "Porcentaje horas extras\n                                    requerido."
+                                      ),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c(
                             "label",
@@ -58836,7 +59215,290 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "afc_monto" } }, [
+                            _vm._v("AFC"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.afc_monto,
+                                expression: "form.afc_monto",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted && _vm.$v.form.afc_monto.$error,
+                            },
+                            attrs: { id: "afc_monto", type: "number" },
+                            domProps: { value: _vm.form.afc_monto },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "afc_monto",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.afc_monto.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.afc_monto.required
+                                  ? _c("span", [_vm._v("AFC requerido.")])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "uf" } }, [_vm._v("UF")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.uf,
+                                expression: "form.uf",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted && _vm.$v.form.uf.$error,
+                            },
+                            attrs: { id: "uf", type: "number" },
+                            domProps: { value: _vm.form.uf },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "uf", $event.target.value)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.uf.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.uf.required
+                                  ? _c("span", [_vm._v("UF requerido.")])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "impuesto_unico" } }, [
+                            _vm._v("Impuesto Unico"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.impuesto_unico,
+                                expression: "form.impuesto_unico",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.impuesto_unico.$error,
+                            },
+                            attrs: { id: "impuesto_unico", type: "number" },
+                            domProps: { value: _vm.form.impuesto_unico },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "impuesto_unico",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.impuesto_unico.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.impuesto_unico.required
+                                  ? _c("span", [
+                                      _vm._v("Impuesto Unico requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "gratificacion" } }, [
+                            _vm._v("Gratificación"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.gratificacion,
+                                expression: "form.gratificacion",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.gratificacion.$error,
+                            },
+                            attrs: { id: "gratificacion", type: "number" },
+                            domProps: { value: _vm.form.gratificacion },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "gratificacion",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.gratificacion.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.gratificacion.required
+                                  ? _c("span", [
+                                      _vm._v("Gratificación requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "participacion" } }, [
+                            _vm._v("Participación"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.participacion,
+                                expression: "form.participacion",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.participacion.$error,
+                            },
+                            attrs: { id: "participacion", type: "number" },
+                            domProps: { value: _vm.form.participacion },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "participacion",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.participacion.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.participacion.required
+                                  ? _c("span", [
+                                      _vm._v("Participación requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "anticipo" } }, [
+                            _vm._v("Anticipo"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.anticipo,
+                                expression: "form.anticipo",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted && _vm.$v.form.anticipo.$error,
+                            },
+                            attrs: { id: "anticipo", type: "number" },
+                            domProps: { value: _vm.form.anticipo },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "anticipo",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.anticipo.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.anticipo.required
+                                  ? _c("span", [_vm._v("Anticipo requerido.")])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "colacion" } }, [
                             _vm._v("Colación"),
@@ -58874,7 +59536,7 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "movilidad" } }, [
                             _vm._v("Movilidad"),
@@ -58911,32 +59573,35 @@ var render = function () {
                           }),
                         ]),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "sueldo_bruto" } }, [
-                            _vm._v("Sueldo Bruto"),
-                          ]),
+                          _c(
+                            "label",
+                            { attrs: { for: "desgaste_herramientas" } },
+                            [_vm._v("Desgaste Herramientas")]
+                          ),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.sueldo_bruto,
-                                expression: "form.sueldo_bruto",
+                                value: _vm.form.desgaste_herramientas,
+                                expression: "form.desgaste_herramientas",
                               },
                             ],
                             staticClass: "form-control",
                             class: {
                               "is-invalid":
                                 _vm.submitted &&
-                                _vm.$v.form.sueldo_bruto.$error,
+                                _vm.$v.form.desgaste_herramientas.$error,
                             },
-                            attrs: { id: "sueldo_bruto", type: "number" },
-                            domProps: { value: _vm.form.sueldo_bruto },
+                            attrs: {
+                              id: "desgaste_herramientas",
+                              type: "number",
+                            },
+                            domProps: { value: _vm.form.desgaste_herramientas },
                             on: {
                               input: function ($event) {
                                 if ($event.target.composing) {
@@ -58944,18 +59609,21 @@ var render = function () {
                                 }
                                 _vm.$set(
                                   _vm.form,
-                                  "sueldo_bruto",
+                                  "desgaste_herramientas",
                                   $event.target.value
                                 )
                               },
                             },
                           }),
                           _vm._v(" "),
-                          _vm.submitted && _vm.$v.form.sueldo_bruto.$error
+                          _vm.submitted &&
+                          _vm.$v.form.desgaste_herramientas.$error
                             ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.sueldo_bruto.required
+                                !_vm.$v.form.desgaste_herramientas.required
                                   ? _c("span", [
-                                      _vm._v("Sueldo Bruto requerido."),
+                                      _vm._v(
+                                        "Desgaste Herramientas requerido."
+                                      ),
                                     ])
                                   : _vm._e(),
                               ])
@@ -58963,7 +59631,338 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "otros" } }, [
+                            _vm._v("Otros"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.otros,
+                                expression: "form.otros",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted && _vm.$v.form.otros.$error,
+                            },
+                            attrs: { id: "otros", type: "number" },
+                            domProps: { value: _vm.form.otros },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "otros", $event.target.value)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.otros.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.otros.required
+                                  ? _c("span", [_vm._v("Otros requerido.")])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-md-6" },
+                        _vm._l(_vm.bonostemp, function (bono, i) {
+                          return _c(
+                            "div",
+                            { key: bono.id, staticClass: "row mb-3" },
+                            [
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _c("div", { staticClass: "mb-3" }, [
+                                  _c("label", { attrs: { for: "glosa" } }, [
+                                    _vm._v("Glosa"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.bonostemp[i].glosa,
+                                        expression: "bonostemp[i].glosa",
+                                      },
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { id: "glosa", type: "text" },
+                                    domProps: { value: _vm.bonostemp[i].glosa },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.bonostemp[i],
+                                          "glosa",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.bonostemp[i].glosa && _vm.summitedB
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [_vm._v("Glosa requerida.")]
+                                      )
+                                    : _vm._e(),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _c("div", { staticClass: "mb-3" }, [
+                                  _c("label", { attrs: { for: "monto" } }, [
+                                    _vm._v("Monto"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.bonostemp[i].monto,
+                                        expression: "bonostemp[i].monto",
+                                      },
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { id: "monto", type: "text" },
+                                    domProps: { value: _vm.bonostemp[i].monto },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.bonostemp[i],
+                                          "monto",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.bonostemp[i].monto && _vm.summitedB
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [_vm._v("Monto requerida.")]
+                                      )
+                                    : _vm._e(),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-4 mt-3" }, [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "\n                                        col-lg-2\n                                        align-self-center\n                                        d-grid\n                                    ",
+                                  },
+                                  [
+                                    _c("input", {
+                                      staticClass: "btn btn-primary btn-block",
+                                      attrs: {
+                                        type: "button",
+                                        value: "Eliminar",
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.deleteRow(i)
+                                        },
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]),
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
                       _c("div", { staticClass: "col-md-6" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "\n                                btn btn-success\n                                mt-3\n                                mb-3\n                                mt-lg-0\n                                float-end\n                            ",
+                            attrs: { type: "button" },
+                            on: { click: _vm.AddformData },
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Agregar Bono\n                        "
+                            ),
+                          ]
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "alcance_liquido" } }, [
+                            _vm._v("Alcance liquído"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.alcance_liquido,
+                                expression: "form.alcance_liquido",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.alcance_liquido.$error,
+                            },
+                            attrs: { id: "alcance_liquido", type: "number" },
+                            domProps: { value: _vm.form.alcance_liquido },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "alcance_liquido",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.alcance_liquido.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.alcance_liquido.required
+                                  ? _c("span", [
+                                      _vm._v("Alcance liquído requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "total_imponible" } }, [
+                            _vm._v("Total Imponible"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.total_imponible,
+                                expression: "form.total_imponible",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.total_imponible.$error,
+                            },
+                            attrs: { id: "total_imponible", type: "number" },
+                            domProps: { value: _vm.form.total_imponible },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "total_imponible",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.total_imponible.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.total_imponible.required
+                                  ? _c("span", [
+                                      _vm._v("Total Imponible requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "total_haberes" } }, [
+                            _vm._v("Total haberes"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.total_haberes,
+                                expression: "form.total_haberes",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.total_haberes.$error,
+                            },
+                            attrs: { id: "total_haberes", type: "number" },
+                            domProps: { value: _vm.form.total_haberes },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "total_haberes",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.total_haberes.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.total_haberes.required
+                                  ? _c("span", [
+                                      _vm._v("Total haberes requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "sueldo_liquido" } }, [
                             _vm._v("Sueldo Liquido"),
@@ -59022,7 +60021,7 @@ var render = function () {
                           },
                           [
                             _c("i", { staticClass: "far fa-save" }),
-                            _vm._v(" Crear\n        "),
+                            _vm._v(" Crear\n                "),
                           ]
                         )
                       : _c(
@@ -59033,7 +60032,7 @@ var render = function () {
                           },
                           [
                             _c("i", { staticClass: "fas fa-sync" }),
-                            _vm._v(" Actualizar\n        "),
+                            _vm._v(" Actualizar\n                "),
                           ]
                         ),
                   ]
@@ -63425,36 +64424,36 @@ var render = function () {
       [
         _c("div", { staticClass: "col-lg-12" }, [
           _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body row" }, [
-              _c("div", { staticClass: "col-6" }, [
-                _c("h4", { staticClass: "card-title" }, [
-                  _vm._v("Listado Trabajadores"),
-                ]),
+            _c("div", { staticClass: "card-body" }, [
+              _c("h4", { staticClass: "card-title" }, [
+                _vm._v("Listado Trabajadores"),
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-6" }, [
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "b-modal",
-                        rawName: "v-b-modal.trabajadores",
-                        modifiers: { trabajadores: true },
-                      },
-                    ],
-                    staticClass:
-                      "btn btn-success btn-sm waves-effect waves-light float-end",
-                    attrs: { type: "button" },
-                    on: { click: _vm.modalNuevo },
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-plus-circle" }),
-                    _vm._v(
-                      "\n                Crear Trabajadores\n              "
-                    ),
-                  ]
-                ),
+              _c("div", { staticClass: "row mt-5" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "b-modal",
+                          rawName: "v-b-modal.trabajadores",
+                          modifiers: { trabajadores: true },
+                        },
+                      ],
+                      staticClass:
+                        "btn btn-success waves-effect waves-light float-end",
+                      attrs: { type: "button" },
+                      on: { click: _vm.modalNuevo },
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-plus-circle" }),
+                      _vm._v(
+                        "\n                Crear Trabajadores\n              "
+                      ),
+                    ]
+                  ),
+                ]),
               ]),
             ]),
           ]),
@@ -63687,7 +64686,7 @@ var render = function () {
               {
                 attrs: {
                   id: "trabajadores",
-                  size: "lg",
+                  size: "xl",
                   title: _vm.titlemodal,
                   "title-class": "font-18",
                   "hide-footer": "",
@@ -63708,7 +64707,7 @@ var render = function () {
                   },
                   [
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "rut" } }, [
                             _vm._v("Rut"),
@@ -63761,7 +64760,7 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "nombres" } }, [
                             _vm._v("Nombres"),
@@ -63806,10 +64805,8 @@ var render = function () {
                             : _vm._e(),
                         ]),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "apellidos" } }, [
                             _vm._v("Apellidos"),
@@ -63856,8 +64853,10 @@ var render = function () {
                             : _vm._e(),
                         ]),
                       ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "email" } }, [
                             _vm._v("Email"),
@@ -63898,10 +64897,8 @@ var render = function () {
                             : _vm._e(),
                         ]),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "celular" } }, [
                             _vm._v("Celular"),
@@ -63949,7 +64946,7 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "fecha_nacimiento" } }, [
                             _vm._v("Fecha Nacimiento"),
@@ -64000,7 +64997,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "edad" } }, [
                             _vm._v("Edad"),
@@ -64042,7 +65039,7 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "estado_civil" } }, [
                             _vm._v("Estado Civil"),
@@ -64090,10 +65087,8 @@ var render = function () {
                             : _vm._e(),
                         ]),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "direccional" } }, [
                             _vm._v("Direccional"),
@@ -64140,8 +65135,10 @@ var render = function () {
                             : _vm._e(),
                         ]),
                       ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c(
                           "div",
                           { staticClass: "mb-3" },
@@ -64173,9 +65170,7 @@ var render = function () {
                           1
                         ),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
+                      _vm._v(" "),
                       _c("div", { staticClass: "col-md-4" }, [
                         _c(
                           "div",
@@ -64231,7 +65226,9 @@ var render = function () {
                           1
                         ),
                       ]),
-                      _vm._v(" "),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-md-4" }, [
                         _c(
                           "div",
@@ -64259,10 +65256,8 @@ var render = function () {
                           1
                         ),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "nacionalidad" } }, [
                             _vm._v("Nacionalidad"),
@@ -64311,7 +65306,7 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "estado_civil" } }, [
                             _vm._v("Carga Familiar"),
@@ -64401,11 +65396,9 @@ var render = function () {
                       ? _c("div", { staticClass: "row" }, [
                           _c("div", { staticClass: "col-md-6" }, [
                             _c("div", { staticClass: "mb-3" }, [
-                              _c(
-                                "label",
-                                { attrs: { for: "motivo_desvinculacion" } },
-                                [_vm._v("Carga")]
-                              ),
+                              _c("label", { attrs: { for: "carga" } }, [
+                                _vm._v("Carga"),
+                              ]),
                               _vm._v(" "),
                               _c(
                                 "ul",
@@ -64644,7 +65637,7 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "contrato" } }, [
                             _vm._v("Adjuntar contrato"),
@@ -64662,7 +65655,7 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "fecha_contrato" } }, [
                             _vm._v("Fecha Contrato"),
@@ -64696,6 +65689,42 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "fecha_fin_contrato" } },
+                            [_vm._v("Fecha Fin Contrato")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.fecha_fin_contrato,
+                                expression: "form.fecha_fin_contrato",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "fecha_fin_contrato", type: "date" },
+                            domProps: { value: _vm.form.fecha_fin_contrato },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "fecha_fin_contrato",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
                       _vm.form.anturlpdf
                         ? _c("div", { staticClass: "col-md-6" }, [
                             _c("div", { staticClass: "mb-3" }, [
@@ -64721,7 +65750,41 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "mb-3" },
+                          [
+                            _c("label", { attrs: { for: "tipo_contrato" } }, [
+                              _vm._v("Tipo Contrato"),
+                            ]),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.optionsTipoContrato,
+                                "track-by": "tipo",
+                                label: "tipo",
+                              },
+                              model: {
+                                value: _vm.form.tipo_contrato,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.form, "tipo_contrato", $$v)
+                                },
+                                expression: "form.tipo_contrato",
+                              },
+                            }),
+                            _vm._v(" "),
+                            !_vm.$v.form.tipo_contrato.$invalid && _vm.submitted
+                              ? _c("span", [
+                                  _vm._v("Tipo Contrato es requerido."),
+                                ])
+                              : _vm._e(),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c(
                             "label",
@@ -64757,7 +65820,7 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c(
                             "label",
@@ -65171,6 +66234,39 @@ var render = function () {
                         !_vm.$v.formacargatemp.parentezco.$invalid &&
                         _vm.submittedformcarga
                           ? _c("span", [_vm._v("Parentezco es requerido.")])
+                          : _vm._e(),
+                      ],
+                      1
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "div",
+                      { staticClass: "mb-3" },
+                      [
+                        _c("label", { attrs: { for: "tipo_carga" } }, [
+                          _vm._v("Tipo Carga"),
+                        ]),
+                        _vm._v(" "),
+                        _c("multiselect", {
+                          attrs: {
+                            options: _vm.optionsTipoCarga,
+                            "track-by": "tipo",
+                            label: "tipo",
+                          },
+                          model: {
+                            value: _vm.formacargatemp.tipo_carga,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.formacargatemp, "tipo_carga", $$v)
+                            },
+                            expression: "formacargatemp.tipo_carga",
+                          },
+                        }),
+                        _vm._v(" "),
+                        !_vm.$v.formacargatemp.tipo_carga.$invalid &&
+                        _vm.submitted
+                          ? _c("span", [_vm._v("Tipo Carga es requerido.")])
                           : _vm._e(),
                       ],
                       1
