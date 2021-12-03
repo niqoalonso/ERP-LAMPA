@@ -38,6 +38,11 @@ export default {
             sortable: true,
           },
           {
+            label: "N° Compra",
+            key: "encabezado",
+            sortable: true,
+          },
+          {
             label: "Glosa",
             key: "glosa",
             sortable: true,
@@ -88,6 +93,7 @@ export default {
                             p['tipo']    = p.documento_tributario.tipo;
                             p['total']          = '$ '+p.total_documento;
                             p['proveedorName'] = p.encabezado.proveedor.razon_social;
+                            p['encabezado'] = p.encabezado.num_encabezado;
                             if(p.estado_id == 14){ p["estado"]  = "EMITIDO";}else{ p["estado"]  = "-";}
                             
                             return p;

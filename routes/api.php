@@ -25,6 +25,7 @@ use App\Http\Controllers\DocumentoTributarioController;
 use App\Http\Controllers\TrabajadorController;
 use App\Http\Controllers\UnidadNegocioController;
 use App\Http\Controllers\DetalleComprobanteController;
+use App\Http\Controllers\TesoreriaController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -60,6 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('generarInfoDocumentoRelacionado/{documento}/{tipo}', [CompraController::class, 'generarInfoDocumentoRelacionado']);
     Route::post('generarDocumentoPosterior', [CompraController::class, 'generarDocumentoPosterior']);
     Route::get('/VerificarDocumentoRelacionadoExistente/{idDocumento}/{TipoDocumento}', [CompraController::class, 'VerificarDocumentoRelacionadoExistente']);
+    Route::post('updateFechaEmision', [CompraController::class, 'updateFechaEmision']);
     
 
     //DetalleDocumento
@@ -208,6 +210,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('getInicialUnidad/{id}', [UnidadNegocioController::class, 'getInicial']);
     Route::post('storeNegocio', [UnidadNegocioController::class, 'store']);
     Route::put('update/{id}', [UnidadNegocioController::class, 'update']);
+
+    //Tesoreria
+    Route::get('getTesoreriaComprasIncial/{empresa}', [TesoreriaController::class, 'getInicialCompras']);
 
     //Logout
     Route::post('/logout',[AuthController::class,'logout']);

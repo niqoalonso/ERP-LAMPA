@@ -304,6 +304,15 @@ const routes = [
         ),
       meta: { requiresAuth: true },
     },
+    {
+      path: "/tesoreriaCompras",
+      name: "tesoreriacompras",
+      component: () =>
+        import(
+          /* webpackChunkName: "home" */ "./views/pages/tesoreria/egresos.vue"
+        ),
+      meta: { requiresAuth: true },
+    },
   ];
 
 const router = new VueRouter({
@@ -482,6 +491,12 @@ router.beforeEach((to, from, next) => {
             return false;
           }
           case "modificar documento relacion":
+          if (rol == "Estudiante") {
+            return true;
+          } else {
+            return false;
+          }
+          case "tesoreriacompras":
           if (rol == "Estudiante") {
             return true;
           } else {

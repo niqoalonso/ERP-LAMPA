@@ -39,6 +39,11 @@ export default {
             sortable: true,
           },
           {
+            label: "N° Compra",
+            key: "encabezado",
+            sortable: true,
+          },
+          {
             label: "Glosa",
             key: "glosa",
             sortable: true,
@@ -86,14 +91,15 @@ export default {
                 .then((res) => {
                   console.log(res);
                     this.tableData = res.data;
-                        res.data.map((p) => {
-                            p['tipo']    = p.documento_tributario.tipo;
-                            p['total']          = '$ '+p.total_documento;
-                            p['proveedorName'] = p.encabezado.proveedor.razon_social;
-                            if(p.estado_id == 12){ p["estado"]  = "INGRESADO";}else{ p["estado"]  = "-";}
-                            
-                            return p;
-                        });
+                    res.data.map((p) => {
+                        p['tipo']    = p.documento_tributario.tipo;
+                        p['total']          = '$ '+p.total_documento;
+                        p['proveedorName'] = p.encabezado.proveedor.razon_social;
+                        p['encabezado'] = p.encabezado.num_encabezado;
+                        if(p.estado_id == 12){ p["estado"]  = "INGRESADO";}else{ p["estado"]  = "-";}
+                        
+                        return p;
+                    });
                 })
                 .catch((error) => {
                 console.log("error", error);
@@ -124,14 +130,25 @@ export default {
                     this.axios
                     .get(`/api/aprobarDocumento/`+documento)
                     .then((res) => {
+                      if(res.data.estado == 1){
                         Swal.fire({
-                            icon: 'success',
-                            title: 'Aprobación Exitosa',
-                            text: res.data,
-                            timer: 1500,
-                            showConfirmButton: false
-                          });
+                          icon: 'success',
+                          title: 'Aprobación Exitosa',
+                          text: res.data.mensaje,
+                          timer: 3500,
+                          showConfirmButton: false
+                        });
                         this.getInicial();
+                      }else if(res.data.estado == 0){
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Aprobación Denegada',
+                          text: res.data.mensaje,
+                          timer: 1500,
+                          showConfirmButton: false
+                        });
+                      }
+                        
                     })
                     .catch((error) => {
                       console.log("error", error);

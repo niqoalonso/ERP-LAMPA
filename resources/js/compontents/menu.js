@@ -93,6 +93,7 @@ export const menuItems = [
     isTitle: true,
     permiso: Vue.prototype.$CrearEmpresa,
   },
+
   {
     id: 4,
     label: "Gestión Empresas",
@@ -161,6 +162,7 @@ export const menuItems = [
       }
     ],
   },
+
   {
     id: 7,
     label: "Abastecimiento",
@@ -204,6 +206,37 @@ export const menuItems = [
       },
     ],
   },
+
+  {
+    id: 9,
+    label: "Tesoreria",
+    icon: "fa fa-university",
+    permiso: Vue.prototype.$CrearEmpresa,
+    subItems: [
+      {
+        id: 9.1,
+        label: 'Egresos - "Pago"',
+        link: "/tesoreriaCompras",
+        parentId: 9,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
+      {
+        id: 9.3,
+        label: 'Ingresos - "Venta"',
+        link: "/",
+        parentId: 9,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
+      {
+        id: 9.2,
+        label: "Historico",
+        link: '/',
+        parentId: 9,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
+    ]
+  }, 
+
   {
     id: 6,
     label: "Finanzas",

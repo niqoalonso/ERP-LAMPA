@@ -151,8 +151,17 @@ export default {
               this.axios
               .get(`/api/VerificarDocumentoRelacionadoExistente/`+documento+'/'+this.tipoDocumento)
               .then((res) => {
+                if(res.data.estado == 1){
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'No permitido',
+                    text: 'No puede emitir un nuevo documento hasta tener todos los documentos asociados a el en estado emitido.',
+                    timer: 5000,
+                    showConfirmButton: false
+                  });
+                }else{
                   if(res.data.existe == 0){
-                      this.$router.push('../modificarDocumento/'+documento+'/'+this.tipoDocumento)
+                    this.$router.push('../modificarDocumento/'+documento+'/'+this.tipoDocumento)
                   }else if(res.data.existe > 0){
                     Swal.fire({
                       icon: 'error',
@@ -162,6 +171,8 @@ export default {
                       showConfirmButton: false
                     });
                   }
+                } 
+                
                   
               })
               .catch((error) => {

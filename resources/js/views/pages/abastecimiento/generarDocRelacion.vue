@@ -33,7 +33,7 @@
                         </div>
                         <div class="mb-3 col-2">
                             <label><small> Fecha documento</small></label>
-                            <input type="date" class="form-control form-control-sm" v-model="form.fechadoc" readonly>
+                            <input type="date" class="form-control form-control-sm" v-model="form.fechadoc">
                         </div>
                         <div class="mb-3 col-2">
                             <label><small> Fecha vencimiento</small></label>
@@ -132,7 +132,7 @@
                   </span>
                   <span class="d-none d-sm-inline-block">Documentos Asociados</span>
                 </template>
-                {{ text }}
+                <p>Hola</p>
               </b-tab>
             </b-tabs>
           </div>

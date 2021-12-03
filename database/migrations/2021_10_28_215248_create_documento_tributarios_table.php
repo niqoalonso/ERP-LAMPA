@@ -23,6 +23,7 @@ class CreateDocumentoTributariosTable extends Migration
             $table->boolean('ciclo');
             $table->boolean('libro');
             $table->boolean('pago');
+            $table->boolean('mueve_existencia');
             $table->boolean('iva_honorario');
             $table->boolean('incrementa_disminuye');
             $table->timestamps();

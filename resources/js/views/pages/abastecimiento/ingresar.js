@@ -70,7 +70,7 @@ export default {
         },  
         
         getTabla()
-        {
+        { 
           this.axios
             .get(`/api/getTablaCompra`)
             .then((res) => {

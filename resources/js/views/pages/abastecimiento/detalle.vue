@@ -7,7 +7,7 @@
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Detalle de: {{documentoName}}</h4>
+            <h4 class="card-title">Detalle de: <small> {{documentoName}} </small> </h4>
             <hr>
             <b-tabs
               justified
@@ -58,7 +58,7 @@
                     </div> 
                 </form>
               </b-tab>
-              <b-tab>
+              <b-tab v-if="divDetalle"> 
                 <template v-slot:title>
                   <span class="d-inline-block d-sm-none">
                     <i class="far fa-user"></i>
@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="mb-3 col-2">
                             <label for="sku"><small> Codigo</small></label> 
-                            <input id="sku" type="number" class="form-control form-control-sm" v-model="formDetalle.sku"
+                            <input id="sku" type="text" class="form-control form-control-sm" v-model="formDetalle.sku" readonly
                                  >
                            
                         </div> 
@@ -133,7 +133,89 @@
                   </span>
                   <span class="d-none d-sm-inline-block">Documentos Asociados</span>
                 </template>
-                {{ text }}
+                <div class="row">
+                  <div class="row mt-4">
+              <div class="col-sm-12 col-md-6">
+                <div id="tickets-table_length" class="dataTables_length">
+                  <label class="d-inline-flex align-items-center">
+                    Show&nbsp;
+                    <b-form-select v-model="perPage" size="sm" :options="pageOptions"></b-form-select>&nbsp;entries
+                  </label>
+                </div>
+              </div>
+
+              <!-- Search -->
+              <div class="col-sm-12 col-md-6">
+                <div
+                  id="tickets-table_filter"
+                  class="dataTables_filter text-md-end"
+                >
+                  <label class="d-inline-flex align-items-center">
+                    Search:
+                    <b-form-input
+                      v-model="filter"
+                      type="search"
+                      placeholder="Search..."
+                      class="form-control form-control-sm ms-2"
+                    ></b-form-input>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive mb-0">
+              <b-table
+                :items="tableData"
+                :fields="fields"
+                responsive="sm"
+                :per-page="perPage"
+                :current-page="currentPage"
+                :sort-by.sync="sortBy" 
+                :sort-desc.sync="sortDesc"
+                :filter="filter"
+                :filter-included-fields="filterOn"
+                @filtered="onFiltered"
+              >
+              <template v-slot:cell(acción)="data">
+                  <ul class="list-inline mb-0">
+                    <li class="list-inline-item" v-if="data.item.estado_id == 14">
+                      <a
+                        v-bind:href="'../api/getDocumento/'+data.item.id_info"
+                        class="px-2 text-success"
+                        v-b-tooltip.hover
+                        target="_blank"
+                        title="Generar PDF"
+                      >
+                        <i class="fas fa-file-pdf font-size-18"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item" v-else>
+                      <router-link :to="'../modificarDocumento/'+data.item.n_interno">
+                      <a
+                        href="javascript:void(0);"
+                        class="px-2 text-warning"
+                        v-b-tooltip.hover
+                        title="Modificar"
+                      >
+                        <i class="uil uil-edit font-size-18"></i>
+                      </a>
+                      </router-link>
+                    </li>
+                  </ul>
+                </template>
+              </b-table>
+            </div>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="dataTables_paginate paging_simple_numbers float-end">
+                      <ul class="pagination pagination-rounded mb-0">
+                        <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage" ></b-pagination>
+                      </ul>
+                    </div>
+                  </div>
+                </div> 
+                </div>
               </b-tab>
             </b-tabs>
           </div>

@@ -65,7 +65,7 @@
                       </a>
                     </li>
                     <li class="list-inline-item">
-                      <router-link :to="'modificarDocumento/'+data.item.n_documento">
+                      <router-link :to="'modificarDocumento/'+data.item.n_interno">
                       <a
                         href="javascript:void(0);"
                         class="px-2 text-warning"

@@ -19,6 +19,7 @@ export default {
         optionsSucesor: [],
         seletAntecesor: false,
         seletSucesor: false,
+        inputExistencia: true,
         form : {
             tipo: "",
             descripcion: "",
@@ -27,6 +28,7 @@ export default {
             comprobante: "",
             vencimiento: "0",
             pago: "0",
+            existencia: "0",
             ciclo: "0",
             libro: "0",
             impuesto: "0",
@@ -163,7 +165,7 @@ export default {
             this.axios
                   .get(`/api/getInicialDocumento`)
                   .then((res) => {
-                    console.log(res);
+                   
                      this.Tipocomprobantes = res.data;
                   })
                   .catch((error) => {
@@ -184,7 +186,7 @@ export default {
             this.axios
                   .get(`/api/getTablaCompra`)
                   .then((res) => {
-                    console.log(res);
+        
                         this.tableData = res.data;
                         res.data.map((p) => {
                             p["comprobante"]     = p.tipo_comprobante.nombre;
@@ -234,6 +236,7 @@ export default {
                 libro: datos.libro,
                 impuesto: datos.iva_honorario,
                 pago: datos.pago,
+                existencia: datos.mueve_existencia,
                 incrementa_disminuye: datos.incrementa_disminuye,
                 requiere_antecesor: datos.requiere_antecesor,
                 requiere_sucesor: datos.requiere_sucesor,
@@ -248,7 +251,6 @@ export default {
                 this.axios
                   .post(`/api/storeDocumento`, this.form)
                   .then((res) => {
-                    console.log(res);
                     if (res.data.success) {
                       
                       this.form = {
@@ -259,6 +261,7 @@ export default {
                         comprobante: "",
                         vencimiento: "0",
                         pago: "0",
+                        existencia: "0",
                         ciclo: "0",
                         libro: "0",
                         impuesto: "0",
@@ -340,6 +343,17 @@ export default {
                     this.successmsg(title, message, type);
                   });
               }
+        },
+
+        mueveExistencia()
+        {   
+          if(this.form.pago == 1){
+            this.inputExistencia = false;
+            this.form.existencia = 1;
+          }else{
+            this.inputExistencia = true;
+            this.form.existencia = 0;
+          }
         },
 
     },

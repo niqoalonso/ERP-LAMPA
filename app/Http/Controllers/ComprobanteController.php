@@ -40,4 +40,5 @@ class ComprobanteController extends Controller
         return  $this->successResponse('Unidad de Negocio añadida exitosamente', false);
     }
 
+
 }

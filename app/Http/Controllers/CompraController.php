@@ -10,10 +10,12 @@ use App\Models\EncabezadoDocumento;
 use App\Models\InfoDocumento;
 use App\Models\CentroCosto;
 use App\Models\DetalleDocumento;
+use App\Models\DocumentoRelacionado;
 use PDF;
 
 class CompraController extends Controller
 {
+
     public function getInicial($tipo, $empresa)
     {   
         $proveedores = Proveedor::all();
@@ -44,10 +46,20 @@ class CompraController extends Controller
     {   
         $documento = InfoDocumento::find($idDocumento);
         $documento->load('Encabezado');
+        
         $tipo = DocumentoTributario::where('tipo', $TipoDocumento)->first();
 
         $existeCreado = count(InfoDocumento::where('documento_id', $tipo->id_documento)->where('encabezado_id', $documento->encabezado->id_encabezado)->get());
-        return ['existe' => $existeCreado, 'nombreDocumento' => $tipo->descripcion];
+
+        $verificarDocAprovados = InfoDocumento::where('encabezado_id', $documento->encabezado_id)->where('estado_id', '!=', 14)->get();
+        if(count($verificarDocAprovados) == 0){
+            return ['estado' => 0, 'existe' => $existeCreado, 'nombreDocumento' => $tipo->descripcion];
+        }else{
+            return ['estado' => 1];
+        }
+        
+
+        
     }
 
     public function getCodigoDocumento($documento, $empresa)
@@ -62,14 +74,19 @@ class CompraController extends Controller
         
     }
 
-    public function getInicialDetalle($ndocumento)
+    public function getInicialDetalle($ninterno)
     {   
+        $documento     = InfoDocumento::where('n_interno', $ninterno)->first();
+            if($documento->estado_id == 14){
+                return ['estado' => 1]; //SI EL DOCUMENTO ESTA EMITIDO NO PUEDE EDITARSE, SEGURIDAD DE URL
+            }
+        $documento->load('Encabezado.Proveedor.Producto', 'Encabezado.UnidadNegocio', 'DocumentoTributario.RelacionAntecesor', 'detalleDocumento.Producto', 'detalleDocumento.CentroCosto');
 
+        $encabezados = InfoDocumento::where('encabezado_id', $documento->encabezado_id)->where('n_interno', '!=', $ninterno)->get();
+        $encabezados->load('Encabezado.Proveedor.Producto', 'Encabezado.UnidadNegocio', 'DocumentoTributario.RelacionAntecesor', 'detalleDocumento.Producto', 'detalleDocumento.CentroCosto');
         $centros       = CentroCosto::all();
-        $documento     = InfoDocumento::where('n_documento', $ndocumento)->first();
-        $documento->load('Encabezado.Proveedor.Producto', 'Encabezado.UnidadNegocio', 'DocumentoTributario', 'detalleDocumento.Producto', 'detalleDocumento.CentroCosto');
-        
-        return ["documento" => $documento, 'centros' => $centros];
+
+        return ["estado" => 0 ,"documento" => $documento, 'centros' => $centros, 'encabezados' => $encabezados];
     }
 
     public function getDocumentoAprobar($empresa)
@@ -87,8 +104,17 @@ class CompraController extends Controller
     }
 
     public function aprobarDocumento($id)
-    {
-        InfoDocumento::updateOrCreate(['id_info' => $id],['estado_id' => 13]);
+    {   
+        
+        $doc = InfoDocumento::find($id);
+        if(count($doc->detalleDocumento) > 0)
+        {   
+            $doc->update(['estado_id' => 13]);
+            return ['estado' => 1, 'mensaje' => "Documento aprobado, ahora puede emitirlo."];
+        }else{
+            return ['estado' => 0, 'mensaje' => "Este documento no posee ningun detalle de producto, no puede ser emitido."];
+        }
+
         return "Documento aprobado, ahora puedes emitirlo.";
     }
 
@@ -123,35 +149,71 @@ class CompraController extends Controller
         return ['informacion' => $info, 'documentoT' => $doc, 'codigo' => $codigo];
     }
 
-    public function generarDocumentoPosterior(Request $request)
+    public function GenerarCodigoInterno()
     {
-     
-        $doc = DocumentoTributario::where('tipo', $request->tipoDocumento)->first();
-        $cod = InfoDocumento::select('n_documento')->where('documento_id', $doc->id_documento)->where('empresa_id', $request->informacion['infoEmpresa']['id_empresa'])->latest()->first();
-        if(!empty($cod)){ $codigo = $cod->n_documento+1;}else{ $codigo = 1;}
+        do {            
+            $number = rand(1, 99999);
+            $codigo = InfoDocumento::select('n_interno')->where('n_interno', $number)->first();
+        } while (!empty($codigo->n_interno));
 
-        $info = InfoDocumento::create(['n_documento' => $codigo, 'fecha_emision' => $request->informacion['fechadoc'], 'fecha_vencimiento' => $request->informacion['fechaven'], 'glosa' => $request->informacion['glosa'],
-                                 'empresa_id' => $request->informacion['infoEmpresa']['id_empresa'], 'documento_id' => $doc->id_documento, 'estado_id' => 12, 'encabezado_id' => $request->informacion['idEncabezado'] , 
-                                 'total_documento' => $request->total , 'total_iva' => $request->m_iva, 'total_retenciones' => $request->retenciones, 
-                                'total_afecto' => $request->m_afecto]);
+        return $number;
+    } 
+
+    public function generarDocumentoPosterior(Request $request)
+    {   
+        //Buscamos el tipo de documento tributario a emitir.
+        $docTributario = DocumentoTributario::where('tipo', $request->tipoDocumento)->first();
         
-        foreach($request->detalles as $item){
-            DetalleDocumento::create([
-                'sku'                       => $item['producto']['sku'],
-                'producto_id'               => $item['producto']['id_prod_proveedor'],
-                'centrocosto_id'            => $item['centrocosto_id'],
-                'cantidad'                  => $item['cantidad'],
-                'precio'                    => $item['precio'],
-                'descuento_porcentaje'      => $item['descuento_porcentaje'],
-                'precio_descuento'          => $item['precio_descuento'],
-                'descripcion_adicional'     => $item['descripcion_adicional'],
-                'info_id'                   => $info->id_info,
-                'total'                     => $item['total'],
-            ]);
+        //Verificamos que el documento no haya sido emitido antes, ya que no puede haber dos factura o dos guias para una orden de compra.
+        if(count(DocumentoRelacionado::where([['documentotributario_id', $docTributario->id_documento]])->get()) > 0){
+            return ['estado' => 2, 'mensaje' =>  "Documento tributario ya ha sido emitido anteriormente."];
         }
-                        
-        return "Documento Tributario creado, puede aprobarlo.";
+        
+        //BUSCAMOS ENTRE TODO LOS DOCUMENTOS DEL ENCABEZADO EL DOCUMENTO CON LA FECHA MAYOR PARA COMPRAR CON LA FECHA DEL DOCUMENTO A CREAR
+        $ultimoDocFecha = InfoDocumento::where('encabezado_id', $request->encabezado_id)->max('fecha_emision');
+    
+        //COMPROBAMOS QUE LA FECHA DEL NUEVO DOCUMENTO SEA MAYOR QUE LA FECHA DE CUALQUIER OTRO DOCUMENTO CREADO.
+        
+        if($ultimoDocFecha > $request->informacion['fechadoc'])
+        {
+            return ['estado' => 0, 'mensaje' => 'Fecha de emisión no puede ser inferior al dia '.$ultimoDocFecha];
 
+        }else{
+
+            //CREAMOS EL NUEVO DOCUMENTO TRIBUTARIO
+            $doc = DocumentoTributario::where('tipo', $request->tipoDocumento)->first();
+            $cod = InfoDocumento::select('n_documento')->where('documento_id', $doc->id_documento)->where('empresa_id', $request->informacion['infoEmpresa']['id_empresa'])->latest()->first();
+            if(!empty($cod)){ $codigo = $cod->n_documento+1;}else{ $codigo = 1;}
+
+            $info = InfoDocumento::create(['n_documento' => $codigo, 'fecha_emision' => $request->informacion['fechadoc'], 'fecha_vencimiento' => $request->informacion['fechaven'], 'glosa' => $request->informacion['glosa'],
+                                    'empresa_id' => $request->informacion['infoEmpresa']['id_empresa'], 'documento_id' => $doc->id_documento, 'estado_id' => 12, 'encabezado_id' => $request->informacion['idEncabezado'] , 
+                                    'total_documento' => $request->total , 'total_iva' => $request->m_iva, 'total_retenciones' => $request->retenciones, 
+                                    'total_afecto' => $request->m_afecto, 'n_interno' => $this->GenerarCodigoInterno()]);
+            
+            foreach($request->detalles as $item){
+                DetalleDocumento::create([
+                    'sku'                       => $item['producto']['sku'],
+                    'producto_id'               => $item['producto']['id_prod_proveedor'],
+                    'centrocosto_id'            => $item['centrocosto_id'],
+                    'cantidad'                  => $item['cantidad'],
+                    'precio'                    => $item['precio'],
+                    'descuento_porcentaje'      => $item['descuento_porcentaje'],
+                    'precio_descuento'          => $item['precio_descuento'],
+                    'descripcion_adicional'     => $item['descripcion_adicional'],
+                    'info_id'                   => $info->id_info,
+                    'total'                     => $item['total'],
+                ]);
+            }
+
+            //INSERTAMOS INFORMACIÓN EN TABLA DOCUMENTOS RELACIONADOS.
+            $docPadre = InfoDocumento::find($request->documento_id)->first();
+            DocumentoRelacionado::create(['documento_hijo' => $info->id_info, 'documento_padre' => $docPadre->id_info, 'documentotributario_id' => $docTributario->id_documento, 'encabezado_id' => $request->encabezado_id]);
+   
+            return ['estado' => 1, 'mensaje' =>  "Documento Tributario creado, puede aprobarlo."];
+
+            //FIN CREACION DOCUMENTO TRIBUTARIO
+
+        }
     }
 
     public function getDocumento($id)
@@ -163,4 +225,25 @@ class CompraController extends Controller
         return $pdf->stream();
         return $pdf->download('afiliacion.pdf'); 
     }
+    
+    public function updateFechaEmision(Request $request)
+    {      
+        $doc = InfoDocumento::where('n_interno', $request->n_interno)->first();
+
+        //BUSCAMOS ENTRE TODO LOS DOCUMENTOS DEL ENCABEZADO EL DOCUMENTO CON LA FECHA MAYOR PARA COMPRAR CON LA FECHA DEL DOCUMENTO A CREAR
+        $ultimoDocFecha = InfoDocumento::where('encabezado_id', $doc->encabezado_id)->where('id_info', '!=', $doc->id_info)->max('fecha_emision');
+        
+        //COMPROBAMOS QUE LA FECHA DEL NUEVO DOCUMENTO SEA MAYOR QUE LA FECHA DE CUALQUIER OTRO DOCUMENTO CREADO.
+        
+        if($ultimoDocFecha > $request->fechadoc)
+        {
+            return ['estado' => 1, 'mensaje' => 'Fecha de emisión no puede ser inferior al dia '.$ultimoDocFecha];
+
+        }else{
+            $doc->update(['fecha_emision' => $request->fechadoc]);
+            return ['estado' => 0, 'mensaje' => 'Encabezado ha sido actualizado exitosamente.'];
+        }
+
+    }
+
 }

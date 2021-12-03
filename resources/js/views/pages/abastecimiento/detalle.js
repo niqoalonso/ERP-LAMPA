@@ -23,6 +23,7 @@ export default {
         submitted: false,
         inputFechaVencimiento: true,
         idDocumento: "",
+        divDetalle: true,
         guardarDetalle: {
           detalles: [],
           m_afecto: 0,
@@ -47,6 +48,7 @@ export default {
             glosa: "",
             direccion: "",
             unidad: "",
+            n_interno: "",
         },
 
         formDetalle: {
@@ -61,21 +63,58 @@ export default {
             total: "",
             centro_costo: "",
         },
-
-      title: "Tabs & Accordions",
-      items: [
-        {
-          text: "UI Elements",
-        },
-        {
-          text: "Tabs & Accordions",
-          active: true,
-        },
-      ],
-      text: `
-         Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-        `,
-      content: `Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus.`,
+        tableData: [],
+        title: "Empresas",
+        items: [
+          {
+            text: "Tables",
+          },
+          {
+            text: "Empresas",
+            active: true,
+          },
+        ],
+        totalRows: 1,
+        currentPage: 1,
+        perPage: 10,
+        pageOptions: [10, 25, 50, 100],
+        filter: null,
+        filterOn: [],
+        sortBy: "tipo empresa",
+        sortDesc: false,
+        fields: [
+           "acción",
+          {
+            label: "Tipo",
+            key: "tipo",
+            sortable: true,
+          },
+          {
+            label: "Glosa",
+            key: "glosa",
+            sortable: true,
+          },
+          {
+            label: "Proveedor",
+            key: "proveedorName",
+            sortable: true,
+          },
+          {
+            label: "Total",
+            key: "total",
+            sortable: true,
+          },
+          {
+            label: "Fecha Emisión",
+            key: "fecha_emision", 
+            sortable: true,
+          },
+          {
+            label: "Estado",
+            key: "estado",
+            sortable: true,
+          },
+        ],
     };
     
   },
@@ -84,6 +123,7 @@ export default {
 
   mounted() {
     this.axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+    this.totalRows = this.items.length;
     this.getInicial();
     const Toast = Swal.mixin({
       toast: true,
@@ -104,19 +144,30 @@ export default {
 },
 
 methods: {
-   
+    
+    onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
+    }, 
+
     getInicial()
-    {   
+    {     
         this.axios
             .get(`/api/getInicialDetalle/`+this.numDocumento)
             .then((res) => {
-                console.log(res.data);
+              //VERIFICAMOS SI EL DOCUMENTO A EDITAR YA TIENE ESTADO EMITIDO
+                if(res.data.estado == 1){
+                  this.$router.push('../abastecimiento_emitir') 
+                }
+                if(res.data.documento.documento_tributario.relacion_antecesor.length != 0){ this.divDetalle = false};
+                this.documentoName = res.data.documento.documento_tributario.descripcion;
                 this.form.documento_id = res.data.documento.id_documento;
                 this.form.n_documento =  res.data.documento.n_documento;
                 this.form.proveedor = res.data.documento.encabezado.proveedor.razon_social;
                 this.form.fechadoc = res.data.documento.fecha_emision;
                 this.form.fechaven = res.data.documento.fecha_vencimiento;
                 this.form.glosa = res.data.documento.glosa;
+                this.form.n_interno = res.data.documento.n_interno;
                 this.form.direccion = res.data.documento.encabezado.proveedor.direccion;
                 this.form.unidad = res.data.documento.encabezado.unidad_negocio.nombre;
                 if(res.data.documento.documento_tributario.f_vencimiento == 1){ this.inputFechaVencimiento= true; }else if(res.data.documento.documento_tributario.f_vencimiento == 2){ this.inputFechaVencimiento= false;}
@@ -126,14 +177,23 @@ methods: {
                 this.productos = res.data.documento.encabezado.proveedor.producto;
                 this.centros = res.data.centros;  
 
-                console.log(res.data.documento.detalle_documento);
-                
                 this.detalles = res.data.documento.detalle_documento;
                 if(res.data.documento.total_afecto != null){ this.m_afecto = res.data.documento.total_afecto; }
                 if(res.data.documento.total_iva != null){ this.m_iva = res.data.documento.total_iva; }
                 if(res.data.documento.total_retenciones != null){ this.retenciones = res.data.documento.total_retenciones; }
                 if(res.data.documento.total_documento != null){ this.total = res.data.documento.total_documento; }
                 this.idDocumento = res.data.documento.id_info;
+
+                this.tableData = res.data.encabezados;
+                  res.data.encabezados.map((p) => {
+                    p['tipo']    = p.documento_tributario.tipo;
+                    p['total']          = '$ '+p.total_documento;
+                    p['proveedorName'] = p.encabezado.proveedor.razon_social;
+                    if(p.estado_id == 12){ p["estado"]  = "INGRESADO";}else if(p.estado_id == 14){ p["estado"]  = "EMITIDO";}else if(p.estado_id == 13){p["estado"]  = "APROBADO";}
+                    
+                    return p;
+                });
+                  
             })
             .catch((error) => {
               console.log("error", error);
@@ -151,6 +211,60 @@ methods: {
         this.formDetalle.descripcion = value['descripcion'];
         this.formDetalle.sku = value['sku'],
         this.formDetalle.cantidad = 1;
+    },
+
+    formSubmitEncabezado()
+    { 
+      if(this.inputFechaVencimiento == true){
+        if(this.form.fechadoc > this.form.fechaven){
+          Swal.fire({
+            icon: 'warning',
+            title: 'Fechas Denegadas',
+            text: "Fecha vencimiento no puede ser menor a la fecha de emisión",
+            timer: 1500,
+            showConfirmButton: false
+          });
+          return false;
+        }
+      }
+
+      if(this.inputFechaVencimiento == true){
+        if(this.form.fechadoc > this.form.fechaven){
+          Swal.fire({
+            icon: 'warning',
+            title: 'Fechas Denegadas',
+            text: "Fecha vencimiento no puede ser menor a la fecha de emisión",
+            timer: 1500,
+            showConfirmButton: false
+          });
+          return false;
+        }
+      }
+  
+      this.axios
+          .post(`/api/updateFechaEmision/`, this.form)
+          .then((res) => {
+            if(res.data.estado == 0){
+              Swal.fire({
+                icon: 'success',
+                title: 'Encabezado Documento',
+                text: res.data.mensaje,
+                timer: 1500,
+                showConfirmButton: false
+              });
+            }else if(res.data.estado == 1){
+              Swal.fire({
+                icon: 'warning',
+                title: 'Encabezado Documentoo',
+                text: res.data.mensaje,
+                timer: 1500,
+                showConfirmButton: false
+              });
+            }
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
     },
 
     formSubmitDetalle() { 

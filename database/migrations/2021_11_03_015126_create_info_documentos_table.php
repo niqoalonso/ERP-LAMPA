@@ -11,6 +11,7 @@ class CreateInfoDocumentosTable extends Migration
         Schema::create('info_documentos', function (Blueprint $table) {
             $table->id('id_info');
             $table->string('n_documento'); 
+            $table->integer('n_interno'); //Creado porque el n_documento se repite y me traer documento erroneo y lo unico que lo difrencia es el tipo de documeto tributario
             $table->date('fecha_emision');
             $table->date('fecha_vencimiento')->nullable();
             $table->string('glosa');

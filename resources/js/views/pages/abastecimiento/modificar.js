@@ -37,6 +37,11 @@ export default {
             sortable: true,
           },
           {
+            label: "N° Compra",
+            key: "encabezado",
+            sortable: true,
+          },
+          {
             label: "Glosa",
             key: "glosa",
             sortable: true,
@@ -79,7 +84,7 @@ export default {
 
         getInicial()
         {
-            this.axios
+            this.axios 
                 .get(`api/getDocumentoModificar/`+this.infoEmpresa.id_empresa)
                 .then((res) => {
                     this.tableData = res.data;
@@ -87,6 +92,7 @@ export default {
                             p['descripcion']    = p.documento_tributario.descripcion;
                             if(p.total_documento != null){p['total'] = '$'+p.total_documento;}else{ p['total'] = '$ -';}
                             p['proveedorName'] = p.encabezado.proveedor.razon_social;
+                            p['encabezado'] = p.encabezado.num_encabezado;
                             if(p.estado_id == 12){ p["estado"]  = "INGRESADO";}else if(p.estado_id == 13){ p["estado"]  = "APROBADO";}else{ p['estado'] = '-'}
                             return p;
                         });

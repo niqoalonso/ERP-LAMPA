@@ -13,3 +13,4 @@ class DocumentoAntecesor extends Model
 
     protected $fillable = ['docantecesor_id', 'docactual_id'];
 }
+ 

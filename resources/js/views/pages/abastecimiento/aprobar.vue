@@ -9,6 +9,7 @@
             <div class="col-10">
                 <h6><b>Aprobar Documentos Tributarios</b></h6>
             </div>
+            
             <div class="row mt-4">
               <div class="col-sm-12 col-md-6">
                 <div id="tickets-table_length" class="dataTables_length">
@@ -18,6 +19,7 @@
                   </label>
                 </div>
               </div>
+
               <!-- Search -->
               <div class="col-sm-12 col-md-6">
                 <div
@@ -35,7 +37,6 @@
                   </label>
                 </div>
               </div>
-
             </div>
 
             <div class="table-responsive mb-0">
@@ -65,7 +66,7 @@
                       </a>
                     </li>
                     <li class="list-inline-item">
-                      <router-link :to="'modificarDocumento/'+data.item.n_documento">
+                      <router-link :to="'modificarDocumento/'+data.item.n_interno">
                       <a
                         href="javascript:void(0);"
                         class="px-2 text-warning"
@@ -80,6 +81,7 @@
                 </template>
               </b-table>
             </div>
+
             <div class="row">
               <div class="col">
                 <div class="dataTables_paginate paging_simple_numbers float-end">
@@ -89,6 +91,7 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>

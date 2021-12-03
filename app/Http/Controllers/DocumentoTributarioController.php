@@ -40,7 +40,7 @@ class DocumentoTributarioController extends Controller
     public function store(Request $request)
     {   
         
-        $doc = DocumentoTributario::create(['tipo' => $request->tipo, 'descripcion' => $request->descripcion, 'requiere_antecesor' => $request->requiere_antecesor, 
+        $doc = DocumentoTributario::create(['tipo' => $request->tipo, 'descripcion' => $request->descripcion, 'requiere_antecesor' => $request->requiere_antecesor, 'mueve_existencia' => $request->existencia,
                                             'requiere_sucesor' => $request->requiere_sucesor, 'debe_haber' => $request->debe_haber, 'cod_sii' => $request->codigo,
                                             'f_vencimiento' => $request->vencimiento, 'ciclo' => $request->ciclo, 'tipocomprobante_id' => $request->comprobante['id_tipocomprobante'], 
                                             'pago' => $request->pago, 'libro' => $request->libro, 'iva_honorario' => $request->impuesto, 'incrementa_disminuye' => $request->incrementa_disminuye]);
@@ -78,7 +78,7 @@ class DocumentoTributarioController extends Controller
     {   
       
         $doc = DocumentoTributario::updateOrCreate(['id_documento' => $request->id],['tipo' => $request->tipo, 'descripcion' => $request->descripcion, 'requiere_antecesor' => $request->requiere_antecesor, 
-                                            'requiere_sucesor' => $request->requiere_sucesor, 'debe_haber' => $request->debe_haber, 'cod_sii' => $request->codigo,
+                                            'requiere_sucesor' => $request->requiere_sucesor, 'debe_haber' => $request->debe_haber, 'cod_sii' => $request->codigo, 'mueve_existencia' => $request->existencia,
                                             'f_vencimiento' => $request->vencimiento, 'ciclo' => $request->ciclo, 'tipocomprobante_id' => $request->comprobante['id_tipocomprobante'], 
                                             'pago' => $request->pago, 'libro' => $request->libro, 'iva_honorario' => $request->impuesto, 'incrementa_disminuye' => $request->incrementa_disminuye]);
                                             

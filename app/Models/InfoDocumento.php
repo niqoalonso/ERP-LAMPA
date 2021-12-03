@@ -11,7 +11,7 @@ class InfoDocumento extends Model
 
     protected $primaryKey = "id_info";
 
-    protected $fillable = ['n_documento','fecha_emision', 'fecha_vencimiento',  'glosa', 'documento_id', 'estado_id', 'empresa_id', 'total_afecto',
+    protected $fillable = ['n_documento', 'n_interno','fecha_emision', 'fecha_vencimiento',  'glosa', 'documento_id', 'estado_id', 'empresa_id', 'total_afecto',
                             'total_iva', 'total_retenciones', 'total_documento', 'encabezado_id'];
     
     public function Encabezado()

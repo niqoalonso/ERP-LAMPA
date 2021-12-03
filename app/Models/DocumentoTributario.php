@@ -11,18 +11,18 @@ class DocumentoTributario extends Model
 
     protected $primaryKey = "id_documento";
 
-    protected $fillable = ['tipo', 'descripcion', 'cod_sii', 'debe_haber', 'tipocomprobante_id', 'f_vencimiento', 'ciclo', 'libro', 'pago', 'iva_honorario', 'afecto_iva', 'documento_id', 'requiere_antecesor','requiere_sucesor', 'incrementa_disminuye'];
+    protected $fillable = ['tipo', 'descripcion', 'cod_sii', 'debe_haber', 'tipocomprobante_id', 'f_vencimiento', 'ciclo', 'libro', 'pago', 'mueve_existencia','iva_honorario', 'afecto_iva', 'documento_id', 'requiere_antecesor','requiere_sucesor', 'incrementa_disminuye'];
 
     
 
     public function TipoComprobante()
     {
         return $this->belongsTo(TipoComprobante::class,'tipocomprobante_id');
-    }
+    } 
 
     public function RelacionSucesor()
     {
-        return $this->belongsToMany(DocumentoTributario::class, 'documento_sucesor', 'docactual_id', 'docsucesor_id')->select('id_documento');
+        return $this->belongsToMany(DocumentoTributario::class, 'documento_sucesor', 'docactual_id', 'docsucesor_id');
     }
 
     public function RelacionAntecesor()

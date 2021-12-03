@@ -179,7 +179,7 @@
                 <div class="col-md-3">
                     <div class="mb-3">
                         <label for="pago">Pago</label>
-                        <select class="form-control form-control-sm" v-model="form.pago">
+                        <select class="form-control form-control-sm" v-model="form.pago" v-on:change="mueveExistencia()">
                             <option value="0">Seleccionar</option>
                             <option value="1">Requiere</option>
                             <option value="2">NO Requiere</option>
@@ -187,6 +187,19 @@
                     </div>
                 </div>
                 <div class="col-md-2">
+                    <div class="mb-3">
+                        <label for="pago">Mueve Existencia</label>
+                        <select class="form-control form-control-sm" v-model="form.existencia" v-if="inputExistencia == true">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">SI</option>
+                            <option value="2">NO</option>
+                        </select>
+                        <select class="form-control form-control-sm" v-model="form.existencia" v-else disabled="">
+                            <option value="1">SI</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1">
                     <div class="mb-3">
                         <label for="pago">Libro</label>
                         <select class="form-control form-control-sm" v-model="form.libro">

@@ -25,6 +25,6 @@ class EncabezadoDocumento extends Model
 
     public function infoDocumento()
     {
-        return $this->hasMany(InfoDocumento::class, 'encabezado_id', 'id_encabezado');
+        return $this->hasMany(InfoDocumento::class, 'encabezado_id', 'id_encabezado')->orderBy('created_at', 'ASC');
     }
 }

@@ -28,7 +28,7 @@
                     Search:
                     <b-form-input
                       v-model="filter"
-                      type="search"
+                      type="search" 
                       placeholder="Search..."
                       class="form-control form-control-sm ms-2"
                     ></b-form-input>
@@ -37,7 +37,7 @@
               </div>
  
             </div>
-
+ 
             <div class="table-responsive mb-0">
               <b-table
                 :items="tableData"
@@ -50,11 +50,11 @@
                 :filter="filter"
                 :filter-included-fields="filterOn"
                 @filtered="onFiltered"
-              >
+              > 
               <template v-slot:cell(acción)="data">
                   <ul class="list-inline mb-0">
                     <li class="list-inline-item">
-                      <router-link :to="'modificarDocumento/'+data.item.n_documento">
+                      <router-link :to="'modificarDocumento/'+data.item.n_interno">
                       <a
                         href="javascript:void(0);"
                         class="px-2 text-warning"

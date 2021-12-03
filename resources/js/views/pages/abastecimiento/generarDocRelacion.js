@@ -29,6 +29,7 @@ export default {
           m_iva: 0,
           retenciones: 0,
           total: 0,
+          documento: '',
         },
 
         typeform: "create", 
@@ -67,21 +68,6 @@ export default {
             informacion: "",
             detalle: "",
         },
-
-      title: "Tabs & Accordions",
-      items: [
-        {
-          text: "UI Elements",
-        },
-        {
-          text: "Tabs & Accordions",
-          active: true,
-        },
-      ],
-      text: `
-         Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-        `,
-      content: `Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus.`,
     };
     
   },
@@ -116,11 +102,9 @@ methods: {
         this.axios
             .get(`/api/generarInfoDocumentoRelacionado/`+this.$route.params.documento+'/'+this.$route.params.tipo)
             .then((res) => {
-                this.form.documento_id = res.data.informacion.id_documento;
+                this.form.documento_id = res.data.informacion.id_info;
                 this.form.n_documento =  res.data.informacion.n_documento;
                 this.form.proveedor = res.data.informacion.encabezado.proveedor.razon_social;
-                this.form.fechadoc = res.data.informacion.fecha_emision;
-                this.form.fechaven = res.data.informacion.fecha_vencimiento;
                 this.form.glosa = res.data.informacion.glosa;
                 this.form.direccion = res.data.informacion.encabezado.proveedor.direccion;
                 this.form.unidad = res.data.informacion.encabezado.unidad_negocio.nombre;
@@ -144,9 +128,51 @@ methods: {
 
 
     GenerarDocumento()
-    {
+    { 
+ 
       if(this.detalles.length > 0){
+        
+        if(this.inputFechaVencimiento == true){
+          if(this.form.fechaven.length < 1){
+            Swal.fire({
+              icon: 'warning',
+              title: 'Fecha vencimiento',
+              text: "Debe ingresar una fecha de vencimiento",
+              timer: 1500,
+              showConfirmButton: false
+            });
+            return false;
+          }
+        }
+
+        if(this.form.fechadoc.length < 1){
+          Swal.fire({
+            icon: 'warning',
+            title: 'Fecha emisión',
+            text: "Debe ingresar una fecha de emisión",
+            timer: 1500,
+            showConfirmButton: false
+          });
+          return false;
+        }
+
+        if(this.inputFechaVencimiento == true){
+          if(this.form.fechadoc > this.form.fechaven){
+            Swal.fire({
+              icon: 'warning',
+              title: 'Fechas Denegadas',
+              text: "Fecha vencimiento no puede ser menor a la fecha de emisión",
+              timer: 1500,
+              showConfirmButton: false
+            });
+            return false;
+          }
+        }
+
+        
         this.guardarDetalle = {
+          documento_id: this.form.documento_id,
+          encabezado_id: this.form.idEncabezado,
           detalles: this.detalles,
           info_id: this.idDocumento,
           m_afecto: this.m_afecto,
@@ -155,19 +181,38 @@ methods: {
           total: this.total, 
           informacion: this.form,
           tipoDocumento: this.$route.params.tipo,
+          
         },
 
     
         this.axios
             .post(`/api/generarDocumentoPosterior/`, this.guardarDetalle)
             .then((res) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Documento Tributario',
-                    text: res.data,
-                    timer: 1500,
+                if(res.data.estado == 1){
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Documento Tributario',
+                      text: res.data.mensaje,
+                      timer: 1500,
+                      showConfirmButton: false
+                  });
+                }else if(res.data.estado == 0){
+                  Swal.fire({
+                    icon: 'warning',
+                    title: 'Fecha emisión',
+                    text: res.data.mensaje,
+                    timer: 4500,
                     showConfirmButton: false
                 });
+                }else if(res.data.estado == 2){
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Documento Tributario',
+                      text: res.data.mensaje,
+                      timer: 4500,
+                      showConfirmButton: false
+                  });
+                }
             })
             .catch((error) => {
               console.log("error", error);

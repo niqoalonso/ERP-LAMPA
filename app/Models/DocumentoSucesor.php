@@ -15,3 +15,4 @@ class DocumentoSucesor extends Model
 
     protected $fillable = ['docsucesor_id', 'docactual_id'];
 }
+ 
