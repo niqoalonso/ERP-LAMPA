@@ -244,14 +244,14 @@ export default {
                     (parseInt(this.form.sueldo_base) / 30) *
                         this.form.dias_trabajados
                 );
-
+                    console.log(monto, this.form.monto, );
                 if (monto != this.form.monto) {
                     this.successmsgerror();
                     return;
                 }
 
                 // verificar porcentaje AFP
-
+                    console.log(this.form.porcentajerealafp, this.form.afpporcentaje);
                 if (this.form.porcentajerealafp != this.form.afpporcentaje) {
                     this.successmsgerror();
                     return;
@@ -300,18 +300,18 @@ export default {
 
                 // calculo afp
 
-                var afpmonto = (this.form.porcentajerealafp * this.totalimponible)/100;
-
-                if (this.form.afp_monto != afpmonto) {
+                var afpmonto = (this.form.porcentajerealafp * totalimponible)/100;
+                    console.log(this.form.afp_monto, afpmonto);
+                if (this.form.afp_monto != Math.round(afpmonto)) {
                     this.successmsgerror();
                     return;
                 }
 
                 // calculo salud
 
-                var saludmonto = (this.form.saludporcentaje * this.totalimponible)/100;
+                var saludmonto = (this.form.saludporcentaje * totalimponible)/100;
 
-                if (this.form.salud_monto != saludmonto) {
+                if (this.form.salud_monto != Math.round(saludmonto)) {
                     this.successmsgerror();
                     return;
                 }
