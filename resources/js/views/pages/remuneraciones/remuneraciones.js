@@ -324,7 +324,7 @@ export default {
                         }
                     });
 
-                    console.log(cantespecial, cantnormal, montocarga);
+                    console.log(montocarga);
 
                     var totalasignacionnormal = montocarga * cantnormal;
 

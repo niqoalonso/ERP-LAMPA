@@ -9989,7 +9989,7 @@ __webpack_require__.r(__webpack_exports__);
               montocarga = parseInt(element.monto);
             }
           });
-          console.log(cantespecial, cantnormal, montocarga);
+          console.log(montocarga);
           var totalasignacionnormal = montocarga * cantnormal;
           var totalasignacionespecial = montocarga * 2 * cantespecial;
           var totalasignacion = totalasignacionnormal + totalasignacionespecial;
