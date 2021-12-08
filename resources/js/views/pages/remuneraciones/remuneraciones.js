@@ -17,13 +17,14 @@ export default {
                 afp_monto: 0,
                 salud: "",
                 salud_monto: 0,
+                isapre_uf: 0,
                 carga_familiar: "",
                 // monto_carga_familiar: "",
                 asignacion_familiar: 0,
                 cantidad_horas_extras: 0,
                 horas_extras_monto: 0,
-                colacion: "",
-                movilidad: "",
+                colacion: 0,
+                movilidad: 0,
                 total_imponible: 0,
                 total_haberes: 0,
                 afc_monto: 0,
@@ -34,6 +35,7 @@ export default {
                 otros: 0,
                 porcentaje_hora_extra: 0,
                 uf: 0,
+                utm: 0,
                 gratificacion: 0,
                 participacion: 0,
                 bonos: "",
@@ -42,10 +44,13 @@ export default {
                 saludporcentaje: 0,
                 afpporcentaje: 0,
                 porcentajerealafp: 0,
-                horas_semanales:0
+                horas_semanales: 0,
+                tipo_contrato: "",
             },
+            impuestosutm: [],
             bonostemp: [],
             cargas: "",
+            cargasarray: [],
             submitted: false,
             summitedB: false,
             typeform: "create",
@@ -53,6 +58,7 @@ export default {
             modal: false,
             btnCreate: true,
             options: [],
+            montosasignacionfamiliar: [],
             // tabla
 
             tableData: [],
@@ -86,7 +92,7 @@ export default {
                 {
                     key: "total_imponible",
                     sortable: true,
-                    label: "Sueldo Bruto",
+                    label: "Total imponible",
                     formatter: (total_imponible) => {
                         var formatter = new Intl.NumberFormat("es-CL", {
                             style: "currency",
@@ -146,6 +152,9 @@ export default {
             uf: {
                 required,
             },
+            utm: {
+                required,
+            },
             impuesto_unico: {
                 required,
             },
@@ -202,6 +211,8 @@ export default {
     mounted() {
         this.traerTrabajador();
         this.traerRemuneracion();
+        this.traerImpuestoUtm();
+        this.traerMontoAsignacion();
         this.totalRows = this.items.length;
     },
     methods: {
@@ -219,6 +230,19 @@ export default {
                 this.options = response.data;
             });
         },
+        traerImpuestoUtm() {
+            this.axios.get(`/api/obtenerimpuestoutm`).then((response) => {
+                this.impuestosutm = response.data;
+            });
+        },
+        traerMontoAsignacion() {
+            this.axios
+                .get(`/api/obtenerasignacionfamiliar`)
+                .then((response) => {
+                    console.log(response);
+                    this.montosasignacionfamiliar = response.data;
+                });
+        },
         traerRemuneracion() {
             this.axios.get(`/api/obtenerremuneracion/`).then((response) => {
                 console.log(response);
@@ -228,6 +252,9 @@ export default {
         modalNuevo() {
             this.modal = true;
             this.formcarga = [];
+            this.cargas = [];
+            this.cargasarray = [];
+            this.bonostemp = [];
             this.titlemodal = "Crear Remuneración";
             this.typeform = "create";
             this.vaciarform();
@@ -237,6 +264,19 @@ export default {
             this.submitted = true;
             this.$v.form.$touch();
 
+            if (this.form.salud == "Fonasa") {
+                this.form.isapre_uf = 0;
+            }
+
+            if (this.cargasarray.length > 0) {
+                this.cargasarray.forEach((element) => {
+                    if (element["monto"] == "") {
+                        this.successmsgerror("carga familiar");
+                        return;
+                    }
+                });
+            }
+
             if (!this.$v.form.$invalid) {
                 // calculo monto
 
@@ -244,86 +284,194 @@ export default {
                     (parseInt(this.form.sueldo_base) / 30) *
                         this.form.dias_trabajados
                 );
-                    console.log(monto, this.form.monto, );
+                console.log(monto, this.form.monto);
                 if (monto != this.form.monto) {
-                    this.successmsgerror();
+                    this.successmsgerror("monto");
                     return;
                 }
 
+                // montos cargas
+
+                if (this.cargasarray.length > 0) {
+
+                    var cantespecial = 0;
+                    var cantnormal = 0;
+                    var totalasignacionsum = 0;
+
+                    this.cargasarray.forEach((element) => {
+
+                        totalasignacionsum = totalasignacionsum + parseInt(element["monto"]);
+
+                        if (element["tipo_carga"] == "Normal") {
+                            cantnormal++;
+                        } else {
+                            cantespecial++;
+                        }
+                    });
+
+                    // asignamos el total de la suma de los montos ingresados por cada carga familiar
+
+                    this.form.asignacion_familiar = totalasignacionsum;
+
+                    var montocarga = 0;
+
+                    this.montosasignacionfamiliar.forEach((element) => {
+                        if (
+                            this.form.sueldo_base > element["renta_minima"] &&
+                            this.form.sueldo_base < element["renta_maxima"]
+                        ) {
+                            montocarga = parseInt(element.monto);
+                        }
+                    });
+
+                    console.log(cantespecial, cantnormal, montocarga);
+
+                    var totalasignacionnormal = montocarga * cantnormal;
+
+                    var totalasignacionespecial = montocarga * 2 * cantespecial;
+
+                    var totalasignacion =
+                        totalasignacionnormal + totalasignacionespecial;
+
+                    console.log(totalasignacion);
+
+                    if (totalasignacion != this.form.asignacion_familiar) {
+                        this.successmsgerror("Total asignación familiar");
+                        return;
+                    }
+                }
+
                 // verificar porcentaje AFP
-                    console.log(this.form.porcentajerealafp, this.form.afpporcentaje);
+                console.log(
+                    this.form.porcentajerealafp,
+                    this.form.afpporcentaje
+                );
                 if (this.form.porcentajerealafp != this.form.afpporcentaje) {
-                    this.successmsgerror();
+                    this.successmsgerror("Porcentaje AFP");
                     return;
                 }
 
                 // calculo horas extras
 
-                var factor = (parseInt(this.form.sueldo_base)/30) * 7;
+                if (this.form.cantidad_horas_extras > 0) {
+                    var factor = (parseInt(this.form.sueldo_base) / 30) * 7;
 
-                var porcentajehoras = (this.form.porcentaje_hora_extra / 100) + 1;
+                    var porcentajehoras =
+                        this.form.porcentaje_hora_extra / 100 + 1;
 
-                console.log(porcentajehoras)
+                    console.log(porcentajehoras);
 
-                var valorhora = (factor / this.form.horas_semanales ) * porcentajehoras ;
+                    var valorhora =
+                        (factor / this.form.horas_semanales) * porcentajehoras;
 
-                console.log(valorhora)
+                    console.log(valorhora);
 
-                var montohoraextra = Math.round(valorhora * this.form.cantidad_horas_extras);
+                    var montohoraextra = Math.round(
+                        valorhora * this.form.cantidad_horas_extras
+                    );
 
-                console.log(montohoraextra)
+                    console.log(montohoraextra);
 
-                if (montohoraextra != this.form.horas_extras_monto) {
-                    this.successmsgerror();
-                    return;
+                    if (montohoraextra != this.form.horas_extras_monto) {
+                        this.successmsgerror("Monto hora extra");
+                        return;
+                    }
                 }
 
                 // suma bonos
                 var montobono = 0;
 
-                this.bonostemp.forEach(element => {
-
-                    montobono = montobono + parseInt(element["monto"])
-
+                this.bonostemp.forEach((element) => {
+                    montobono = montobono + parseInt(element["monto"]);
                 });
 
                 // total imponible
 
-                var totalimponible = parseInt(this.form.horas_extras_monto) + parseInt(this.form.monto) + parseInt(montobono) + parseInt(this.form.gratificacion) ;
+                var totalimponible =
+                    parseInt(this.form.horas_extras_monto) +
+                    parseInt(this.form.monto) +
+                    parseInt(montobono) +
+                    parseInt(this.form.gratificacion);
 
                 console.log(this.form.total_imponible, totalimponible);
 
                 if (this.form.total_imponible != totalimponible) {
-                    this.successmsgerror();
+                    this.successmsgerror("Total Imponible");
                     return;
                 }
 
                 // calculo afp
 
-                var afpmonto = (this.form.porcentajerealafp * totalimponible)/100;
-                    console.log(this.form.afp_monto, afpmonto);
+                var afpmonto =
+                    (this.form.porcentajerealafp * totalimponible) / 100;
+                console.log(this.form.afp_monto, afpmonto);
                 if (this.form.afp_monto != Math.round(afpmonto)) {
-                    this.successmsgerror();
+                    this.successmsgerror("AFP");
                     return;
                 }
 
                 // calculo salud
 
-                var saludmonto = (this.form.saludporcentaje * totalimponible)/100;
+                // validar si es fonasa o isapre
 
-                if (this.form.salud_monto != Math.round(saludmonto)) {
-                    this.successmsgerror();
-                    return;
+                if (this.form.salud == "Fonasa") {
+                    var saludmonto =
+                        (this.form.saludporcentaje * totalimponible) / 100;
+
+                    console.log(saludmonto);
+
+                    if (this.form.salud_monto != Math.round(saludmonto)) {
+                        this.successmsgerror("Descuento salud");
+                        return;
+                    }
+                } else {
+                    // pasar plan de isabre a CLP
+
+                    var precioisapre = Math.round(
+                        this.form.isapre_uf * this.form.uf
+                    );
+
+                    console.log(precioisapre);
+
+                    var descuentoporcentaje = Math.round(
+                        (this.form.saludporcentaje * totalimponible) / 100
+                    );
+
+                    var saludmonto = Math.round(
+                        precioisapre - descuentoporcentaje
+                    );
+
+                    console.log(saludmonto);
+
+                    if (this.form.salud_monto != Math.round(saludmonto)) {
+                        this.successmsgerror("Descuento salud");
+                        return;
+                    }
+                }
+
+                // calculo AFC
+
+                if (this.form.tipo_contrato == "Indefinido") {
+                    var descuentoafc = Math.round((0.6 * totalimponible) / 100);
+
+                    console.log(descuentoafc)
+
+                    if (this.form.afc_monto != descuentoafc) {
+                        this.successmsgerror("afc");
+                        return;
+                    }
                 }
 
                 // total haberes
 
-                var totalhaberes = parseInt(this.form.colacion) + parseInt(this.form.movilidad);
+                var totalhaberes =
+                    parseInt(this.form.colacion) +
+                    parseInt(this.form.movilidad);
 
                 console.log(this.form.total_haberes, totalhaberes);
 
                 if (this.form.total_haberes != totalhaberes) {
-                    this.successmsgerror();
+                    this.successmsgerror("total haberes");
                     return;
                 }
 
@@ -338,7 +486,7 @@ export default {
                         let message = "";
                         let type = "";
                         if (res.data) {
-                            if (this.form.id_remuneracion) {
+                            if (this.form.id_remuneracion == "") {
                                 title = "Crear Remuneración";
                                 message = "Remuneración creada con exito";
                                 type = "success";
@@ -384,16 +532,49 @@ export default {
             }
         },
         infotrabajador() {
+            this.cargasarray = [];
             this.form.sueldo_base = this.form.trabajador_id.sueldo_base;
             this.form.afp = this.form.trabajador_id.afp.nombre;
             this.form.salud = this.form.trabajador_id.salud;
             this.form.carga_familiar =
                 this.form.trabajador_id.trabajorcarga.length;
             this.cargas = this.form.trabajador_id.trabajorcarga;
+
+            var cargasarray = this.form.trabajador_id.trabajorcarga;
+
+            for (let i = 0; i < cargasarray.length; i++) {
+                this.cargasarray.push({
+                    nombres: cargasarray[i].pivot.nombres,
+                    apellidos: cargasarray[i].pivot.apellidos,
+                    tipo_carga: cargasarray[i].pivot.tipo_carga,
+                    parentesco: cargasarray[i].nombre,
+                    monto: 0,
+                });
+            }
+
             this.form.colacion = this.form.trabajador_id.colacion;
             this.form.movilidad = this.form.trabajador_id.movilidad;
             this.form.porcentajerealafp =
                 this.form.trabajador_id.afp.tasa_dependiente;
+            this.form.tipo_contrato = this.form.trabajador_id.tipo_contrato;
+            this.form.monto = 0;
+            this.form.afp_monto = 0;
+            this.form.salud_monto = 0;
+            this.form.total_imponible = 0;
+            this.form.sueldo_liquido = 0;
+            this.form.total_haberes = 0;
+            this.form.afc_monto = 0;
+            this.form.impuesto_unico = 0;
+            this.form.alcance_liquido = 0;
+            this.form.anticipo = 0;
+            this.form.desgaste_herramientas = 0;
+            this.form.otros = 0;
+            this.form.porcentaje_hora_extra = 0;
+            this.form.uf = 0;
+            this.form.gratificacion = 0;
+            this.form.participacion = 0;
+            this.form.cantidad_horas_extras = 0;
+            this.form.horas_extras_monto = 0;
         },
         AddformData() {
             this.bonostemp.push({
@@ -421,6 +602,8 @@ export default {
             this.form.asignacion_familiar = data.asignacion_familiar;
             this.form.cantidad_horas_extras = data.cantidad_horas_extras;
             this.form.horas_extras_monto = data.horas_extras_monto;
+            this.form.utm = data.utm;
+            this.isapre_uf = data.isapre_uf;
             this.form.colacion = data.trabajador.colacion;
             this.form.movilidad = data.trabajador.movilidad;
             this.form.total_imponible = data.total_imponible;
@@ -439,12 +622,10 @@ export default {
             this.form.participacion = data.participacion;
 
             for (let i = 0; i < data.bonos.length; i++) {
-
                 this.bonostemp.push({
                     glosa: data.bonos[i]["glosa"],
                     monto: data.bonos[i]["monto"],
                 });
-
             }
 
             this.modal = true;
@@ -492,10 +673,55 @@ export default {
             };
         },
 
-        successmsgerror() {
+        impuestounico() {
+            // monto impuesto unico
+
+            if (this.form.utm) {
+                // suma bonos
+                var montobono = 0;
+
+                this.bonostemp.forEach((element) => {
+                    montobono = montobono + parseInt(element["monto"]);
+                });
+
+                // total imponible
+
+                var totalimponible =
+                    parseInt(this.form.horas_extras_monto) +
+                    parseInt(this.form.monto) +
+                    parseInt(montobono) +
+                    parseInt(this.form.gratificacion);
+                var factor = 0;
+                var rebaja = 0;
+
+                this.impuestosutm.forEach((element) => {
+                    var desde = Math.round(element.desde * this.form.utm);
+
+                    var hasta = Math.round(element.hasta * this.form.utm);
+
+                    if (totalimponible > desde && totalimponible < hasta) {
+                        factor = element.factor;
+                        rebaja = Math.round(element.rebaja * this.form.utm);
+                    }
+                });
+
+                var multifactor = (totalimponible * factor) / 100;
+
+                console.log(factor);
+
+                var impuestounico = Math.round(multifactor - rebaja);
+
+                this.form.impuesto_unico = impuestounico;
+            }
+        },
+
+        successmsgerror(error) {
             Swal.fire({
                 position: "center",
-                title: "Hay un error en los datos ingresados.",
+                title:
+                    "Hay un error en los datos ingresados cerca de " +
+                    error +
+                    ".",
                 icon: "error",
                 showConfirmButton: false,
                 timer: 2000,

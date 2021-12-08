@@ -65,7 +65,7 @@
                                             type="search"
                                             placeholder="Buscar..."
                                             class="
-                                                form-control form-control-sm
+                                                form-control form-control-sm-sm
                                                 ms-2
                                             "
                                         ></b-form-input>
@@ -165,10 +165,11 @@
             >
                 <form class="needs-validation" @submit.prevent="formSubmit">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="trabajador">Trabajador</label>
                                 <multiselect
+                                class="form-control-sm"
                                     v-model="form.trabajador_id"
                                     :options="options"
                                     track-by="trabajador_id"
@@ -185,11 +186,11 @@
                                     v-model="form.sueldo_base"
                                     type="number"
                                     disabled
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                 />
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="dias_trabajados"
                                     >Dias trabajados</label
@@ -198,7 +199,7 @@
                                     id="dias_trabajados"
                                     v-model="form.dias_trabajados"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -219,8 +220,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="monto">Monto</label>
@@ -228,7 +227,7 @@
                                     id="monto"
                                     v-model="form.monto"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted && $v.form.monto.$error,
@@ -246,131 +245,59 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="afp">AFP Trabajador</label>
-                                <input
-                                    id="afp"
-                                    v-model="form.afp"
-                                    type="text"
-                                    class="form-control"
-                                    disabled
-                                />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="afp">AFP Porcentaje</label>
-                                <input
-                                    id="afp"
-                                    v-model="form.afpporcentaje"
-                                    type="text"
-                                    class="form-control"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="afp_monto">Descuento AFP</label>
-                                <input
-                                    id="afp_monto"
-                                    v-model="form.afp_monto"
-                                    type="number"
-                                    class="form-control"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.afp_monto.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="submitted && $v.form.afp_monto.$error"
-                                    class="invalid-feedback"
-                                >
-                                    <span v-if="!$v.form.afp_monto.required"
-                                        >Descuento AFP requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="salud">Salud Trabajador</label>
-                                <input
-                                    id="salud"
-                                    v-model="form.salud"
-                                    type="text"
-                                    class="form-control"
-                                    disabled
-                                />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="saludporcentaje"
-                                    >Salud Porcentaje</label
-                                >
-                                <input
-                                    id="saludporcentaje"
-                                    v-model="form.saludporcentaje"
-                                    type="text"
-                                    class="form-control"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="salud_monto">Descuento Salud</label>
-                                <input
-                                    id="salud_monto"
-                                    v-model="form.salud_monto"
-                                    type="number"
-                                    class="form-control"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.salud_monto.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="
-                                        submitted && $v.form.salud_monto.$error
-                                    "
-                                    class="invalid-feedback"
-                                >
-                                    <span v-if="!$v.form.salud_monto.required"
-                                        >Descuento Salu Requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="carga">Carga</label>
 
-                                <ul class="list-group lista_estudiantes">
-                                    <li
-                                        class="
-                                            list-group-item
-                                            d-flex
-                                            justify-content-between
-                                        "
-                                        v-for="(carga, i) in cargas"
-                                        :key="i"
-                                    >
-                                        <span>
-                                            Carga: {{ carga.pivot.nombres }} {{ carga.pivot.apellidos }}
-                                        </span>
-                                        <span>
-                                            Parentesco: {{ carga.nombre}}
-                                            Tipo: {{ carga.pivot.tipo_carga }}
-                                        </span>
-                                    </li>
-                                </ul>
+                                <div
+                                    class="row"
+                                    v-for="(carga, i) in cargasarray"
+                                    :key="i"
+                                >
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="carga"
+                                                >Carga</label
+                                            >
+                                            <h6>
+                                                {{ carga.nombres }}
+                                                {{ carga.apellidos }}
+                                            </h6>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="tipocarga"
+                                                >Tipo Carga</label
+                                            >
+                                            <h6>
+                                                {{ carga.tipo_carga }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="montocarga"
+                                                >Monto</label
+                                            >
+                                            <input
+                                                id="montocarga"
+                                                v-model="cargasarray[i].monto"
+                                                type="text"
+                                                class="form-control form-control-sm"
+                                            />
+                                            <span
+                                                class="text-danger"
+                                                v-if="
+                                                    cargasarray[i].monto == '' &&
+                                                    submitted
+                                                "
+                                                >Monto requerido.</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -382,7 +309,7 @@
                                     id="carga_familiar"
                                     v-model="form.carga_familiar"
                                     type="text"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                 />
                             </div>
                         </div>
@@ -395,7 +322,7 @@
                   id="monto_carga_familiar"
                   v-model="form.monto_carga_familiar"
                   type="number"
-                  class="form-control"
+                  class="form-control form-control-sm"
                   :class="{
                     'is-invalid':
                       submitted && $v.form.monto_carga_familiar.$error,
@@ -420,7 +347,7 @@
                                     id="asignacion_familiar"
                                     v-model="form.asignacion_familiar"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -456,7 +383,7 @@
                                     id="cantidad_horas_extras"
                                     v-model="form.cantidad_horas_extras"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -490,12 +417,11 @@
                                     id="horas_semanales"
                                     v-model="form.horas_semanales"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
-                                            $v.form.horas_semanales
-                                                .$error,
+                                            $v.form.horas_semanales.$error,
                                     }"
                                 />
                                 <div
@@ -506,10 +432,7 @@
                                     class="invalid-feedback"
                                 >
                                     <span
-                                        v-if="
-                                            !$v.form.horas_semanales
-                                                .required
-                                        "
+                                        v-if="!$v.form.horas_semanales.required"
                                         >Horas semanales.</span
                                     >
                                 </div>
@@ -524,7 +447,7 @@
                                     id="porcentaje_hora_extra"
                                     v-model="form.porcentaje_hora_extra"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -559,7 +482,7 @@
                                     id="horas_extras_monto"
                                     v-model="form.horas_extras_monto"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -587,92 +510,12 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label for="afc_monto">AFC</label>
-                                <input
-                                    id="afc_monto"
-                                    v-model="form.afc_monto"
-                                    type="number"
-                                    class="form-control"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.afc_monto.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="submitted && $v.form.afc_monto.$error"
-                                    class="invalid-feedback"
-                                >
-                                    <span v-if="!$v.form.afc_monto.required"
-                                        >AFC requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="uf">UF</label>
-                                <input
-                                    id="uf"
-                                    v-model="form.uf"
-                                    type="number"
-                                    class="form-control"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted && $v.form.uf.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="submitted && $v.form.uf.$error"
-                                    class="invalid-feedback"
-                                >
-                                    <span v-if="!$v.form.uf.required"
-                                        >UF requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="impuesto_unico"
-                                    >Impuesto Unico</label
-                                >
-                                <input
-                                    id="impuesto_unico"
-                                    v-model="form.impuesto_unico"
-                                    type="number"
-                                    class="form-control"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.impuesto_unico.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="
-                                        submitted &&
-                                        $v.form.impuesto_unico.$error
-                                    "
-                                    class="invalid-feedback"
-                                >
-                                    <span
-                                        v-if="!$v.form.impuesto_unico.required"
-                                        >Impuesto Unico requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
                                 <label for="gratificacion">Gratificación</label>
                                 <input
                                     id="gratificacion"
                                     v-model="form.gratificacion"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -699,7 +542,7 @@
                                     id="participacion"
                                     v-model="form.participacion"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -726,7 +569,7 @@
                                     id="anticipo"
                                     v-model="form.anticipo"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -753,7 +596,7 @@
                                     id="colacion"
                                     v-model="form.colacion"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     disabled
                                 />
                             </div>
@@ -765,7 +608,7 @@
                                     id="movilidad"
                                     v-model="form.movilidad"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     disabled
                                 />
                             </div>
@@ -779,7 +622,7 @@
                                     id="desgaste_herramientas"
                                     v-model="form.desgaste_herramientas"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -811,7 +654,7 @@
                                     id="otros"
                                     v-model="form.otros"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted && $v.form.otros.$error,
@@ -829,7 +672,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-9">
                             <div
                                 class="row mb-3"
                                 v-for="(bono, i) in bonostemp"
@@ -842,7 +685,7 @@
                                             id="glosa"
                                             v-model="bonostemp[i].glosa"
                                             type="text"
-                                            class="form-control"
+                                            class="form-control form-control-sm"
                                         />
                                         <span
                                             class="text-danger"
@@ -860,7 +703,7 @@
                                             id="monto"
                                             v-model="bonostemp[i].monto"
                                             type="text"
-                                            class="form-control"
+                                            class="form-control form-control-sm"
                                         />
                                         <span
                                             class="text-danger"
@@ -890,7 +733,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <button
                                 type="button"
                                 class="
@@ -907,6 +750,220 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="afp">AFP Trabajador</label>
+                                <input
+                                    id="afp"
+                                    v-model="form.afp"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    disabled
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="afp">AFP Porcentaje</label>
+                                <input
+                                    id="afp"
+                                    v-model="form.afpporcentaje"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="afp_monto">Descuento AFP</label>
+                                <input
+                                    id="afp_monto"
+                                    v-model="form.afp_monto"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.afp_monto.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="submitted && $v.form.afp_monto.$error"
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.afp_monto.required"
+                                        >Descuento AFP requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="salud">Salud Trabajador</label>
+                                <input
+                                    id="salud"
+                                    v-model="form.salud"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                    disabled
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="saludporcentaje">Salud %</label>
+                                <input
+                                    id="saludporcentaje"
+                                    v-model="form.saludporcentaje"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="isapre_uf">Plan Isapre (UF)</label>
+                                <input
+                                    id="isapre_uf"
+                                    v-model="form.isapre_uf"
+                                    type="text"
+                                    class="form-control form-control-sm"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="uf">UF</label>
+                                <input
+                                    id="uf"
+                                    v-model="form.uf"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted && $v.form.uf.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="submitted && $v.form.uf.$error"
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.uf.required"
+                                        >UF requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="salud_monto">Descuento Salud</label>
+                                <input
+                                    id="salud_monto"
+                                    v-model="form.salud_monto"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.salud_monto.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="
+                                        submitted && $v.form.salud_monto.$error
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.salud_monto.required"
+                                        >Descuento Salu Requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="afc_monto">AFC</label>
+                                <input
+                                    id="afc_monto"
+                                    v-model="form.afc_monto"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.afc_monto.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="submitted && $v.form.afc_monto.$error"
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.afc_monto.required"
+                                        >AFC requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="utm">UTM</label>
+                                <input
+                                    id="utm"
+                                    v-model="form.utm"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    @change="impuestounico()"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted && $v.form.utm.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="submitted && $v.form.utm.$error"
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.utm.required"
+                                        >UTM requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="impuesto_unico"
+                                    >Impuesto Unico</label
+                                >
+                                <input
+                                    id="impuesto_unico"
+                                    v-model="form.impuesto_unico"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.impuesto_unico.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="
+                                        submitted &&
+                                        $v.form.impuesto_unico.$error
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <span
+                                        v-if="!$v.form.impuesto_unico.required"
+                                        >Impuesto Unico requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="alcance_liquido"
@@ -916,7 +973,7 @@
                                     id="alcance_liquido"
                                     v-model="form.alcance_liquido"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -946,7 +1003,7 @@
                                     id="total_imponible"
                                     v-model="form.total_imponible"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -974,7 +1031,7 @@
                                     id="total_haberes"
                                     v-model="form.total_haberes"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
@@ -1003,7 +1060,7 @@
                                     id="sueldo_liquido"
                                     v-model="form.sueldo_liquido"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&

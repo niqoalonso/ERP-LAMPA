@@ -22,6 +22,7 @@ class Remuneraciones extends Model
         'otros',
         'porcentaje_hora_extra',
         'uf',
+        'utm',
         'gratificacion',
         'participacion',
         'cantidad_horas_extras',
@@ -29,10 +30,12 @@ class Remuneraciones extends Model
         'dias_trabajados',
         'afp_monto',
         'fonasa_monto',
+        'isapre_uf',
         'monto_carga_familiar',
         'asignacion_familiar',
         'fecha',
-        'trabajador_id'
+        'trabajador_id',
+        'estudiante_id'
     ];
 
     public function trabajador(){

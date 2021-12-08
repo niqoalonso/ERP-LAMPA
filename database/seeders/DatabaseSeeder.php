@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ManualCuentaSiiSeeder::class);
         $this->call(AfpSeeder::class);
         $this->call(ParentezcoSeeder::class);
-
+        $this->call(ImpuestoUtmSeeder::class);
+        $this->call(MontoAsignacionFamiliarSeeder::class);
 
 
         $user1 = User::create([

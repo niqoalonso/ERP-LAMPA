@@ -287,6 +287,15 @@ const routes = [
       meta: { requiresAuth: true },
     },
     {
+        path: "/impuesto-utm",
+        name: "impuesto utm",
+        component: () =>
+          import(
+            /* webpackChunkName: "home" */ "./views/pages/impuestoutm/impuestoutm.vue"
+          ),
+        meta: { requiresAuth: true },
+      },
+    {
       path: "/trabajadores",
       name: "trabajadores",
       component: () =>
@@ -322,7 +331,7 @@ const router = new VueRouter({
     // This may require some server configuration in production:
     // https://router.vuejs.org/en/essentials/history-mode.html#example-server-configurations
     mode: "history",
-    scrollBehavior(to, from, savedPosition) { 
+    scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition;
         } else {
@@ -338,33 +347,33 @@ router.beforeEach((to, from, next) => {
     //A Logged-in user can't go to login page again
     if (to.name === "login" && localStorage.getItem("token")) {
       let rol = atob(localStorage.getItem('cm9s'));
-          
-  
+
+
           if(rol === "Estudiante" ){
-  
+
             router.push({
               name: "empresa",
             });
-  
+
           }else if(rol === "Administrador" ){
-  
+
             router.push({
               name: "niveles",
             });
           }
           else if(rol === "Docente" ){
-  
+
             router.push({
               name: "solicitud empresa",
             });
           }else{
-  
+
             router.push({
               name: "listado docente",
             });
-  
+
           }
-  
+
       //the route requires authentication
     } else if (to.matched.some((record) => record.meta.requiresAuth)) {
       if (!localStorage.getItem("token")) {
@@ -377,39 +386,39 @@ router.beforeEach((to, from, next) => {
         });
       } else {
         if (!hasAccess(to.name)) {
-  
+
           let rol = atob(localStorage.getItem('cm9s'));
-          
-  
+
+
           if(rol === "Estudiante" ){
-  
+
             router.push({
               name: "empresa",
             });
-  
+
           }else if(rol === "Administrador" ){
-  
+
             router.push({
               name: "niveles",
             });
           }
           else if(rol === "Docente" ){
-  
+
             router.push({
               name: "solicitud empresa",
             });
           }
-          
+
         }
       }
     }
-  
+
     return next();
   });
 
   function hasAccess(name) {
     const rol = atob(localStorage.getItem('cm9s'));
-  
+
     switch (name) {
       case "empresa":
         if (rol == "Estudiante") {
@@ -417,12 +426,12 @@ router.beforeEach((to, from, next) => {
         } else {
           return false;
         }
-  
+
       case "crear empresa":
         if (rol == "Estudiante") {
           return true;
         } else {
-          return false; 
+          return false;
         }
       case "plancuenta":
         if (rol == "Estudiante") {
@@ -477,12 +486,12 @@ router.beforeEach((to, from, next) => {
             return true;
           } else {
             return false;
-          } 
+          }
           case "ver docompra":
           if (rol == "Estudiante") {
             return true;
           } else {
-            return false; 
+            return false;
           }
           case "modificar documento":
           if (rol == "Estudiante") {
@@ -514,7 +523,7 @@ router.beforeEach((to, from, next) => {
         } else {
           return false;
         }
-  
+
       case "actividad economica":
         if (rol == "Administrador" || rol == "Docente") {
           return true;
@@ -527,56 +536,56 @@ router.beforeEach((to, from, next) => {
         } else {
           return false;
         }
-  
+
       case "niveles":
         if (rol == "Administrador") {
           return true;
         } else {
           return false;
         }
-  
+
       case "listado docente":
         if (rol == "Administrador") {
           return true;
         } else {
           return false;
         }
-  
+
       case "listado alumno":
         if (rol == "Administrador" || rol == "Docente") {
           return true;
         } else {
           return false;
         }
-  
+
       case "editar empresa":
         if (rol == "Estudiante") {
           return true;
         } else {
           return false;
         }
-  
+
       case "nueva unidad negocio":
           if (rol == "Estudiante") {
             return true;
           } else {
             return false;
           }
-  
+
       case "solicitud empresa":
         if (rol == "Administrador" || rol == "Docente") {
           return true;
         } else {
           return false;
         }
-  
+
       case "ver solicitud":
         if (rol == "Administrador" || rol == "Docente") {
           return true;
         } else {
           return false;
         }
-  
+
       case "formulario f4415":
         if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
           return true;
@@ -601,20 +610,29 @@ router.beforeEach((to, from, next) => {
         } else {
           return false;
         }
-  
+
         case "ver solicitud 4415":
         if (rol == "Administrador" || rol == "Docente") {
           return true;
         } else {
           return false;
         }
-  
+
         case "indicadores previsionales":
         if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
           return true;
         } else {
           return false;
         }
+
+        case "impuesto utm":
+        if (rol == "Administrador" || rol == "Docente") {
+          return true;
+        } else {
+          return false;
+        }
+
+
         case "trabajadores":
         if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
           return true;
@@ -627,7 +645,7 @@ router.beforeEach((to, from, next) => {
         } else {
           return false;
         }
-  
+
       default:
         return false;
     }

@@ -27,7 +27,7 @@ class CreateEmpresasTable extends Migration
             $table->foreign('tipoempresa_id')->references('id_tipoempresa')->on('tipo_empresas');
             $table->unsignedBigInteger('estado_id')->nullable()->default(4);
             $table->foreign('estado_id')->references('id_estado')->on('estados');
-            $table->unsignedBigInteger('estudiante_id')->nullable()->default(4);
+            $table->unsignedBigInteger('estudiante_id');
             $table->foreign('estudiante_id')->references('id_estudiante')->on('estudiantes');
             $table->timestamps();
         });

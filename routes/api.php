@@ -25,6 +25,8 @@ use App\Http\Controllers\DocumentoTributarioController;
 use App\Http\Controllers\TrabajadorController;
 use App\Http\Controllers\UnidadNegocioController;
 use App\Http\Controllers\DetalleComprobanteController;
+use App\Http\Controllers\ImpuestoUtmController;
+use App\Http\Controllers\MontoAsignacionFamiliarController;
 use App\Http\Controllers\TesoreriaController;
 use Illuminate\Support\Facades\Route;
 
@@ -62,14 +64,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('generarDocumentoPosterior', [CompraController::class, 'generarDocumentoPosterior']);
     Route::get('/VerificarDocumentoRelacionadoExistente/{idDocumento}/{TipoDocumento}', [CompraController::class, 'VerificarDocumentoRelacionadoExistente']);
     Route::post('updateFechaEmision', [CompraController::class, 'updateFechaEmision']);
-    
+
 
     //DetalleDocumento
     Route::post('guardarDetalle',[DetalleDocumentoController::class,'store']);
 
     //Comprobantes
     Route::get('getInicialAsiento/{id}',[ComprobanteController::class,'getInicial']);
-    Route::get('getComprobantes/{id}', [ComprobanteController::class , 'getComprobantes']); 
+    Route::get('getComprobantes/{id}', [ComprobanteController::class , 'getComprobantes']);
     Route::post('storeAsiento', [ComprobanteController::class, 'store']);
 
     //DetalleComprobante
@@ -97,7 +99,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('aprobarempresa/{id}/{idsolicitud}',[EmpresaController::class,'aprobarempresa']);
     Route::post('rechazarempresa',[EmpresaController::class,'rechazarempresa']);
     Route::get('obtenermotivorechazo/{id}',[EmpresaController::class,'obtenermotivorechazo']);
-    
+
     //Regimen
     Route::get('obtenerregimen',[RegimenTributarioController::class,'show']);
 
@@ -140,7 +142,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('obtenerInformacion', [ManualCuentaSiiController::class, 'getInformacion']);
     Route::post('storePlan', [ManualCuentaSiiController::class, 'store']);
     Route::put('update/{id}', [ManualCuentaSiiController::class, 'update']);
-    
+
     //Nivel
     Route::get('obtenernivel',[NivelController::class,'show']);
 
@@ -213,6 +215,15 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Tesoreria
     Route::get('getTesoreriaComprasIncial/{empresa}', [TesoreriaController::class, 'getInicialCompras']);
+
+    //Impuesto UTM
+    Route::get('obtenerimpuestoutm',[ImpuestoUtmController::class,'show']);
+    Route::post('crearimpuestoutm',[ImpuestoUtmController::class,'store']);
+    Route::delete('eliminarimpuestoutm/{impuestoutm}',[ImpuestoUtmController::class,'destroy']);
+
+    // asignacion familiar
+
+    Route::get('obtenerasignacionfamiliar',[MontoAsignacionFamiliarController::class,'show']);
 
     //Logout
     Route::post('/logout',[AuthController::class,'logout']);

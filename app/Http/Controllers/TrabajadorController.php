@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Trabajador\TrabajadorRequest;
 use App\Models\Afp;
 use App\Models\Comunas;
+use App\Models\Estudiante;
 use App\Models\Parentezco;
 use App\Models\Regiones;
 use App\Models\Trabajador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class TrabajadorController extends Controller
@@ -28,58 +30,66 @@ class TrabajadorController extends Controller
     public function store(TrabajadorRequest $request)
     {
 
-        if( $request->anturlpdf != 'undefined' && !$request->file("url_pdf")){
+        $userlogin = Auth::user();
 
-            $pdf = $request->anturlpdf ;
+        if($userlogin){
 
-        }else{
+            $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
 
-            if($request->file("url_pdf")){
+            if( $request->anturlpdf != 'undefined' && !$request->file("url_pdf")){
 
-                if($request->anturlpdf != 'undefined'){
-                    unlink(public_path().'/storage/'.$request->anturlpdf);
+                $pdf = $request->anturlpdf ;
+
+            }else{
+
+                if($request->file("url_pdf")){
+
+                    if($request->anturlpdf != 'undefined'){
+                        unlink(public_path().'/storage/'.$request->anturlpdf);
+                    }
+
+                    $path = public_path().'/storage/pdf/';
+
+
+                        $file = $request->file('url_pdf');
+                        $fileName = uniqid().$file->getClientOriginalName();
+                        $file->move($path, $fileName);
+
+                    $pdf = "pdf/".$fileName;
                 }
 
-                $path = public_path().'/storage/pdf/';
-
-
-                    $file = $request->file('url_pdf');
-                    $fileName = uniqid().$file->getClientOriginalName();
-                    $file->move($path, $fileName);
-
-                $pdf = "pdf/".$fileName;
             }
 
+            $trabajador = Trabajador::updateOrCreate(['id_trabajador'=>$request->id_trabajador],
+                                                    [
+                                                        'nombres' =>$request->nombres,
+                                                        'apellidos' =>$request->apellidos,
+                                                        'email' =>$request->email,
+                                                        'direccional' =>$request->direccional,
+                                                        'estado_civil' =>$request->estado_civil,
+                                                        'nacionalidad' =>$request->nacionalidad,
+                                                        'carga_familiar' =>$request->carga_familiar,
+                                                        'salud' =>$request->salud,
+                                                        'rut' =>$request->rut,
+                                                        'celular' =>$request->celular,
+                                                        'fecha_nacimiento' =>$request->fecha_nacimiento,
+                                                        'edad' =>$request->edad,
+                                                        'fecha_desvinculacion' =>$request->fecha_desvinculacion,
+                                                        'motivo_desvinculacion' =>$request->motivo_desvinculacion,
+                                                        'fecha_contrato' =>$request->fecha_contrato,
+                                                        'fecha_fin_contrato' =>$request->fecha_fin_contrato,
+                                                        'tipo_contrato'=>$request->tipo_contrato,
+                                                        'sueldo_base' =>$request->sueldo_base,
+                                                        'colacion' =>$request->colacion,
+                                                        'movilidad' =>$request->movilidad,
+                                                        'url_pdf' =>$pdf,
+                                                        'afp_id' =>$request->afp_id,
+                                                        'comuna_id' =>$request->comuna_id,
+                                                        'estudiante_id' => $estudiante->id_estudiante
+                                                    ]);
+
+                return $trabajador;
         }
-
-        $trabajador = Trabajador::updateOrCreate(['id_trabajador'=>$request->id_trabajador],
-                                                [
-                                                    'nombres' =>$request->nombres,
-                                                    'apellidos' =>$request->apellidos,
-                                                    'email' =>$request->email,
-                                                    'direccional' =>$request->direccional,
-                                                    'estado_civil' =>$request->estado_civil,
-                                                    'nacionalidad' =>$request->nacionalidad,
-                                                    'carga_familiar' =>$request->carga_familiar,
-                                                    'salud' =>$request->salud,
-                                                    'rut' =>$request->rut,
-                                                    'celular' =>$request->celular,
-                                                    'fecha_nacimiento' =>$request->fecha_nacimiento,
-                                                    'edad' =>$request->edad,
-                                                    'fecha_desvinculacion' =>$request->fecha_desvinculacion,
-                                                    'motivo_desvinculacion' =>$request->motivo_desvinculacion,
-                                                    'fecha_contrato' =>$request->fecha_contrato,
-                                                    'fecha_fin_contrato' =>$request->fecha_fin_contrato,
-                                                    'tipo_contrato'=>$request->tipo_contrato,
-                                                    'sueldo_base' =>$request->sueldo_base,
-                                                    'colacion' =>$request->colacion,
-                                                    'movilidad' =>$request->movilidad,
-                                                    'url_pdf' =>$pdf,
-                                                    'afp_id' =>$request->afp_id,
-                                                    'comuna_id' =>$request->comuna_id
-                                                ]);
-
-        return $trabajador;
     }
 
     public function storeCarga(Request $request){
@@ -115,7 +125,11 @@ class TrabajadorController extends Controller
 
     public function show(Trabajador $trabajador)
     {
-        return Trabajador::with('trabajorcarga','comuna','afp')->get();
+        $userlogin = Auth::user();
+
+        $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
+
+        return Trabajador::where('estudiante_id',$estudiante->id_estudiante)->with('trabajorcarga','comuna','afp')->get();
     }
 
     public function destroy(Trabajador $trabajador)

@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\BonosRemuneracion;
+use App\Models\Estudiante;
 use App\Models\Remuneraciones;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RemuneracionesController extends Controller
 {
     public function show(){
 
-        return Remuneraciones::with('trabajador.afp','trabajador.trabajorcarga','bonos')->get();
+        $userlogin = Auth::user();
+
+        $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
+
+        return Remuneraciones::where('estudiante_id',$estudiante->id_estudiante)->with('trabajador.afp','trabajador.trabajorcarga','bonos')->get();
     }
 
     public function store(Request $request){
+
+        $userlogin = Auth::user();
+
+        if($userlogin){
+
+        $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
 
         $remuneracion = Remuneraciones::updateOrCreate(['id_remuneracion' => $request->id_remuneracion],[
             'monto' => $request->monto,
@@ -28,6 +40,7 @@ class RemuneracionesController extends Controller
             'otros' => $request->otros,
             'porcentaje_hora_extra' => $request->porcentaje_hora_extra,
             'uf' => $request->uf,
+            'utm' => $request->utm,
             'gratificacion' => $request->gratificacion,
             'participacion' => $request->participacion,
             'cantidad_horas_extras' => $request->cantidad_horas_extras,
@@ -35,10 +48,12 @@ class RemuneracionesController extends Controller
             'dias_trabajados' => $request->dias_trabajados,
             'afp_monto' => $request->afp_monto,
             'fonasa_monto' => $request->salud_monto,
+            'isapre_uf' => $request->isapre_uf,
             // 'monto_carga_familiar' => $request->monto_carga_familiar,
             'asignacion_familiar' => $request->asignacion_familiar,
             'fecha' => date('Y-m-d'),
-            'trabajador_id' => $request->trabajador_id["id_trabajador"]
+            'trabajador_id' => $request->trabajador_id["id_trabajador"],
+            'estudiante_id' => $estudiante->id_estudiante
         ]);
 
         if($request->bonos){
@@ -57,6 +72,7 @@ class RemuneracionesController extends Controller
         }
 
         return  $remuneracion;
+    }
 
     }
 }

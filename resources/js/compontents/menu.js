@@ -84,9 +84,16 @@ export const menuItems = [
         parentId: 2,
         permiso: Vue.prototype.$SolicitudEmpresa,
       },
+      {
+        id: 2.7,
+        label: "Impuesto UTM",
+        link: "/impuesto-utm",
+        parentId: 2,
+        permiso: Vue.prototype.$SolicitudEmpresa,
+      },
     ],
   },
-  
+
   {
     id: 3,
     label: "Plataforma",
@@ -138,7 +145,7 @@ export const menuItems = [
         permiso: Vue.prototype.$CrearEmpresa,
       },
     ]
-  },  
+  },
 
   {
     id: 5,
@@ -235,7 +242,7 @@ export const menuItems = [
         permiso: Vue.prototype.$CrearEmpresa,
       },
     ]
-  }, 
+  },
 
   {
     id: 6,
@@ -252,5 +259,5 @@ export const menuItems = [
       },
     ],
   },
-  
+
 ];

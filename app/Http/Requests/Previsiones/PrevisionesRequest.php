@@ -25,7 +25,7 @@ class PrevisionesRequest extends FormRequest
     public function messages()
     {
         return [
-            'nombres.required'                  => 'Debes ingresar un nombre.',
+            'nombre.required'                  => 'Debes ingresar un nombre.',
             'tasa_dependiente.required'                => 'Debes ingresar una tasa dependiente.',
             'tasa_independiente.required'              => 'Debes seleccionar una tasa independiente.',
             'sis.required'                 => 'Debes ingresar un SIS.',

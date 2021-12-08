@@ -34,7 +34,8 @@ class Trabajador extends Model
         'movilidad',
         'url_pdf',
         'afp_id',
-        'comuna_id'
+        'comuna_id',
+        'estudiante_id'
     ];
 
     public function trabajorcarga()

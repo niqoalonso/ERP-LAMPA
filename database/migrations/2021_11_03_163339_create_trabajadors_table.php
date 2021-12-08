@@ -40,6 +40,8 @@ class CreateTrabajadorsTable extends Migration
             $table->foreign('afp_id')->references('id_afp')->on('afps');
             $table->unsignedBigInteger('comuna_id');
             $table->foreign('comuna_id')->references('COM_ID')->on('comunas');
+            $table->unsignedBigInteger('estudiante_id');
+            $table->foreign('estudiante_id')->references('id_estudiante')->on('estudiantes');
             $table->softDeletes();
             $table->timestamps();
         });
