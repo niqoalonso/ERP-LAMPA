@@ -157,7 +157,7 @@
 
             <b-modal
                 id="remuneracion"
-                size="lg"
+                size="xl"
                 :title="titlemodal"
                 title-class="font-18"
                 hide-footer
@@ -169,7 +169,7 @@
                             <div class="mb-3">
                                 <label for="trabajador">Trabajador</label>
                                 <multiselect
-                                class="form-control-sm"
+                                    class="form-control-sm"
                                     v-model="form.trabajador_id"
                                     :options="options"
                                     track-by="trabajador_id"
@@ -256,14 +256,11 @@
                                 >
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label for="carga"
-                                                >Carga</label
-                                            >
+                                            <label for="carga">Carga</label>
                                             <h6>
                                                 {{ carga.nombres }}
                                                 {{ carga.apellidos }}
                                             </h6>
-
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -285,13 +282,15 @@
                                                 id="montocarga"
                                                 v-model="cargasarray[i].monto"
                                                 type="text"
-                                                class="form-control form-control-sm"
+                                                class="
+                                                    form-control form-control-sm
+                                                "
                                             />
                                             <span
                                                 class="text-danger"
                                                 v-if="
-                                                    cargasarray[i].monto == '' &&
-                                                    submitted
+                                                    cargasarray[i].monto ==
+                                                        '' && submitted
                                                 "
                                                 >Monto requerido.</span
                                             >
@@ -300,7 +299,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="carga_familiar"
                                     >Nro Carga Familiar</label
@@ -309,36 +308,12 @@
                                     id="carga_familiar"
                                     v-model="form.carga_familiar"
                                     type="text"
+                                    readonly
                                     class="form-control form-control-sm"
                                 />
                             </div>
                         </div>
-                        <!-- <div class="col-md-4">
-              <div class="mb-3">
-                <label for="monto_carga_familiar"
-                  >Monto por carga familiar</label
-                >
-                <input
-                  id="monto_carga_familiar"
-                  v-model="form.monto_carga_familiar"
-                  type="number"
-                  class="form-control form-control-sm"
-                  :class="{
-                    'is-invalid':
-                      submitted && $v.form.monto_carga_familiar.$error,
-                  }"
-                />
-                <div
-                  v-if="submitted && $v.form.monto_carga_familiar.$error"
-                  class="invalid-feedback"
-                >
-                  <span v-if="!$v.form.monto_carga_familiar.required"
-                    >Monto por carga familiar requerido.</span
-                  >
-                </div>
-              </div>
-            </div> -->
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="asignacion_familiar"
                                     >Total Asignación Familiar</label
@@ -372,9 +347,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="cantidad_horas_extras"
                                     >Nro Horas Extras</label
@@ -408,7 +381,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="horas_semanales"
                                     >Horas semanales</label
@@ -438,7 +411,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="porcentaje_hora_extra"
                                     >Porcentaje Extras</label
@@ -473,7 +446,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="horas_extras_monto"
                                     >Monto Horas Extras</label
@@ -506,9 +479,32 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="sueldominimo">Sueldo Mínimo</label>
+                                <input
+                                    id="sueldominimo"
+                                    v-model="form.sueldo_minimo"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="">Gratificación %</label>
+                                <select
+                                    class="form-control form-control-sm"
+                                    v-model="form.porcentajegratificacion"
+                                >
+                                    <option value="">Seleccionar</option>
+                                    <option value="4.75">4.75%</option>
+                                    <option value="25">25%</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="gratificacion">Gratificación</label>
                                 <input
@@ -535,7 +531,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="participacion">Participación</label>
                                 <input
@@ -562,7 +558,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="anticipo">Anticipo</label>
                                 <input
@@ -586,10 +582,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="colacion">Colación</label>
                                 <input
@@ -601,7 +594,11 @@
                                 />
                             </div>
                         </div>
-                        <div class="col-md-3">
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="movilidad">Movilidad</label>
                                 <input
@@ -613,41 +610,31 @@
                                 />
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
-                                <label for="desgaste_herramientas"
-                                    >Desgaste Herramientas</label
-                                >
+                                <label for="viaticos">Viaticos</label>
                                 <input
-                                    id="desgaste_herramientas"
-                                    v-model="form.desgaste_herramientas"
+                                    id="viaticos"
+                                    v-model="form.viaticos"
                                     type="number"
                                     class="form-control form-control-sm"
                                     :class="{
                                         'is-invalid':
                                             submitted &&
-                                            $v.form.desgaste_herramientas
-                                                .$error,
+                                            $v.form.viaticos.$error,
                                     }"
                                 />
                                 <div
-                                    v-if="
-                                        submitted &&
-                                        $v.form.desgaste_herramientas.$error
-                                    "
+                                    v-if="submitted && $v.form.viaticos.$error"
                                     class="invalid-feedback"
                                 >
-                                    <span
-                                        v-if="
-                                            !$v.form.desgaste_herramientas
-                                                .required
-                                        "
-                                        >Desgaste Herramientas requerido.</span
+                                    <span v-if="!$v.form.viaticos.required"
+                                        >Viaticos requerido.</span
                                     >
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="otros">Otros</label>
                                 <input
@@ -750,7 +737,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="afp">AFP Trabajador</label>
                                 <input
@@ -762,7 +749,7 @@
                                 />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="afp">AFP Porcentaje</label>
                                 <input
@@ -773,7 +760,7 @@
                                 />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="afp_monto">Descuento AFP</label>
                                 <input
@@ -797,9 +784,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="salud">Salud Trabajador</label>
                                 <input
@@ -833,6 +818,9 @@
                                 />
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="uf">UF</label>
@@ -856,7 +844,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="salud_monto">Descuento Salud</label>
                                 <input
@@ -882,9 +870,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="afc_monto">AFC</label>
                                 <input
@@ -908,7 +894,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="utm">UTM</label>
                                 <input
@@ -932,7 +918,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="impuesto_unico"
                                     >Impuesto Unico</label
@@ -962,9 +948,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="alcance_liquido"
                                     >Alcance liquído</label
@@ -994,6 +978,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="total_imponible"

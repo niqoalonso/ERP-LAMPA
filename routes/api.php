@@ -183,6 +183,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //Remuneraciones
     Route::get('obtenerremuneracion',[RemuneracionesController::class,'show']);
     Route::post('crearremuneracion',[RemuneracionesController::class,'store']);
+    Route::get('obtenerremuneracionmes',[RemuneracionesController::class,'remuneracionmes']);
+    Route::get('obtenerremuneracion/{date}',[RemuneracionesController::class,'busquedaremuneracion']);
 
     //TipoDocumento
     Route::get('getInicialDocumento',[DocumentoTributarioController::class,'getInicial']);

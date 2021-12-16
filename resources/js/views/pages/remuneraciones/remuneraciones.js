@@ -31,7 +31,7 @@ export default {
                 impuesto_unico: 0,
                 alcance_liquido: 0,
                 anticipo: 0,
-                desgaste_herramientas: 0,
+                viaticos: 0,
                 otros: 0,
                 porcentaje_hora_extra: 0,
                 uf: 0,
@@ -46,6 +46,9 @@ export default {
                 porcentajerealafp: 0,
                 horas_semanales: 0,
                 tipo_contrato: "",
+                sueldo_minimo: 0,
+                porcentajegratificacion: '',
+                total_descuentos: 0
             },
             impuestosutm: [],
             bonostemp: [],
@@ -170,7 +173,7 @@ export default {
                 required,
             },
 
-            desgaste_herramientas: {
+            viaticos: {
                 required,
             },
 
@@ -378,6 +381,47 @@ export default {
                     }
                 }
 
+                // gratificacion
+
+                if(this.form.gratificacion > 0 ){
+
+                    var porcentajegratifi = parseFloat(this.form.porcentajegratificacion);
+
+                    if(porcentajegratifi == 4.75){
+
+                        if(this.form.sueldo_minimo != 0 || this.form.sueldo_minimo != ''){
+
+                            var gratificacion = Math.round((this.form.sueldo_minimo * porcentajegratifi)/12);
+
+                            console.log(gratificacion)
+
+                            if (gratificacion != this.form.gratificacion) {
+                                this.successmsgerror("Gratificacion");
+                                return;
+                            }
+
+                        }else{
+
+                            this.successmsgerror("Sueldo minimo");
+                            return;
+                        }
+
+                    }else{
+
+                        var porcentajegratifi = parseInt(this.form.porcentajegratificacion);
+
+                        var gratificacion = Math.round((this.form.sueldo_base * porcentajegratifi) / 100);
+
+                        console.log(gratificacion)
+
+                        if (gratificacion != this.form.gratificacion) {
+                            this.successmsgerror("Gratificacion");
+                            return;
+                        }
+                    }
+
+                }
+
                 // suma bonos
                 var montobono = 0;
 
@@ -391,7 +435,8 @@ export default {
                     parseInt(this.form.horas_extras_monto) +
                     parseInt(this.form.monto) +
                     parseInt(montobono) +
-                    parseInt(this.form.gratificacion);
+                    parseInt(this.form.gratificacion) +
+                    parseInt(this.form.participacion);
 
                 console.log(this.form.total_imponible, totalimponible);
 
@@ -466,7 +511,10 @@ export default {
 
                 var totalhaberes =
                     parseInt(this.form.colacion) +
-                    parseInt(this.form.movilidad);
+                    parseInt(this.form.movilidad)+
+                    parseInt(this.form.viaticos)+
+                    parseInt(totalasignacion)+
+                    totalimponible;
 
                 console.log(this.form.total_haberes, totalhaberes);
 
@@ -475,7 +523,33 @@ export default {
                     return;
                 }
 
+                // descuentos
+
+                var descuentos = Math.round(saludmonto) + Math.round(descuentoafc) + Math.round(afpmonto) + this.form.impuesto_unico;
+
+                console.log(descuentos);
+
+                var alcanceliquido = Math.round(totalhaberes - descuentos);
+
+                console.log(alcanceliquido)
+
+                if (this.form.alcance_liquido != alcanceliquido) {
+                    this.successmsgerror("Alcance líquido");
+                    return;
+                }
+
+                // sueldo liquido
+
+                var sueldoliquido = Math.round(alcanceliquido - this.form.anticipo);
+
+                if (this.form.sueldo_liquido != sueldoliquido) {
+                    this.successmsgerror("Sueldo líquido");
+                    return;
+                }
+
+
                 this.form.bonos = this.bonostemp;
+                this.form.total_descuentos = descuentos;
 
                 this.axios
                     .post(`/api/crearremuneracion`, this.form)
@@ -567,7 +641,7 @@ export default {
             this.form.impuesto_unico = 0;
             this.form.alcance_liquido = 0;
             this.form.anticipo = 0;
-            this.form.desgaste_herramientas = 0;
+            this.form.viaticos = 0;
             this.form.otros = 0;
             this.form.porcentaje_hora_extra = 0;
             this.form.uf = 0;
@@ -614,7 +688,7 @@ export default {
             this.form.impuesto_unico = data.impuesto_unico;
             this.form.alcance_liquido = data.alcance_liquido;
             this.form.anticipo = data.anticipo;
-            this.form.desgaste_herramientas = data.desgaste_herramientas;
+            this.form.viaticos = data.viaticos;
             this.form.otros = data.otros;
             this.form.porcentaje_hora_extra = data.porcentaje_hora_extra;
             this.form.uf = data.uf;
@@ -656,7 +730,7 @@ export default {
                 impuesto_unico: "",
                 alcance_liquido: "",
                 anticipo: "",
-                desgaste_herramientas: "",
+                viaticos: "",
                 otros: "",
                 porcentaje_hora_extra: "",
                 uf: "",

@@ -27,6 +27,18 @@ permisos();
 Vue.prototype.$globalEmpresasSelected = [];
 Vue.prototype.$globalEmpresas = [];
 
+Vue.filter('toCurrency', function (value) {
+    if (typeof value !== "number") {
+        return value;
+    }
+    var formatter = new Intl.NumberFormat('es-CL', {
+        style: 'currency',
+        currency: 'CLP',
+        minimumFractionDigits: 0
+    });
+    return formatter.format(value);
+});
+
 
 new Vue({
     el: "#app",
@@ -36,11 +48,11 @@ new Vue({
 });
 
 
-function empresaUno() { 
+function empresaUno() {
     if(localStorage.getItem('globalEmpresas') != null){
       Vue.prototype.$globalEmpresas = localStorage.getItem("globalEmpresas");
       Vue.prototype.$globalEmpresasSelected = localStorage.getItem("globalEmpresasSelected");
     }
   }
-  
+
   empresaUno();

@@ -19,11 +19,12 @@ class CreateRemuneracionesTable extends Migration
             $table->integer('sueldo_liquido');
             $table->integer('total_imponible');
             $table->integer('total_haberes');
+            $table->integer('total_descuentos');
             $table->integer('afc_monto');
             $table->integer('impuesto_unico');
             $table->integer('alcance_liquido');
             $table->integer('anticipo');
-            $table->integer('desgaste_herramientas');
+            $table->integer('viaticos');
             $table->integer('otros');
             $table->integer('porcentaje_hora_extra');
             $table->integer('uf');

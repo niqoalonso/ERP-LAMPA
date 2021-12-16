@@ -322,6 +322,15 @@ const routes = [
         ),
       meta: { requiresAuth: true },
     },
+    {
+        path: "/libro-remuneraciones",
+        name: "libro remuneraciones",
+        component: () =>
+          import(
+            /* webpackChunkName: "home" */ "./views/pages/remuneraciones/libroremuneracion.vue"
+          ),
+        meta: { requiresAuth: true },
+      },
   ];
 
 const router = new VueRouter({
@@ -640,6 +649,13 @@ router.beforeEach((to, from, next) => {
           return false;
         }
         case "remuneraciones":
+        if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
+          return true;
+        } else {
+          return false;
+        }
+
+        case "libro remuneraciones":
         if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
           return true;
         } else {

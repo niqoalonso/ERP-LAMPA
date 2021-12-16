@@ -144,6 +144,13 @@ export const menuItems = [
         parentId: 8,
         permiso: Vue.prototype.$CrearEmpresa,
       },
+      {
+        id: 8.3,
+        label: "Libro Remuneraciones",
+        link: "/libro-remuneraciones",
+        parentId: 8,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
     ]
   },
 

@@ -8,6 +8,8 @@ use App\Models\Remuneraciones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+date_default_timezone_set("America/Santiago");
+
 class RemuneracionesController extends Controller
 {
     public function show(){
@@ -17,6 +19,44 @@ class RemuneracionesController extends Controller
         $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
 
         return Remuneraciones::where('estudiante_id',$estudiante->id_estudiante)->with('trabajador.afp','trabajador.trabajorcarga','bonos')->get();
+    }
+
+    public function remuneracionmes(){
+
+        $userlogin = Auth::user();
+
+        $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
+
+        // capturar el mes en curso
+        $month = date('m');
+        // capturar año en curso
+        $year = date('Y');
+
+        return Remuneraciones::where('estudiante_id',$estudiante->id_estudiante)
+                            ->whereYear('created_at', $year)
+                            ->whereMonth('created_at', $month)
+                            ->with('trabajador.afp','trabajador.trabajorcarga','bonos')
+                            ->get();
+
+    }
+
+    public function busquedaremuneracion($date){
+
+        $userlogin = Auth::user();
+
+        $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
+
+        $datearray = explode("-", $date);
+
+        $year = $datearray[0];
+        $month = $datearray[1];
+
+        return Remuneraciones::where('estudiante_id',$estudiante->id_estudiante)
+                            ->whereYear('created_at', $year)
+                            ->whereMonth('created_at', $month)
+                            ->with('trabajador.afp','trabajador.trabajorcarga','bonos')
+                            ->get();
+
     }
 
     public function store(Request $request){
@@ -32,11 +72,12 @@ class RemuneracionesController extends Controller
             'sueldo_liquido' => $request->sueldo_liquido,
             'total_imponible'=> $request->total_imponible,
             'total_haberes' => $request->total_haberes,
+            'total_descuentos' => $request->total_descuentos,
             'afc_monto' => $request->afc_monto,
             'impuesto_unico' => $request->impuesto_unico,
             'alcance_liquido' => $request->alcance_liquido,
             'anticipo' => $request->anticipo,
-            'desgaste_herramientas' => $request->desgaste_herramientas,
+            'viaticos' => $request->viaticos,
             'otros' => $request->otros,
             'porcentaje_hora_extra' => $request->porcentaje_hora_extra,
             'uf' => $request->uf,
