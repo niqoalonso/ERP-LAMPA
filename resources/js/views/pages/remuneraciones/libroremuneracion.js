@@ -245,13 +245,7 @@ export default {
                         return formatter.format(sueldo_liquido);
                     },
                 },
-                {
-                    label: "algoooo",
-                    key: "trabajador",
-                    formatter: (trabajador) => {
-                        return `${trabajador.afp.sis} %`;
-                    },
-                },
+                "sis"
             ],
         };
     },

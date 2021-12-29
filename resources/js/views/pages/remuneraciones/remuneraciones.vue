@@ -178,7 +178,7 @@
                                 ></multiselect>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="sueldo_base">Sueldo Base</label>
                                 <input
@@ -220,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="monto">Monto</label>
                                 <input
@@ -243,114 +243,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="mb-3">
-                                <label for="carga">Carga</label>
-
-                                <div
-                                    class="row"
-                                    v-for="(carga, i) in cargasarray"
-                                    :key="i"
-                                >
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="carga">Carga</label>
-                                            <h6>
-                                                {{ carga.nombres }}
-                                                {{ carga.apellidos }}
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="tipocarga"
-                                                >Tipo Carga</label
-                                            >
-                                            <h6>
-                                                {{ carga.tipo_carga }}
-                                            </h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="montocarga"
-                                                >Monto</label
-                                            >
-                                            <input
-                                                id="montocarga"
-                                                v-model="cargasarray[i].monto"
-                                                type="text"
-                                                class="
-                                                    form-control form-control-sm
-                                                "
-                                            />
-                                            <span
-                                                class="text-danger"
-                                                v-if="
-                                                    cargasarray[i].monto ==
-                                                        '' && submitted
-                                                "
-                                                >Monto requerido.</span
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="carga_familiar"
-                                    >Nro Carga Familiar</label
-                                >
-                                <input
-                                    id="carga_familiar"
-                                    v-model="form.carga_familiar"
-                                    type="text"
-                                    readonly
-                                    class="form-control form-control-sm"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="asignacion_familiar"
-                                    >Total Asignación Familiar</label
-                                >
-                                <input
-                                    id="asignacion_familiar"
-                                    v-model="form.asignacion_familiar"
-                                    type="number"
-                                    class="form-control form-control-sm"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.asignacion_familiar.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="
-                                        submitted &&
-                                        $v.form.asignacion_familiar.$error
-                                    "
-                                    class="invalid-feedback"
-                                >
-                                    <span
-                                        v-if="
-                                            !$v.form.asignacion_familiar
-                                                .required
-                                        "
-                                        >Total asignación familiar
-                                        requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="mb-3">
                                 <label for="cantidad_horas_extras"
-                                    >Nro Horas Extras</label
+                                    >Nro Horas</label
                                 >
                                 <input
                                     id="cantidad_horas_extras"
@@ -381,10 +277,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-1">
                             <div class="mb-3">
                                 <label for="horas_semanales"
-                                    >Horas semanales</label
+                                   style="white-space: nowrap;" >Hrs semanal</label
                                 >
                                 <input
                                     id="horas_semanales"
@@ -411,10 +310,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="mb-3">
                                 <label for="porcentaje_hora_extra"
-                                    >Porcentaje Extras</label
+                                    >% Extras</label
                                 >
                                 <input
                                     id="porcentaje_hora_extra"
@@ -427,6 +326,7 @@
                                             $v.form.porcentaje_hora_extra
                                                 .$error,
                                     }"
+                                    @change="calculohoraextra()"
                                 />
                                 <div
                                     v-if="
@@ -478,8 +378,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="sueldominimo">Sueldo Mínimo</label>
@@ -558,106 +456,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="anticipo">Anticipo</label>
-                                <input
-                                    id="anticipo"
-                                    v-model="form.anticipo"
-                                    type="number"
-                                    class="form-control form-control-sm"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.anticipo.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="submitted && $v.form.anticipo.$error"
-                                    class="invalid-feedback"
-                                >
-                                    <span v-if="!$v.form.anticipo.required"
-                                        >Anticipo requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="colacion">Colación</label>
-                                <input
-                                    id="colacion"
-                                    v-model="form.colacion"
-                                    type="number"
-                                    class="form-control form-control-sm"
-                                    disabled
-                                />
-                            </div>
-                        </div>
+
                     </div>
 
-                    <div class="row">
-
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="movilidad">Movilidad</label>
-                                <input
-                                    id="movilidad"
-                                    v-model="form.movilidad"
-                                    type="number"
-                                    class="form-control form-control-sm"
-                                    disabled
-                                />
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="viaticos">Viaticos</label>
-                                <input
-                                    id="viaticos"
-                                    v-model="form.viaticos"
-                                    type="number"
-                                    class="form-control form-control-sm"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.viaticos.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="submitted && $v.form.viaticos.$error"
-                                    class="invalid-feedback"
-                                >
-                                    <span v-if="!$v.form.viaticos.required"
-                                        >Viaticos requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="otros">Otros</label>
-                                <input
-                                    id="otros"
-                                    v-model="form.otros"
-                                    type="number"
-                                    class="form-control form-control-sm"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted && $v.form.otros.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="submitted && $v.form.otros.$error"
-                                    class="invalid-feedback"
-                                >
-                                    <span v-if="!$v.form.otros.required"
-                                        >Otros requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-md-9">
                             <div
@@ -736,6 +537,258 @@
                             </button>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="total_imponible"
+                                    >Total Imponible</label
+                                >
+                                <input
+                                    id="total_imponible"
+                                    v-model="form.total_imponible"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.total_imponible.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="
+                                        submitted &&
+                                        $v.form.total_imponible.$error
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <span
+                                        v-if="!$v.form.total_imponible.required"
+                                        >Total Imponible requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="carga">Carga</label>
+
+                                <div
+                                    class="row"
+                                    v-for="(carga, i) in cargasarray"
+                                    :key="i"
+                                >
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="carga">Carga</label>
+                                            <h6>
+                                                {{ carga.nombres }}
+                                                {{ carga.apellidos }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="tipocarga"
+                                                >Tipo Carga</label
+                                            >
+                                            <h6>
+                                                {{ carga.tipo_carga }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="montocarga"
+                                                >Monto</label
+                                            >
+                                            <input
+                                                id="montocarga"
+                                                v-model="cargasarray[i].monto"
+                                                type="text"
+                                                class="
+                                                    form-control form-control-sm
+                                                "
+                                            />
+                                            <span
+                                                class="text-danger"
+                                                v-if="
+                                                    cargasarray[i].monto ==
+                                                        '' && submitted
+                                                "
+                                                >Monto requerido.</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="carga_familiar"
+                                    >Nro Carga Familiar</label
+                                >
+                                <input
+                                    id="carga_familiar"
+                                    v-model="form.carga_familiar"
+                                    type="text"
+                                    readonly
+                                    class="form-control form-control-sm"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="asignacion_familiar"
+                                    >Total Asignación Familiar</label
+                                >
+                                <input
+                                    id="asignacion_familiar"
+                                    v-model="form.asignacion_familiar"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.asignacion_familiar.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="
+                                        submitted &&
+                                        $v.form.asignacion_familiar.$error
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <span
+                                        v-if="
+                                            !$v.form.asignacion_familiar
+                                                .required
+                                        "
+                                        >Total asignación familiar
+                                        requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="colacion">Colación</label>
+                                <input
+                                    id="colacion"
+                                    v-model="form.colacion"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    disabled
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="movilidad">Movilidad</label>
+                                <input
+                                    id="movilidad"
+                                    v-model="form.movilidad"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    disabled
+                                />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="viaticos">Viaticos</label>
+                                <input
+                                    id="viaticos"
+                                    v-model="form.viaticos"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.viaticos.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="submitted && $v.form.viaticos.$error"
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.viaticos.required"
+                                        >Viaticos requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="otros">Otros</label>
+                                <input
+                                    id="otros"
+                                    v-model="form.otros"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted && $v.form.otros.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="submitted && $v.form.otros.$error"
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.otros.required"
+                                        >Otros requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="total_haberes">Total haberes</label>
+                                <input
+                                    id="total_haberes"
+                                    v-model="form.total_haberes"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.total_haberes.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="
+                                        submitted &&
+                                        $v.form.total_haberes.$error
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.total_haberes.required"
+                                        >Total haberes requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="tipo_contrato">Tipo contrato</label>
+                                <input
+                                    id="tipo_contrato"
+                                    v-model="form.tipo_contrato"
+                                    type="text"
+                                    readonly
+                                    class="form-control-plaintext form-control-sm"
+
+                                />
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-2">
                             <div class="mb-3">
@@ -820,7 +873,6 @@
                         </div>
                     </div>
                     <div class="row">
-
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="uf">UF</label>
@@ -980,65 +1032,32 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="anticipo">Anticipo</label>
+                                <input
+                                    id="anticipo"
+                                    v-model="form.anticipo"
+                                    type="number"
+                                    class="form-control form-control-sm"
+                                    :class="{
+                                        'is-invalid':
+                                            submitted &&
+                                            $v.form.anticipo.$error,
+                                    }"
+                                />
+                                <div
+                                    v-if="submitted && $v.form.anticipo.$error"
+                                    class="invalid-feedback"
+                                >
+                                    <span v-if="!$v.form.anticipo.required"
+                                        >Anticipo requerido.</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="total_imponible"
-                                    >Total Imponible</label
-                                >
-                                <input
-                                    id="total_imponible"
-                                    v-model="form.total_imponible"
-                                    type="number"
-                                    class="form-control form-control-sm"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.total_imponible.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="
-                                        submitted &&
-                                        $v.form.total_imponible.$error
-                                    "
-                                    class="invalid-feedback"
-                                >
-                                    <span
-                                        v-if="!$v.form.total_imponible.required"
-                                        >Total Imponible requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="total_haberes">Total haberes</label>
-                                <input
-                                    id="total_haberes"
-                                    v-model="form.total_haberes"
-                                    type="number"
-                                    class="form-control form-control-sm"
-                                    :class="{
-                                        'is-invalid':
-                                            submitted &&
-                                            $v.form.total_haberes.$error,
-                                    }"
-                                />
-                                <div
-                                    v-if="
-                                        submitted &&
-                                        $v.form.total_haberes.$error
-                                    "
-                                    class="invalid-feedback"
-                                >
-                                    <span v-if="!$v.form.total_haberes.required"
-                                        >Total haberes requerido.</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="sueldo_liquido"
                                     >Sueldo Liquido</label

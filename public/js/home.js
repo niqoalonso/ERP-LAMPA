@@ -9917,13 +9917,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           return formatter.format(sueldo_liquido);
         }
-      }, {
-        label: "algoooo",
-        key: "trabajador",
-        formatter: function formatter(trabajador) {
-          return "".concat(trabajador.afp.sis, " %");
-        }
-      }]
+      }, "sis"]
     };
   },
   computed: {
@@ -10711,6 +10705,18 @@ __webpack_require__.r(__webpack_exports__);
         id_remuneracion: ""
       };
     },
+    calculohoraextra: function calculohoraextra() {
+      if (this.form.cantidad_horas_extras > 0) {
+        var factor = parseInt(this.form.sueldo_base) / 30 * 7;
+        var porcentajehoras = this.form.porcentaje_hora_extra / 100 + 1;
+        console.log(porcentajehoras);
+        var valorhora = factor / this.form.horas_semanales * porcentajehoras;
+        console.log(valorhora);
+        var montohoraextra = Math.round(valorhora * this.form.cantidad_horas_extras);
+        console.log(montohoraextra);
+        this.form.horas_extras_monto = montohoraextra;
+      }
+    },
     impuestounico: function impuestounico() {
       var _this6 = this;
 
@@ -10722,7 +10728,9 @@ __webpack_require__.r(__webpack_exports__);
           montobono = montobono + parseInt(element["monto"]);
         }); // total imponible
 
-        var totalimponible = parseInt(this.form.horas_extras_monto) + parseInt(this.form.monto) + parseInt(montobono) + parseInt(this.form.gratificacion);
+        var totalimponible = parseInt(this.form.horas_extras_monto) + parseInt(this.form.monto) + parseInt(montobono) + parseInt(this.form.gratificacion); // descontar AFP - AFC - Salud
+
+        totalimponible = Math.round(totalimponible - this.form.afp_monto - this.form.salud_monto - this.form.afc_monto);
         var factor = 0;
         var rebaja = 0;
         this.impuestosutm.forEach(function (element) {
@@ -82006,6 +82014,18 @@ var render = function () {
                   },
                   scopedSlots: _vm._u([
                     {
+                      key: "cell(sis)",
+                      fn: function (data) {
+                        return [
+                          _vm._v(
+                            "\n\n                            " +
+                              _vm._s(data.item.trabajador.afp.sis) +
+                              "\n                        "
+                          ),
+                        ]
+                      },
+                    },
+                    {
                       key: "foot()",
                       fn: function () {
                         return [_c("span")]
@@ -82214,7 +82234,7 @@ var render = function () {
                       proxy: true,
                     },
                     {
-                      key: "foot(Sis)",
+                      key: "foot(SIS)",
                       fn: function () {
                         return [_c("span")]
                       },
@@ -82552,7 +82572,7 @@ var render = function () {
                         ),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "col-md-2" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "sueldo_base" } }, [
                             _vm._v("Sueldo Base"),
@@ -82637,7 +82657,7 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "col-md-2" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "monto" } }, [
                             _vm._v("Monto"),
@@ -82673,6 +82693,605 @@ var render = function () {
                             ? _c("div", { staticClass: "invalid-feedback" }, [
                                 !_vm.$v.form.monto.required
                                   ? _c("span", [_vm._v("Monto.")])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-1" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "cantidad_horas_extras" } },
+                            [_vm._v("Nro Horas")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.cantidad_horas_extras,
+                                expression: "form.cantidad_horas_extras",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.cantidad_horas_extras.$error,
+                            },
+                            attrs: {
+                              id: "cantidad_horas_extras",
+                              type: "number",
+                            },
+                            domProps: { value: _vm.form.cantidad_horas_extras },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "cantidad_horas_extras",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted &&
+                          _vm.$v.form.cantidad_horas_extras.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.cantidad_horas_extras.required
+                                  ? _c("span", [
+                                      _vm._v("Nro horas extras requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-1" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c(
+                            "label",
+                            {
+                              staticStyle: { "white-space": "nowrap" },
+                              attrs: { for: "horas_semanales" },
+                            },
+                            [_vm._v("Hrs semanal")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.horas_semanales,
+                                expression: "form.horas_semanales",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.horas_semanales.$error,
+                            },
+                            attrs: { id: "horas_semanales", type: "number" },
+                            domProps: { value: _vm.form.horas_semanales },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "horas_semanales",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.horas_semanales.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.horas_semanales.required
+                                  ? _c("span", [_vm._v("Horas semanales.")])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-1" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "porcentaje_hora_extra" } },
+                            [_vm._v("% Extras")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.porcentaje_hora_extra,
+                                expression: "form.porcentaje_hora_extra",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.porcentaje_hora_extra.$error,
+                            },
+                            attrs: {
+                              id: "porcentaje_hora_extra",
+                              type: "number",
+                            },
+                            domProps: { value: _vm.form.porcentaje_hora_extra },
+                            on: {
+                              change: function ($event) {
+                                return _vm.calculohoraextra()
+                              },
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "porcentaje_hora_extra",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted &&
+                          _vm.$v.form.porcentaje_hora_extra.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.porcentaje_hora_extra.required
+                                  ? _c("span", [
+                                      _vm._v(
+                                        "Porcentaje horas extras\n                                    requerido."
+                                      ),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c(
+                            "label",
+                            { attrs: { for: "horas_extras_monto" } },
+                            [_vm._v("Monto Horas Extras")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.horas_extras_monto,
+                                expression: "form.horas_extras_monto",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.horas_extras_monto.$error,
+                            },
+                            attrs: { id: "horas_extras_monto", type: "number" },
+                            domProps: { value: _vm.form.horas_extras_monto },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "horas_extras_monto",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.horas_extras_monto.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.horas_extras_monto.required
+                                  ? _c("span", [
+                                      _vm._v("Monto horas extras requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "sueldominimo" } }, [
+                            _vm._v("Sueldo Mínimo"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.sueldo_minimo,
+                                expression: "form.sueldo_minimo",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            attrs: { id: "sueldominimo", type: "number" },
+                            domProps: { value: _vm.form.sueldo_minimo },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "sueldo_minimo",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "" } }, [
+                            _vm._v("Gratificación %"),
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.porcentajegratificacion,
+                                  expression: "form.porcentajegratificacion",
+                                },
+                              ],
+                              staticClass: "form-control form-control-sm",
+                              on: {
+                                change: function ($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function (o) {
+                                      return o.selected
+                                    })
+                                    .map(function (o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.form,
+                                    "porcentajegratificacion",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                },
+                              },
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Seleccionar"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "4.75" } }, [
+                                _vm._v("4.75%"),
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { attrs: { value: "25" } }, [
+                                _vm._v("25%"),
+                              ]),
+                            ]
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "gratificacion" } }, [
+                            _vm._v("Gratificación"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.gratificacion,
+                                expression: "form.gratificacion",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.gratificacion.$error,
+                            },
+                            attrs: { id: "gratificacion", type: "number" },
+                            domProps: { value: _vm.form.gratificacion },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "gratificacion",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.gratificacion.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.gratificacion.required
+                                  ? _c("span", [
+                                      _vm._v("Gratificación requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "participacion" } }, [
+                            _vm._v("Participación"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.participacion,
+                                expression: "form.participacion",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.participacion.$error,
+                            },
+                            attrs: { id: "participacion", type: "number" },
+                            domProps: { value: _vm.form.participacion },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "participacion",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.participacion.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.participacion.required
+                                  ? _c("span", [
+                                      _vm._v("Participación requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-md-9" },
+                        _vm._l(_vm.bonostemp, function (bono, i) {
+                          return _c(
+                            "div",
+                            { key: bono.id, staticClass: "row mb-3" },
+                            [
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _c("div", { staticClass: "mb-3" }, [
+                                  _c("label", { attrs: { for: "glosa" } }, [
+                                    _vm._v("Glosa"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.bonostemp[i].glosa,
+                                        expression: "bonostemp[i].glosa",
+                                      },
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    attrs: { id: "glosa", type: "text" },
+                                    domProps: { value: _vm.bonostemp[i].glosa },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.bonostemp[i],
+                                          "glosa",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.bonostemp[i].glosa && _vm.summitedB
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [_vm._v("Glosa requerida.")]
+                                      )
+                                    : _vm._e(),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-4" }, [
+                                _c("div", { staticClass: "mb-3" }, [
+                                  _c("label", { attrs: { for: "monto" } }, [
+                                    _vm._v("Monto"),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.bonostemp[i].monto,
+                                        expression: "bonostemp[i].monto",
+                                      },
+                                    ],
+                                    staticClass: "form-control form-control-sm",
+                                    attrs: { id: "monto", type: "text" },
+                                    domProps: { value: _vm.bonostemp[i].monto },
+                                    on: {
+                                      input: function ($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.bonostemp[i],
+                                          "monto",
+                                          $event.target.value
+                                        )
+                                      },
+                                    },
+                                  }),
+                                  _vm._v(" "),
+                                  !_vm.bonostemp[i].monto && _vm.summitedB
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [_vm._v("Monto requerida.")]
+                                      )
+                                    : _vm._e(),
+                                ]),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-md-4 mt-3" }, [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "\n                                        col-lg-2\n                                        align-self-center\n                                        d-grid\n                                    ",
+                                  },
+                                  [
+                                    _c("input", {
+                                      staticClass: "btn btn-primary btn-block",
+                                      attrs: {
+                                        type: "button",
+                                        value: "Eliminar",
+                                      },
+                                      on: {
+                                        click: function ($event) {
+                                          return _vm.deleteRow(i)
+                                        },
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]),
+                            ]
+                          )
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "\n                                btn btn-success\n                                mt-3\n                                mb-3\n                                mt-lg-0\n                                float-end\n                            ",
+                            attrs: { type: "button" },
+                            on: { click: _vm.AddformData },
+                          },
+                          [
+                            _vm._v(
+                              "\n                            Agregar Bono\n                        "
+                            ),
+                          ]
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "total_imponible" } }, [
+                            _vm._v("Total Imponible"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.total_imponible,
+                                expression: "form.total_imponible",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.total_imponible.$error,
+                            },
+                            attrs: { id: "total_imponible", type: "number" },
+                            domProps: { value: _vm.form.total_imponible },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "total_imponible",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.total_imponible.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.total_imponible.required
+                                  ? _c("span", [
+                                      _vm._v("Total Imponible requerido."),
+                                    ])
                                   : _vm._e(),
                               ])
                             : _vm._e(),
@@ -82879,452 +83498,6 @@ var render = function () {
                       _vm._v(" "),
                       _c("div", { staticClass: "col-md-2" }, [
                         _c("div", { staticClass: "mb-3" }, [
-                          _c(
-                            "label",
-                            { attrs: { for: "cantidad_horas_extras" } },
-                            [_vm._v("Nro Horas Extras")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.cantidad_horas_extras,
-                                expression: "form.cantidad_horas_extras",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.cantidad_horas_extras.$error,
-                            },
-                            attrs: {
-                              id: "cantidad_horas_extras",
-                              type: "number",
-                            },
-                            domProps: { value: _vm.form.cantidad_horas_extras },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "cantidad_horas_extras",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted &&
-                          _vm.$v.form.cantidad_horas_extras.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.cantidad_horas_extras.required
-                                  ? _c("span", [
-                                      _vm._v("Nro horas extras requerido."),
-                                    ])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "horas_semanales" } }, [
-                            _vm._v("Horas semanales"),
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.horas_semanales,
-                                expression: "form.horas_semanales",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.horas_semanales.$error,
-                            },
-                            attrs: { id: "horas_semanales", type: "number" },
-                            domProps: { value: _vm.form.horas_semanales },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "horas_semanales",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted && _vm.$v.form.horas_semanales.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.horas_semanales.required
-                                  ? _c("span", [_vm._v("Horas semanales.")])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c(
-                            "label",
-                            { attrs: { for: "porcentaje_hora_extra" } },
-                            [_vm._v("Porcentaje Extras")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.porcentaje_hora_extra,
-                                expression: "form.porcentaje_hora_extra",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.porcentaje_hora_extra.$error,
-                            },
-                            attrs: {
-                              id: "porcentaje_hora_extra",
-                              type: "number",
-                            },
-                            domProps: { value: _vm.form.porcentaje_hora_extra },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "porcentaje_hora_extra",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted &&
-                          _vm.$v.form.porcentaje_hora_extra.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.porcentaje_hora_extra.required
-                                  ? _c("span", [
-                                      _vm._v(
-                                        "Porcentaje horas extras\n                                    requerido."
-                                      ),
-                                    ])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c(
-                            "label",
-                            { attrs: { for: "horas_extras_monto" } },
-                            [_vm._v("Monto Horas Extras")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.horas_extras_monto,
-                                expression: "form.horas_extras_monto",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.horas_extras_monto.$error,
-                            },
-                            attrs: { id: "horas_extras_monto", type: "number" },
-                            domProps: { value: _vm.form.horas_extras_monto },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "horas_extras_monto",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted && _vm.$v.form.horas_extras_monto.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.horas_extras_monto.required
-                                  ? _c("span", [
-                                      _vm._v("Monto horas extras requerido."),
-                                    ])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
-                        ]),
-                      ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "sueldominimo" } }, [
-                            _vm._v("Sueldo Mínimo"),
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.sueldo_minimo,
-                                expression: "form.sueldo_minimo",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            attrs: { id: "sueldominimo", type: "number" },
-                            domProps: { value: _vm.form.sueldo_minimo },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "sueldo_minimo",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "" } }, [
-                            _vm._v("Gratificación %"),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "select",
-                            {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.porcentajegratificacion,
-                                  expression: "form.porcentajegratificacion",
-                                },
-                              ],
-                              staticClass: "form-control form-control-sm",
-                              on: {
-                                change: function ($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function (o) {
-                                      return o.selected
-                                    })
-                                    .map(function (o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.form,
-                                    "porcentajegratificacion",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                },
-                              },
-                            },
-                            [
-                              _c("option", { attrs: { value: "" } }, [
-                                _vm._v("Seleccionar"),
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "4.75" } }, [
-                                _vm._v("4.75%"),
-                              ]),
-                              _vm._v(" "),
-                              _c("option", { attrs: { value: "25" } }, [
-                                _vm._v("25%"),
-                              ]),
-                            ]
-                          ),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "gratificacion" } }, [
-                            _vm._v("Gratificación"),
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.gratificacion,
-                                expression: "form.gratificacion",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.gratificacion.$error,
-                            },
-                            attrs: { id: "gratificacion", type: "number" },
-                            domProps: { value: _vm.form.gratificacion },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "gratificacion",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted && _vm.$v.form.gratificacion.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.gratificacion.required
-                                  ? _c("span", [
-                                      _vm._v("Gratificación requerido."),
-                                    ])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "participacion" } }, [
-                            _vm._v("Participación"),
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.participacion,
-                                expression: "form.participacion",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.participacion.$error,
-                            },
-                            attrs: { id: "participacion", type: "number" },
-                            domProps: { value: _vm.form.participacion },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "participacion",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted && _vm.$v.form.participacion.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.participacion.required
-                                  ? _c("span", [
-                                      _vm._v("Participación requerido."),
-                                    ])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "anticipo" } }, [
-                            _vm._v("Anticipo"),
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.anticipo,
-                                expression: "form.anticipo",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted && _vm.$v.form.anticipo.$error,
-                            },
-                            attrs: { id: "anticipo", type: "number" },
-                            domProps: { value: _vm.form.anticipo },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "anticipo",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted && _vm.$v.form.anticipo.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.anticipo.required
-                                  ? _c("span", [_vm._v("Anticipo requerido.")])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-2" }, [
-                        _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "colacion" } }, [
                             _vm._v("Colación"),
                           ]),
@@ -83360,9 +83533,7 @@ var render = function () {
                           }),
                         ]),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
+                      _vm._v(" "),
                       _c("div", { staticClass: "col-md-2" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "movilidad" } }, [
@@ -83488,145 +83659,93 @@ var render = function () {
                             : _vm._e(),
                         ]),
                       ]),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c(
-                        "div",
-                        { staticClass: "col-md-9" },
-                        _vm._l(_vm.bonostemp, function (bono, i) {
-                          return _c(
-                            "div",
-                            { key: bono.id, staticClass: "row mb-3" },
-                            [
-                              _c("div", { staticClass: "col-md-4" }, [
-                                _c("div", { staticClass: "mb-3" }, [
-                                  _c("label", { attrs: { for: "glosa" } }, [
-                                    _vm._v("Glosa"),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.bonostemp[i].glosa,
-                                        expression: "bonostemp[i].glosa",
-                                      },
-                                    ],
-                                    staticClass: "form-control form-control-sm",
-                                    attrs: { id: "glosa", type: "text" },
-                                    domProps: { value: _vm.bonostemp[i].glosa },
-                                    on: {
-                                      input: function ($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.bonostemp[i],
-                                          "glosa",
-                                          $event.target.value
-                                        )
-                                      },
-                                    },
-                                  }),
-                                  _vm._v(" "),
-                                  !_vm.bonostemp[i].glosa && _vm.summitedB
-                                    ? _c(
-                                        "span",
-                                        { staticClass: "text-danger" },
-                                        [_vm._v("Glosa requerida.")]
-                                      )
-                                    : _vm._e(),
-                                ]),
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-4" }, [
-                                _c("div", { staticClass: "mb-3" }, [
-                                  _c("label", { attrs: { for: "monto" } }, [
-                                    _vm._v("Monto"),
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.bonostemp[i].monto,
-                                        expression: "bonostemp[i].monto",
-                                      },
-                                    ],
-                                    staticClass: "form-control form-control-sm",
-                                    attrs: { id: "monto", type: "text" },
-                                    domProps: { value: _vm.bonostemp[i].monto },
-                                    on: {
-                                      input: function ($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.bonostemp[i],
-                                          "monto",
-                                          $event.target.value
-                                        )
-                                      },
-                                    },
-                                  }),
-                                  _vm._v(" "),
-                                  !_vm.bonostemp[i].monto && _vm.summitedB
-                                    ? _c(
-                                        "span",
-                                        { staticClass: "text-danger" },
-                                        [_vm._v("Monto requerida.")]
-                                      )
-                                    : _vm._e(),
-                                ]),
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-md-4 mt-3" }, [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "\n                                        col-lg-2\n                                        align-self-center\n                                        d-grid\n                                    ",
-                                  },
-                                  [
-                                    _c("input", {
-                                      staticClass: "btn btn-primary btn-block",
-                                      attrs: {
-                                        type: "button",
-                                        value: "Eliminar",
-                                      },
-                                      on: {
-                                        click: function ($event) {
-                                          return _vm.deleteRow(i)
-                                        },
-                                      },
-                                    }),
-                                  ]
-                                ),
-                              ]),
-                            ]
-                          )
-                        }),
-                        0
-                      ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c(
-                          "button",
-                          {
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "total_haberes" } }, [
+                            _vm._v("Total haberes"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.total_haberes,
+                                expression: "form.total_haberes",
+                              },
+                            ],
+                            staticClass: "form-control form-control-sm",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted &&
+                                _vm.$v.form.total_haberes.$error,
+                            },
+                            attrs: { id: "total_haberes", type: "number" },
+                            domProps: { value: _vm.form.total_haberes },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "total_haberes",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.total_haberes.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.total_haberes.required
+                                  ? _c("span", [
+                                      _vm._v("Total haberes requerido."),
+                                    ])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-2" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "tipo_contrato" } }, [
+                            _vm._v("Tipo contrato"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.tipo_contrato,
+                                expression: "form.tipo_contrato",
+                              },
+                            ],
                             staticClass:
-                              "\n                                btn btn-success\n                                mt-3\n                                mb-3\n                                mt-lg-0\n                                float-end\n                            ",
-                            attrs: { type: "button" },
-                            on: { click: _vm.AddformData },
-                          },
-                          [
-                            _vm._v(
-                              "\n                            Agregar Bono\n                        "
-                            ),
-                          ]
-                        ),
+                              "form-control-plaintext form-control-sm",
+                            attrs: {
+                              id: "tipo_contrato",
+                              type: "text",
+                              readonly: "",
+                            },
+                            domProps: { value: _vm.form.tipo_contrato },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "tipo_contrato",
+                                  $event.target.value
+                                )
+                              },
+                            },
+                          }),
+                        ]),
                       ]),
                     ]),
                     _vm._v(" "),
@@ -84122,10 +84241,10 @@ var render = function () {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "col-md-2" }, [
                         _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "total_imponible" } }, [
-                            _vm._v("Total Imponible"),
+                          _c("label", { attrs: { for: "anticipo" } }, [
+                            _vm._v("Anticipo"),
                           ]),
                           _vm._v(" "),
                           _c("input", {
@@ -84133,18 +84252,17 @@ var render = function () {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.total_imponible,
-                                expression: "form.total_imponible",
+                                value: _vm.form.anticipo,
+                                expression: "form.anticipo",
                               },
                             ],
                             staticClass: "form-control form-control-sm",
                             class: {
                               "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.total_imponible.$error,
+                                _vm.submitted && _vm.$v.form.anticipo.$error,
                             },
-                            attrs: { id: "total_imponible", type: "number" },
-                            domProps: { value: _vm.form.total_imponible },
+                            attrs: { id: "anticipo", type: "number" },
+                            domProps: { value: _vm.form.anticipo },
                             on: {
                               input: function ($event) {
                                 if ($event.target.composing) {
@@ -84152,75 +84270,24 @@ var render = function () {
                                 }
                                 _vm.$set(
                                   _vm.form,
-                                  "total_imponible",
+                                  "anticipo",
                                   $event.target.value
                                 )
                               },
                             },
                           }),
                           _vm._v(" "),
-                          _vm.submitted && _vm.$v.form.total_imponible.$error
+                          _vm.submitted && _vm.$v.form.anticipo.$error
                             ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.total_imponible.required
-                                  ? _c("span", [
-                                      _vm._v("Total Imponible requerido."),
-                                    ])
+                                !_vm.$v.form.anticipo.required
+                                  ? _c("span", [_vm._v("Anticipo requerido.")])
                                   : _vm._e(),
                               ])
                             : _vm._e(),
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c("div", { staticClass: "mb-3" }, [
-                          _c("label", { attrs: { for: "total_haberes" } }, [
-                            _vm._v("Total haberes"),
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.total_haberes,
-                                expression: "form.total_haberes",
-                              },
-                            ],
-                            staticClass: "form-control form-control-sm",
-                            class: {
-                              "is-invalid":
-                                _vm.submitted &&
-                                _vm.$v.form.total_haberes.$error,
-                            },
-                            attrs: { id: "total_haberes", type: "number" },
-                            domProps: { value: _vm.form.total_haberes },
-                            on: {
-                              input: function ($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.form,
-                                  "total_haberes",
-                                  $event.target.value
-                                )
-                              },
-                            },
-                          }),
-                          _vm._v(" "),
-                          _vm.submitted && _vm.$v.form.total_haberes.$error
-                            ? _c("div", { staticClass: "invalid-feedback" }, [
-                                !_vm.$v.form.total_haberes.required
-                                  ? _c("span", [
-                                      _vm._v("Total haberes requerido."),
-                                    ])
-                                  : _vm._e(),
-                              ])
-                            : _vm._e(),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
+                      _c("div", { staticClass: "col-md-2" }, [
                         _c("div", { staticClass: "mb-3" }, [
                           _c("label", { attrs: { for: "sueldo_liquido" } }, [
                             _vm._v("Sueldo Liquido"),

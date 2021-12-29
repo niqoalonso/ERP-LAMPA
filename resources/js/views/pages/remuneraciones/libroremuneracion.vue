@@ -59,6 +59,10 @@
                                 @filtered="onFiltered"
                                 foot-clone
                             >
+                            <template v-slot:cell(sis)="data">
+
+                                {{data.item.trabajador.afp.sis}}
+                            </template>
                                 <template #foot()>
                                     <span></span>
                                 </template>
@@ -129,7 +133,7 @@
                                         sueldo_liquido | toCurrency
                                     }}</span>
                                 </template>
-                                <template v-slot:foot(Sis)>
+                                <template #foot(SIS)>
                                     <span></span>
                                 </template>
                             </b-table>

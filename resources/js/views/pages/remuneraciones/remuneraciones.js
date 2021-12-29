@@ -747,6 +747,32 @@ export default {
             };
         },
 
+        calculohoraextra(){
+
+            if (this.form.cantidad_horas_extras > 0) {
+                var factor = (parseInt(this.form.sueldo_base) / 30) * 7;
+
+                var porcentajehoras =
+                    this.form.porcentaje_hora_extra / 100 + 1;
+
+                console.log(porcentajehoras);
+
+                var valorhora =
+                    (factor / this.form.horas_semanales) * porcentajehoras;
+
+                console.log(valorhora);
+
+                var montohoraextra = Math.round(
+                    valorhora * this.form.cantidad_horas_extras
+                );
+
+                console.log(montohoraextra);
+
+                this.form.horas_extras_monto = montohoraextra;
+            }
+
+        },
+
         impuestounico() {
             // monto impuesto unico
 
@@ -765,6 +791,11 @@ export default {
                     parseInt(this.form.monto) +
                     parseInt(montobono) +
                     parseInt(this.form.gratificacion);
+
+                // descontar AFP - AFC - Salud
+
+                totalimponible = Math.round(totalimponible - this.form.afp_monto - this.form.salud_monto - this.form.afc_monto);
+
                 var factor = 0;
                 var rebaja = 0;
 
