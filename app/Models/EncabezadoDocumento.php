@@ -11,7 +11,7 @@ class EncabezadoDocumento extends Model
 
     protected $primaryKey = "id_encabezado";
 
-    protected $fillable = ['num_encabezado', 'proveedor_id', 'unidadnegocio_id', 'ciclo'];
+    protected $fillable = ['num_encabezado', 'proveedor_id', 'unidadnegocio_id', 'ciclo', 'cuenta_origen_id', 'cuenta_destino_id'];
 
     public function Proveedor()
     {
@@ -26,5 +26,15 @@ class EncabezadoDocumento extends Model
     public function infoDocumento()
     {
         return $this->hasMany(InfoDocumento::class, 'encabezado_id', 'id_encabezado')->orderBy('created_at', 'ASC');
+    }
+
+    public function CuentaOrigen()
+    {
+        return $this->belongsTo(MiManualCuenta::class, 'cuenta_origen_id');
+    }
+
+    public function CuentaDestino()
+    {
+        return $this->belongsTo(MiManualCuenta::class, 'cuenta_destino_id');
     }
 }

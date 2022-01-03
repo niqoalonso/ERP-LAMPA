@@ -155,6 +155,22 @@ export const menuItems = [
   },
 
   {
+    id: 10,
+    label: "Existencias",
+    icon: "fa fa-list ",
+    permiso: Vue.prototype.$CrearEmpresa,
+    subItems: [
+      {
+        id: 10.1,
+        label: "Tarjetas",
+        link: "/existencias",
+        parentId:10,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
+    ]
+  },
+
+  {
     id: 5,
     label: "Solicitudes",
     icon: "fas fa-store-alt",

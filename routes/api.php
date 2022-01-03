@@ -28,6 +28,7 @@ use App\Http\Controllers\DetalleComprobanteController;
 use App\Http\Controllers\ImpuestoUtmController;
 use App\Http\Controllers\MontoAsignacionFamiliarController;
 use App\Http\Controllers\TesoreriaController;
+use App\Http\Controllers\ExistenciaController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -56,6 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('getDocumentoAprobar/{empresa}', [CompraController::class, 'getDocumentoAprobar']);
     Route::get('aprobarDocumento/{id}', [CompraController::class, 'aprobarDocumento']);
     Route::get('getDocumentoEmitir/{empresa}', [CompraController::class, 'getDocumentoEmitir']);
+    Route::get('MueveExistenciaComprobar/{id}', [CompraController::class, 'MueveExistenciaComprobar']);
     Route::get('emitirDocumento/{id}', [CompraController::class, 'emitirDocumento']);
     Route::get('getDocumentoEmitido/{empresa}', [CompraController::class, 'getDocumentosEmitidos']);
     Route::post('encabezadoSave', [EncabezadoDocumentoController::class, 'storeEncabezado']);
@@ -64,6 +66,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('generarDocumentoPosterior', [CompraController::class, 'generarDocumentoPosterior']);
     Route::get('/VerificarDocumentoRelacionadoExistente/{idDocumento}/{TipoDocumento}', [CompraController::class, 'VerificarDocumentoRelacionadoExistente']);
     Route::post('updateFechaEmision', [CompraController::class, 'updateFechaEmision']);
+
+    //ExistenciaEmitir
+    Route::get('getDetalleExistencia/{documento}/{empresa}', [ExistenciaController::class, 'getDetalleExistencia']);
+    Route::post('emitirDocumentoWithExistencia', [ExistenciaController::class, 'emitirDocumentoWithExistencia']);
 
 
     //DetalleDocumento
@@ -217,6 +223,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Tesoreria
     Route::get('getTesoreriaComprasIncial/{empresa}', [TesoreriaController::class, 'getInicialCompras']);
+    Route::post('aprobarPago', [TesoreriaController::class, 'aprobarPago']);
 
     //Impuesto UTM
     Route::get('obtenerimpuestoutm',[ImpuestoUtmController::class,'show']);
@@ -229,6 +236,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Logout
     Route::post('/logout',[AuthController::class,'logout']);
+
+    //Existencias
+    Route::get('getProductoExistencia/{empresa}', [ExistenciaController::class, 'getInicial']);
+    Route::get('getInicialTarjetas/{sku}', [ExistenciaController::class, 'getTarjetasProducto']);
 
 
 });

@@ -20,7 +20,7 @@
                     <i class="fas fa-home"></i>
                   </span>
                   <span class="d-none d-sm-inline-block">Encabezado</span>
-                </template>
+                </template> 
                 <form @submit.prevent="formSubmitEncabezado">
                     <div class="row">
                         <div class="mb-3 col-2">

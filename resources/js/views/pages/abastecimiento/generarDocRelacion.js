@@ -179,7 +179,7 @@ methods: {
           m_iva: this.m_iva,
           retenciones: this.retenciones,
           total: this.total, 
-          informacion: this.form,
+          informacion: this.form, 
           tipoDocumento: this.$route.params.tipo,
           
         },

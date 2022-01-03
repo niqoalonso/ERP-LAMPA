@@ -26,6 +26,10 @@ class CreateDocumentoTributariosTable extends Migration
             $table->boolean('mueve_existencia');
             $table->boolean('iva_honorario');
             $table->boolean('incrementa_disminuye');
+            $table->boolean('anulacion');
+            $table->boolean('doc_anulacion');
+            $table->unsignedBigInteger('documento_id')->nullable();
+            $table->foreign('documento_id')->references('id_documento')->on('documento_tributarios');
             $table->timestamps();
         });
 

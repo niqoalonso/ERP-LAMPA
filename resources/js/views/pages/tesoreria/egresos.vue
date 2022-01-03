@@ -63,7 +63,7 @@
                     <li class="list-inline-item">
                       <a
                         href="javascript:void(0);"
-                        class="px-0 text-success"
+                        class="px-0 text-success" 
                         v-on:click="aprobarDocumento(data.item)"
                         v-b-modal.aprobarpago
                         data-toggle="modal"
@@ -119,7 +119,7 @@
     <!-- MODAL DE PAGO -->
 
     <b-modal id="aprobarpago" size="lg" :title="titlemodal" title-class="font-18" hide-footer v-if="modalAprobacion">
-            <form class="needs-validation" @submit.prevent="formSubmitPago">
+            <form class="needs-validation" @submit.prevent="formSubmitAprobarPago">
                 <div class="row">
                     <div class="col-md-2">
                         <div class="mb-3">
@@ -167,7 +167,7 @@
                               v-model="formAprobacion.origen"
                               placeholder="Seleccionar"
                               :options="optionsOrigen"
-                              track-by="manual_cuenta.id_manual_cuenta"
+                              track-by="id_plan_cuenta"
                               label="nombre"
                           ></multiselect>
                         </div>
@@ -179,7 +179,7 @@
                             v-model="formAprobacion.destino"
                             placeholder="Seleccionar"
                             :options="optionsDestino"
-                            track-by="manual_cuenta.id_manual_cuenta"
+                            track-by="id_plan_cuenta"
                             label = "nombre"
                         ></multiselect>
                         </div>

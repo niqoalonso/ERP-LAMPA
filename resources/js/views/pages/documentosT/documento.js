@@ -16,10 +16,13 @@ export default {
         typeform: "create",
         buttonForm: true,
         optionsAntecesor: [],
+        TipoDocumentoTributarios: [],
         optionsSucesor: [],
         seletAntecesor: false,
         seletSucesor: false,
         inputExistencia: true,
+        selectDocumentoTriburario: false,
+        selectDocumentoAnulacion: false,
         form : {
             tipo: "",
             descripcion: "",
@@ -35,6 +38,9 @@ export default {
             incrementa_disminuye: "0",
             requiere_antecesor: "0",
             requiere_sucesor: "0",
+            anulacion: "0",
+            doc_anulacion: "0",
+            doc_paraanular: "",
         },
         
         tableData: [],
@@ -165,8 +171,9 @@ export default {
             this.axios
                   .get(`/api/getInicialDocumento`)
                   .then((res) => {
-                   
-                     this.Tipocomprobantes = res.data;
+                    
+                      this.TipoDocumentoTributarios = res.data.docTributarios;
+                      this.Tipocomprobantes = res.data.comprobantes;
                   })
                   .catch((error) => {
                     console.log("error", error);
@@ -355,6 +362,29 @@ export default {
             this.form.existencia = 0;
           }
         },
+
+        requireDocumentoAnulacion()
+        { 
+          if(this.form.doc_anulacion == 1){
+            this.selectDocumentoTriburario = true;
+          }else{
+            this.selectDocumentoTriburario = false;
+          }
+        },
+
+        DocumentoAnulacion()
+        { 
+          if(this.form.anulacion == 2 || this.form.anulacion == 0){
+            this.selectDocumentoAnulacion = false;
+            this.selectDocumentoTriburario = false;
+          }else{
+            this.selectDocumentoAnulacion = true;
+            this.form.doc_anulacion = 0;
+            this.form.doc_paraanular= 0;
+            this.selectDocumentoTriburario = false;
+          }
+        }
+
 
     },
     

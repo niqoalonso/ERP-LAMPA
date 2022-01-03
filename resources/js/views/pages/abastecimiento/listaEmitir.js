@@ -115,42 +115,55 @@ export default {
         
         emitirDocumento(documento)
         {   
-            Swal.fire({
-                title: 'Emitir Documento',
-                text: "¿Esta seguro que quiere emitir este documento?, luego no podra modificarlo.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#0b892c',
-                cancelButtonColor: '#d33',
-                cancelButtonText: "Cancelar",
-                confirmButtonText: 'Si, Emitir!',
-              }).then((result) => { 
-                if (result.isConfirmed) {
-                    this.axios
-                    .get(`/api/emitirDocumento/`+documento)
-                    .then((res) => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Emisión de Documento',
-                            text: res.data,
-                            timer: 1500,
-                            showConfirmButton: false
-                          });
-                        this.getInicial();
-                    })
-                    .catch((error) => {
-                      console.log("error", error);
-                      const title = "Documento Tributario";
-                      const message = "haasa";
-                      const type = "error";
-        
-                      this.modal = false;
-                      this.$v.form.$reset();
-        
-                      this.successmsg(title, message, type);
-                    });
-                }
-            });
+          this.axios
+          .get(`/api/MueveExistenciaComprobar/`+documento)
+          .then((res) => {
+              if(res.data == 1){
+                this.$router.push('../emitirDocumentoExistencia/'+documento)
+              }else{
+
+                Swal.fire({
+                  title: 'Emitir Documento',
+                  text: "¿Esta seguro que quiere emitir este documento?, luego no podra modificarlo.",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#0b892c',
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: "Cancelar",
+                  confirmButtonText: 'Si, Emitir!',
+                }).then((result) => { 
+                  if (result.isConfirmed) {
+                      this.axios
+                      .get(`/api/emitirDocumento/`+documento)
+                      .then((res) => {
+                          Swal.fire({
+                              icon: 'success',
+                              title: 'Emisión de Documento',
+                              text: res.data,
+                              timer: 1500,
+                              showConfirmButton: false
+                            });
+                          this.getInicial();
+                      })
+                      .catch((error) => {
+                        console.log("error", error);
+                        const title = "Documento Tributario";
+                        const message = "haasa";
+                        const type = "error";
+          
+                        this.modal = false;
+                        this.$v.form.$reset();
+          
+                        this.successmsg(title, message, type);
+                      });
+                  }
+                });
+
+              }
+          })
+          .catch((error) => {
+            console.log("error", error);
+          });
         },
     
         formSubmit() {

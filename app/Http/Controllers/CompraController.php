@@ -125,10 +125,17 @@ class CompraController extends Controller
         return $datos;
     }
 
+    public function MueveExistenciaComprobar($id)
+    {
+        $info = InfoDocumento::where('n_interno', $id)->first();
+        return $info->DocumentoTributario->mueve_existencia;
+    }
+
     public function emitirDocumento($id)
     {   
-        InfoDocumento::updateOrCreate(['id_info' => $id],['estado_id' => 14]);
+        InfoDocumento::updateOrCreate(['n_interno' => $id],['estado_id' => 14]);
         return "Documento emitido exitosamente.";
+        
     }
 
     public function getDocumentosEmitidos($empresa)
@@ -165,7 +172,7 @@ class CompraController extends Controller
         $docTributario = DocumentoTributario::where('tipo', $request->tipoDocumento)->first();
         
         //Verificamos que el documento no haya sido emitido antes, ya que no puede haber dos factura o dos guias para una orden de compra.
-        if(count(DocumentoRelacionado::where([['documentotributario_id', $docTributario->id_documento]])->get()) > 0){
+        if(count(DocumentoRelacionado::where([['documentotributario_id', $docTributario->id_documento],['encabezado_id', $request->encabezado_id]])->get()) > 0){
             return ['estado' => 2, 'mensaje' =>  "Documento tributario ya ha sido emitido anteriormente."];
         }
         

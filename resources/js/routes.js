@@ -269,6 +269,15 @@ const routes = [
       meta: { requiresAuth: true },
     },
     {
+      path: "/emitirDocumentoExistencia/:documento",
+      name: "emitir documento existencia",
+      component: () =>
+        import(
+          /* webpackChunkName: "home" */ "./views/pages/abastecimiento/existencia.vue"
+        ),
+      meta: { requiresAuth: true },
+    },
+    {
       path: "/verDocumentoCompra",
       name: "ver docompra",
       component: () =>
@@ -278,6 +287,25 @@ const routes = [
       meta: { requiresAuth: true },
     },
     {
+      path: "/existencias",
+      name: "existencias",
+      component: () =>
+        import(
+          /* webpackChunkName: "home" */ "./views/pages/existencia/existencia.vue"
+        ),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/existencias/:sku",
+      name: "ver tarjetas",
+      component: () =>
+        import(
+          /* webpackChunkName: "home" */ "./views/pages/existencia/verTarjeta.vue"
+        ),
+      meta: { requiresAuth: true },
+    },
+    {
+      
       path: "/indicadores-previsionales",
       name: "indicadores previsionales",
       component: () =>
@@ -496,6 +524,12 @@ router.beforeEach((to, from, next) => {
           } else {
             return false;
           }
+          case "emitir documento existencia":
+          if (rol == "Estudiante") {
+            return true;
+          } else {
+            return false;
+          }
           case "ver docompra":
           if (rol == "Estudiante") {
             return true;
@@ -515,6 +549,18 @@ router.beforeEach((to, from, next) => {
             return false;
           }
           case "tesoreriacompras":
+          if (rol == "Estudiante") {
+            return true;
+          } else {
+            return false;
+          }
+          case "existencias":
+          if (rol == "Estudiante") {
+            return true;
+          } else {
+            return false;
+          }
+          case "ver tarjetas":
           if (rol == "Estudiante") {
             return true;
           } else {

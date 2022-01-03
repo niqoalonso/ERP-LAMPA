@@ -11,7 +11,8 @@ class DocumentoTributario extends Model
 
     protected $primaryKey = "id_documento";
 
-    protected $fillable = ['tipo', 'descripcion', 'cod_sii', 'debe_haber', 'tipocomprobante_id', 'f_vencimiento', 'ciclo', 'libro', 'pago', 'mueve_existencia','iva_honorario', 'afecto_iva', 'documento_id', 'requiere_antecesor','requiere_sucesor', 'incrementa_disminuye'];
+    protected $fillable = ['tipo', 'descripcion', 'cod_sii', 'debe_haber', 'tipocomprobante_id', 'f_vencimiento', 'ciclo', 'libro', 'pago', 'mueve_existencia','iva_honorario', 'afecto_iva', 'documento_id', 'requiere_antecesor','requiere_sucesor', 'incrementa_disminuye',
+                            'anulacion', 'doc_anulacion', 'doc_paraanular'];
 
     
 
@@ -33,5 +34,10 @@ class DocumentoTributario extends Model
     public function InfoDocumento()
     {
         return $this->hasMany(InfoDocumento::class, 'documento_id', 'id_documento');
+    }
+
+    public function DocAnular()
+    {
+        return $this->belongsTo(DocumentoTributario::class, 'documento_id', 'id_documento');
     }
 }

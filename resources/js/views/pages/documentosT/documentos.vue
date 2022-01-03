@@ -256,6 +256,40 @@
                     </div>
                 </div>
 
+                <div class="col-md-3">
+                    <div class="mb-3">
+                        <label for="pago">Anulacion</label>
+                        <select class="form-control form-control-sm" v-model="form.anulacion" v-on:change="DocumentoAnulacion()">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">SI <small>(Anular)</small></option>
+                            <option value="2">NO <small>(Eliminar)</small></option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-md-3" v-if="selectDocumentoAnulacion">
+                    <div class="mb-3">
+                        <label for="pago">Documento Anulación</label>
+                        <select class="form-control form-control-sm" v-model="form.doc_anulacion" v-on:change="requireDocumentoAnulacion()">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">SI requiere</option>
+                            <option value="2">NO requiere</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4" v-if="selectDocumentoTriburario">
+                    <div class="mb-3">
+                        <label for="nivel">Documento para anular</label>
+                        <multiselect
+                            v-model="form.doc_paraanular"
+                            placeholder="Seleccionar"
+                            :options="TipoDocumentoTributarios"
+                            track-by="id_documento"
+                            label="descripcion"
+                        ></multiselect>
+                    </div>
+                </div>
+
             </div>
             <!-- <div class="row">
 

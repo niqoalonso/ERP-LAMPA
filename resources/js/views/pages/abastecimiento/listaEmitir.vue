@@ -59,7 +59,7 @@
                         class="px-2 text-success"
                         v-b-tooltip.hover
                         title="Emitir Documento"
-                        v-on:click="emitirDocumento(data.item.id_info)"
+                        v-on:click="emitirDocumento(data.item.n_interno)"
                       >
                         <i class="uil uil-export font-size-18"></i>
                       </a>

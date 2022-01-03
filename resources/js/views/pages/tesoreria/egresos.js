@@ -20,6 +20,8 @@ export default {
           f_emision: "",
           origen: "",
           destino: "",
+          empresa: "",
+          id_documento: "",
         },
 
         //TABLA DE DOCUMENTOS TRIBUTARIOS
@@ -46,6 +48,11 @@ export default {
           {
             label: "N° Compra",
             key: "encabezado",
+            sortable: true,
+          },
+          {
+            label: "N° Documento",
+            key: "n_documento",
             sortable: true,
           },
            {
@@ -75,7 +82,6 @@ export default {
           },
           "acción"
         ],
-
       };
     },
     
@@ -107,10 +113,11 @@ export default {
                             
                 return p;
               });
-              console.log(res.data.cuentas);
-            this.optionsOrigen = res.data.cuentas;
-            this.optionsDestino = res.data.cuentas;
-          
+              
+              this.optionsOrigen = res.data.cuentas;
+              this.optionsDestino = res.data.cuentas;
+
+              console.log(res.data.doc);
                 this.tableData = res.data.doc;
                 res.data.doc.map((p) => {
                     p['descripcion']    = p.documento_tributario.descripcion;
@@ -133,44 +140,42 @@ export default {
             });
         },
 
-        getInicial()
-        {
-            this.axios
-                .get(`api/getDocumentoModificar/`+this.infoEmpresa.id_empresa)
-                .then((res) => {
-                    this.tableData = res.data;
-                        res.data.map((p) => {
-                            p['descripcion']    = p.documento_tributario.descripcion;
-                            if(p.total_documento != null){p['total'] = '$'+p.total_documento;}else{ p['total'] = '$ -';}
-                            p['proveedorName'] = p.encabezado.proveedor.razon_social;
-                            if(p.estado_id == 12){ p["estado"]  = "INGRESADO";}else if(p.estado_id == 13){ p["estado"]  = "APROBADO";}else{ p['estado'] = '-'}
-                            return p;
-                        });
-                })
-                .catch((error) => {
-                console.log("error", error);
-                const title = "Crear subnivel";
-                const message = "Error al crear el subnivel";
-                const type = "error";
-    
-                this.modal = false;
-                this.$v.form.$reset();
-    
-                this.successmsg(title, message, type);
-                });
-        },
-
         aprobarDocumento(data)
         { 
-            console.log(data);
             this.modalAprobacion = true;
             
+            this.formAprobacion.empresa = this.infoEmpresa.id_empresa;
             this.formAprobacion.n_encabezado = data.encabezado;
+            this.formAprobacion.id_documento = data.id_info;
             this.formAprobacion.proveedor = data.proveedorName;
             this.formAprobacion.f_emision = data.fecha_emision;
             
-        }
+        },
 
+        formSubmitAprobarPago()
+        {
+          Swal.fire({
+            title: 'Aprobar Pago',
+            text: "¿Esta seguro que que desea aprobar pago?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0b892c',
+            cancelButtonColor: '#d33',
+            cancelButtonText: "Cancelar",
+            confirmButtonText: 'Si, Aprobar!',
+          }).then((result) => { 
+            if (result.isConfirmed) {
+              this.axios
+                .post(`api/aprobarPago`, this.formAprobacion)
+                .then((res) => {
+                  console.log(res);       
+                })
+                .catch((error) => {
+                  console.log("error", error);
+                });
+            }
+          });
+        }
 
     },
     

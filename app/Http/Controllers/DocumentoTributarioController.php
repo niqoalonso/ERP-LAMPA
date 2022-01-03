@@ -14,7 +14,9 @@ class DocumentoTributarioController extends Controller
     public function getInicial()
     {
         $comprobantes = TipoComprobante::all();
-        return $comprobantes;
+        $doc = DocumentoTributario::all();
+
+        return ['comprobantes' => $comprobantes, 'docTributarios' => $doc];
     }
 
     public function getDocumento($tipo)
@@ -43,7 +45,8 @@ class DocumentoTributarioController extends Controller
         $doc = DocumentoTributario::create(['tipo' => $request->tipo, 'descripcion' => $request->descripcion, 'requiere_antecesor' => $request->requiere_antecesor, 'mueve_existencia' => $request->existencia,
                                             'requiere_sucesor' => $request->requiere_sucesor, 'debe_haber' => $request->debe_haber, 'cod_sii' => $request->codigo,
                                             'f_vencimiento' => $request->vencimiento, 'ciclo' => $request->ciclo, 'tipocomprobante_id' => $request->comprobante['id_tipocomprobante'], 
-                                            'pago' => $request->pago, 'libro' => $request->libro, 'iva_honorario' => $request->impuesto, 'incrementa_disminuye' => $request->incrementa_disminuye]);
+                                            'pago' => $request->pago, 'libro' => $request->libro, 'iva_honorario' => $request->impuesto, 'incrementa_disminuye' => $request->incrementa_disminuye,
+                                            'anulacion' => $request->anulacion, 'doc_anulacion' => ($request->anulacion == 2) ? 0 : $request->doc_anulacion, 'doc_paraanular' => ($request->doc_anulacion == 2) ? 0 : $request->doc_paraanular['id_documento']]);
             
         return  $this->successResponse('Documento tributario añadida exitosamente', false);
     }
