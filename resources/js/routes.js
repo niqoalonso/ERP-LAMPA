@@ -305,7 +305,7 @@ const routes = [
       meta: { requiresAuth: true },
     },
     {
-      
+
       path: "/indicadores-previsionales",
       name: "indicadores previsionales",
       component: () =>
@@ -356,6 +356,24 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "home" */ "./views/pages/remuneraciones/libroremuneracion.vue"
+          ),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "/anticipos",
+        name: "anticipos",
+        component: () =>
+          import(
+            /* webpackChunkName: "home" */ "./views/pages/remuneraciones/anticipos.vue"
+          ),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "/libro-diario",
+        name: "libro diario",
+        component: () =>
+          import(
+            /* webpackChunkName: "home" */ "./views/pages/libros/libro-diario.vue"
           ),
         meta: { requiresAuth: true },
       },
@@ -702,6 +720,20 @@ router.beforeEach((to, from, next) => {
         }
 
         case "libro remuneraciones":
+        if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
+          return true;
+        } else {
+          return false;
+        }
+
+        case "anticipos":
+        if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
+          return true;
+        } else {
+          return false;
+        }
+
+        case "libro diario":
         if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
           return true;
         } else {

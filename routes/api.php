@@ -18,6 +18,7 @@ use App\Http\Controllers\PlanCuentaController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\SubNivelController;
 use App\Http\Controllers\AfpController;
+use App\Http\Controllers\AnticipoController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ProductoProveedorController;
 use App\Http\Controllers\RemuneracionesController;
@@ -187,10 +188,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('actualizarProducto/{producto}', [ProductoProveedorController::class, 'update']);
 
     //Remuneraciones
-    Route::get('obtenerremuneracion',[RemuneracionesController::class,'show']);
+    Route::get('obtenerremuneracion/{id}',[RemuneracionesController::class,'show']);
+    Route::get('obtenerremuneracion/nopagadas/{id}',[RemuneracionesController::class,'shownopagadas']);
     Route::post('crearremuneracion',[RemuneracionesController::class,'store']);
-    Route::get('obtenerremuneracionmes',[RemuneracionesController::class,'remuneracionmes']);
-    Route::get('obtenerremuneracion/{date}',[RemuneracionesController::class,'busquedaremuneracion']);
+    Route::get('obtenerremuneracionmes/{id}',[RemuneracionesController::class,'remuneracionmes']);
+    Route::get('obtenerremuneracion/{date}/{id}',[RemuneracionesController::class,'busquedaremuneracion']);
+    Route::get('pagarremuneraciones/{id}',[RemuneracionesController::class,'pagarremuneraciones']);
+
 
     //TipoDocumento
     Route::get('getInicialDocumento',[DocumentoTributarioController::class,'getInicial']);
@@ -204,7 +208,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('storeRelacionSucesor', [DocumentoTributarioController::class, 'storeSucesor']);
 
     //Trabajadores
-    Route::get('obtenertrabajador',[TrabajadorController::class,'show']);
+    Route::get('obtenertrabajador/{id}',[TrabajadorController::class,'show']);
     Route::get('validarrut/{rut}',[TrabajadorController::class,'validarrut']);
     Route::post('creartrabajador',[TrabajadorController::class,'store']);
     Route::post('crearcarga',[TrabajadorController::class,'storeCarga']);
@@ -241,6 +245,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('getProductoExistencia/{empresa}', [ExistenciaController::class, 'getInicial']);
     Route::get('getInicialTarjetas/{sku}', [ExistenciaController::class, 'getTarjetasProducto']);
 
+    // anticipo
 
+    Route::post('crearanticipo',[AnticipoController::class,'store']);
+    Route::get('obteneranticipo/{id}',[AnticipoController::class,'show']);
+    Route::delete('eliminaranticipo/{anticipo}', [AnticipoController::class, 'destroy']);
+    Route::get('pagaranticipo/{id}',[AnticipoController::class,'pagaranticipo']);
+    
 });
 

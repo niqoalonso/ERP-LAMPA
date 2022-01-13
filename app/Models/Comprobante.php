@@ -31,4 +31,9 @@ class Comprobante extends Model
     {
         return $this->belongsTo(UnidadNegocio::class,'unidadnegocio_id', 'id_unidadnegocio');
     }
+
+    public function Detalles()
+    {
+        return $this->hasMany(DetalleComprobante::class,'comprobante_id', 'id_comprobante');
+    }
 }

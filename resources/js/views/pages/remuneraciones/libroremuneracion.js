@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import Multiselect from "vue-multiselect";
 import DatePicker from "vue2-datepicker";
 import moment from "moment";
+import Vue from 'vue';
 
 export default {
     components: { Layout, Multiselect, DatePicker },
@@ -25,6 +26,7 @@ export default {
             alcance_liquido: 0,
             tableData: [],
             mesbusqueda: "",
+            id_empresa: JSON.parse(Vue.prototype.$globalEmpresasSelected),
             title: "Remuneraciones",
             items: [
                 {
@@ -316,7 +318,7 @@ export default {
             this.tableData = response.data;
         },
         traerRemuneracion() {
-            this.axios.get(`/api/obtenerremuneracionmes/`).then((response) => {
+            this.axios.get(`/api/obtenerremuneracionmes/${this.id_empresa.id_empresa}`).then((response) => {
                 console.log(response);
 
                 this.llenartabla(response);
@@ -327,7 +329,7 @@ export default {
                 var mes = moment(this.mesbusqueda).format("YYYY-MM");
 
                 this.axios
-                    .get(`/api/obtenerremuneracion/${mes}`)
+                    .get(`/api/obtenerremuneracion/${mes}/${this.id_empresa.id_empresa}`)
                     .then((response) => {
                         console.log(response);
 

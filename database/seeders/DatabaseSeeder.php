@@ -9,6 +9,7 @@ use App\Models\SubNivel;
 use App\Models\Docente;
 use App\Models\Estudiante;
 use App\Models\Empresa;
+use App\Models\PlanCuenta;
 use App\Models\SolicitudEmpresa;
 use App\Models\UnidadNegocio;
 use Spatie\Permission\Models\Role;
@@ -100,11 +101,21 @@ class DatabaseSeeder extends Seeder
 
         ]);
 
+
+
         UnidadNegocio::create([
             'codigo'        =>  100,
             'nombre'        =>  "Casa Matriz",
             'empresa_id'    =>  $empresa->id_empresa,
         ]);
+
+        $plancuenta = [13,14,15,16,17,18,19,1,2];
+
+        for ($i=0; $i < count($plancuenta) ; $i++) {
+            PlanCuenta::create([
+                'empresa_id' => $empresa->id_empresa,
+                'manualcuenta_id' => $plancuenta[$i]]);
+        }
 
     }
 }

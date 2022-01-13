@@ -36,7 +36,7 @@ class Remuneraciones extends Model
         'asignacion_familiar',
         'fecha',
         'trabajador_id',
-        'estudiante_id'
+        'empresa_id'
     ];
 
     public function trabajador(){

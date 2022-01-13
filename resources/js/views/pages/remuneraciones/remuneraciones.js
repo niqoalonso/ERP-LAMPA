@@ -2,6 +2,7 @@ import Layout from "../../layouts/main";
 import Swal from "sweetalert2";
 import Multiselect from "vue-multiselect";
 import { required } from "vuelidate/lib/validators";
+import Vue from 'vue';
 
 export default {
     components: { Layout, Multiselect },
@@ -48,7 +49,8 @@ export default {
                 tipo_contrato: "",
                 sueldo_minimo: 0,
                 porcentajegratificacion: '',
-                total_descuentos: 0
+                total_descuentos: 0,
+                id_empresa: JSON.parse(Vue.prototype.$globalEmpresasSelected),
             },
             impuestosutm: [],
             bonostemp: [],
@@ -62,6 +64,7 @@ export default {
             btnCreate: true,
             options: [],
             montosasignacionfamiliar: [],
+            id_empresa: JSON.parse(Vue.prototype.$globalEmpresasSelected),
             // tabla
 
             tableData: [],
@@ -228,7 +231,7 @@ export default {
             return `${nombres} ${apellidos}`;
         },
         traerTrabajador() {
-            this.axios.get(`/api/obtenertrabajador/`).then((response) => {
+            this.axios.get(`/api/obtenertrabajador/${this.id_empresa.id_empresa}`).then((response) => {
                 console.log(response);
                 this.options = response.data;
             });
@@ -247,7 +250,7 @@ export default {
                 });
         },
         traerRemuneracion() {
-            this.axios.get(`/api/obtenerremuneracion/`).then((response) => {
+            this.axios.get(`/api/obtenerremuneracion/${this.id_empresa.id_empresa}`).then((response) => {
                 console.log(response);
                 this.tableData = response.data;
             });
@@ -342,6 +345,8 @@ export default {
                         this.successmsgerror("Total asignación familiar");
                         return;
                     }
+                }else{
+                    var totalasignacion = 0;
                 }
 
                 // verificar porcentaje AFP
@@ -505,6 +510,10 @@ export default {
                         this.successmsgerror("afc");
                         return;
                     }
+                }else{
+
+                    var descuentoafc = 0;
+
                 }
 
                 // total haberes
@@ -550,6 +559,8 @@ export default {
 
                 this.form.bonos = this.bonostemp;
                 this.form.total_descuentos = descuentos;
+
+                this.form.id_empresa = this.form.id_empresa.id_empresa;
 
                 this.axios
                     .post(`/api/crearremuneracion`, this.form)
@@ -744,6 +755,7 @@ export default {
                 ],
                 sueldo_liquido: "",
                 id_remuneracion: "",
+                id_empresa: JSON.parse(Vue.prototype.$globalEmpresasSelected),
             };
         },
 

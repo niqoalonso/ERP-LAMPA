@@ -984,9 +984,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var simplebar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simplebar-vue */ "./node_modules/simplebar-vue/dist/simplebar-vue.esm.js");
 /* harmony import */ var _horizontal_menu_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./horizontal-menu.js */ "./resources/js/compontents/horizontal-menu.js");
 /* harmony import */ var _state_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../state/helpers */ "./resources/js/state/helpers.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1283,9 +1283,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _state_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../state/helpers */ "./resources/js/state/helpers.js");
 /* harmony import */ var simplebar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! simplebar-vue */ "./node_modules/simplebar-vue/dist/simplebar-vue.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1729,9 +1729,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _compontents_right_sidebar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../compontents/right-sidebar.vue */ "./resources/js/compontents/right-sidebar.vue");
 /* harmony import */ var _compontents_footer_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../compontents/footer.vue */ "./resources/js/compontents/footer.vue");
 /* harmony import */ var _state_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../state/helpers */ "./resources/js/state/helpers.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1799,9 +1799,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _state_helpers_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../state/helpers.js */ "./resources/js/state/helpers.js");
 /* harmony import */ var _vertical__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vertical */ "./resources/js/views/layouts/vertical.vue");
 /* harmony import */ var _horizontal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./horizontal */ "./resources/js/views/layouts/horizontal.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1846,9 +1846,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _compontents_side_bar_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../compontents/side-bar.vue */ "./resources/js/compontents/side-bar.vue");
 /* harmony import */ var _compontents_right_sidebar_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../compontents/right-sidebar.vue */ "./resources/js/compontents/right-sidebar.vue");
 /* harmony import */ var _compontents_footer_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../compontents/footer.vue */ "./resources/js/compontents/footer.vue");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2578,6 +2578,12 @@ var menuItems = [{
     link: "/libro-remuneraciones",
     parentId: 8,
     permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
+  }, {
+    id: 8.4,
+    label: "Anticipos",
+    link: "/anticipos",
+    parentId: 8,
+    permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
   }]
 }, {
   id: 10,
@@ -2679,6 +2685,18 @@ var menuItems = [{
     label: "Comprobantes",
     link: "/asiento-inicial",
     parentId: 6,
+    permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
+  }]
+}, {
+  id: 11,
+  label: "Libros",
+  icon: "fas fa-network-wired",
+  permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa,
+  subItems: [{
+    id: 11.1,
+    label: "Libros Diario",
+    link: "/libro-diario",
+    parentId: 11,
     permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
   }]
 }];
@@ -8292,6 +8310,88 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _layouts_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../layouts/main */ "./resources/js/views/layouts/main.vue");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Layout: _layouts_main__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Multiselect: (vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default()),
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_5__["default"].prototype.$globalEmpresasSelected),
+      title: "Remuneraciones",
+      tableData: [],
+      items: [{
+        text: "Tables"
+      }, {
+        text: "Remuneraciones",
+        active: true
+      }],
+      totalRows: 1,
+      currentPage: 1,
+      perPage: 1000,
+      pageOptions: [10, 25, 50, 100],
+      filter: null,
+      filterOn: [],
+      sortBy: "",
+      sortDesc: false
+    };
+  },
+  computed: {
+    rows: function rows() {
+      return this.tableData.length;
+    }
+  },
+  mounted: function mounted() {
+    this.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(localStorage.getItem("token"));
+    this.traerComprobantes();
+    this.totalRows = this.items.length;
+  },
+  methods: {
+    onFiltered: function onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
+    },
+    traerComprobantes: function traerComprobantes() {
+      var _this = this;
+
+      this.axios.get("/api/getComprobantes/" + this.id_empresa.id_empresa).then(function (response) {
+        console.log(response);
+        _this.tableData = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/manualDeCuenta/manual.js?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/manualDeCuenta/manual.js?vue&type=script&lang=js& ***!
@@ -10103,6 +10203,370 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/remuneraciones/anticipos.js?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/remuneraciones/anticipos.js?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _layouts_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../layouts/main */ "./resources/js/views/layouts/main.vue");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Layout: _layouts_main__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Multiselect: (vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default()),
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      form: {
+        monto: "",
+        trabajador: "",
+        cuenta: "",
+        id_anticipo: ""
+      },
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_5__["default"].prototype.$globalEmpresasSelected),
+      options: [],
+      optionsTrabajador: [],
+      sueldo_base: 0,
+      xpagar: 0,
+      titlemodal: "Crear Anticipo",
+      typeform: "create",
+      btnCreate: true,
+      submitted: false,
+      tableData: [],
+      modal: false,
+      title: "Anticipos",
+      items: [{
+        text: "Tables"
+      }, {
+        text: "Anticipos",
+        active: true
+      }],
+      totalRows: 1,
+      currentPage: 1,
+      perPage: 10,
+      pageOptions: [10, 25, 50, 100],
+      filter: null,
+      filterOn: [],
+      sortBy: "trabajador",
+      sortDesc: false,
+      fields: [{
+        key: "trabajador",
+        sortable: true,
+        label: "Trabajador",
+        formatter: function formatter(trabajador) {
+          return "".concat(trabajador.nombres, " ").concat(trabajador.apellidos);
+        }
+      }, {
+        key: "monto",
+        sortable: true,
+        formatter: function formatter(monto) {
+          var formatter = new Intl.NumberFormat("es-CL", {
+            style: "currency",
+            currency: "CLP",
+            minimumFractionDigits: 0
+          });
+          return formatter.format(monto);
+        }
+      }, {
+        key: "plancuenta",
+        sortable: true,
+        label: "Cuenta",
+        formatter: function formatter(plancuenta) {
+          return "".concat(plancuenta.manual_cuenta.nombre);
+        }
+      }, {
+        key: "estado_pago",
+        sortable: true,
+        label: "Estado",
+        formatter: function formatter(estado_pago) {
+          if (estado_pago == 0) {
+            return "No pagado";
+          } else {
+            return "Pagado";
+          }
+        }
+      }, {
+        key: "fecha",
+        sortable: true
+      }, "action"]
+    };
+  },
+  validations: {
+    form: {
+      monto: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__.required
+      },
+      trabajador: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__.required
+      },
+      cuenta: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_6__.required
+      }
+    }
+  },
+  computed: {
+    /**
+     * Total no. of records
+     */
+    rows: function rows() {
+      return this.tableData.length;
+    }
+  },
+  mounted: function mounted() {
+    this.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(localStorage.getItem("token"));
+    this.traerTrabajador();
+    this.traerPlan();
+    this.traerAnticipo();
+  },
+  methods: {
+    onFiltered: function onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
+    },
+    customLabel: function customLabel(_ref) {
+      var nombres = _ref.nombres,
+          apellidos = _ref.apellidos;
+      return "".concat(nombres, " ").concat(apellidos);
+    },
+    customLabelCuenta: function customLabelCuenta(_ref2) {
+      var manual_cuenta = _ref2.manual_cuenta;
+      return "".concat(manual_cuenta.nombre);
+    },
+    traerAnticipo: function traerAnticipo() {
+      var _this = this;
+
+      this.axios.get("/api/obteneranticipo/".concat(this.id_empresa.id_empresa)).then(function (response) {
+        console.log(response);
+        _this.tableData = response.data;
+        _this.xpagar = 0;
+
+        if (response.data.length > 0) {
+          response.data.forEach(function (element) {
+            if (element.estado_pago == 0) {
+              _this.xpagar = 1;
+            }
+          });
+        }
+      });
+    },
+    traerTrabajador: function traerTrabajador() {
+      var _this2 = this;
+
+      this.axios.get("/api/obtenertrabajador/".concat(this.id_empresa.id_empresa)).then(function (response) {
+        console.log(response);
+        _this2.optionsTrabajador = response.data;
+      });
+    },
+    traerPlan: function traerPlan() {
+      var _this3 = this;
+
+      this.axios.get("/api/getPlanCuenta/".concat(this.id_empresa.id_empresa)).then(function (response) {
+        console.log(response);
+        _this3.options = response.data;
+      });
+    },
+    sueldobase: function sueldobase() {
+      this.sueldo_base = this.form.trabajador.sueldo_base;
+    },
+    modalNuevo: function modalNuevo() {
+      this.modal = true;
+      this.form = {
+        monto: "",
+        trabajador: "",
+        cuenta: "",
+        id_anticipo: ""
+      }, this.titlemodal = "Crear Anticipo";
+      this.typeform = "create";
+      this.modal = true;
+      this.btnCreate = true;
+    },
+    editar: function editar(data) {
+      this.form.monto = data.monto;
+      this.form.trabajador = data.trabajador;
+      this.form.cuenta = data.plancuenta;
+      this.form.id_anticipo = data.id_anticipo;
+      this.sueldo_base = data.trabajador.sueldo_base;
+      this.titlemodal = "Editar Anticipo";
+      this.modal = true;
+    },
+    eliminar: function eliminar(datos) {
+      var _this4 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+        title: "Eliminar Anticipo",
+        text: "¿Estas seguro de eliminar el anticipo?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#34c38f",
+        cancelButtonColor: "#f46a6a",
+        confirmButtonText: "Si"
+      }).then(function (result) {
+        if (result.value) {
+          _this4.axios["delete"]("/api/eliminaranticipo/".concat(datos.id_anticipo)).then(function (res) {
+            console.log(res);
+            var title = "Eliminar Anticipo";
+
+            if (res.data == 1) {
+              var message = "Anticipo Eliminado";
+              var type = "success";
+            } else {
+              message = "Error al eliminar el Anticipo";
+              type = "error";
+            }
+
+            _this4.successmsg(title, message, type);
+
+            _this4.traerAnticipo();
+          });
+        }
+      });
+    },
+    formSubmit: function formSubmit() {
+      var _this5 = this;
+
+      this.submitted = true;
+      this.$v.form.$touch();
+
+      if (!this.$v.form.$invalid) {
+        this.form.id_empresa = this.id_empresa.id_empresa;
+        console.log(this.form);
+
+        if (parseInt(this.form.monto) > parseInt(this.sueldo_base)) {
+          this.successmsgerror("El monto del anticipo no puede ser mayor al sueldo base");
+        } else {
+          this.axios.post("/api/crearanticipo", this.form).then(function (res) {
+            console.log(res);
+            var title = "";
+            var message = "";
+            var type = "";
+
+            if (res.data) {
+              if (_this5.form.id_anticipo == "") {
+                title = "Crear Anticipo";
+                message = "Anticipo creada con exito";
+                type = "success";
+              } else {
+                title = "Editar Anticipo";
+                message = "Anticipo editada con exito";
+                type = "success";
+              }
+
+              _this5.modal = false;
+              _this5.btnCreate = false;
+              _this5.submitted = false;
+              _this5.sueldo_base = "";
+
+              _this5.$v.form.$reset();
+
+              _this5.traerAnticipo();
+
+              _this5.successmsg(title, message, type);
+            }
+          })["catch"](function (error) {
+            console.log("error", error);
+            var title = "";
+            var message = "";
+            var type = "";
+
+            if (_this5.form.id_remuneracion) {
+              title = "Crear Remuneración";
+              message = "Remuneración  creada con exito";
+              type = "error";
+            } else {
+              title = "Editar Remuneración";
+              message = "Remuneración  editada con exito";
+              type = "error";
+            }
+
+            _this5.modal = false;
+            _this5.btnCreate = false;
+            _this5.submitted = false;
+
+            _this5.$v.form.$reset();
+
+            _this5.traerAnticipo();
+
+            _this5.successmsg(title, message, type);
+          });
+        }
+      }
+    },
+    pagaranticipo: function pagaranticipo() {
+      var _this6 = this;
+
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+        title: "Aprobar Pago",
+        text: "¿Esta seguro que que desea aprobar pago?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0b892c",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Si, Aprobar!"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this6.axios.get("api/pagaranticipo/".concat(_this6.id_empresa.id_empresa)).then(function (response) {
+            console.log(response);
+
+            if (response.data == 1) {
+              var title = "Exito al Pagar Anticipos";
+              var message = "Anticipos pagadas con éxito";
+              var type = "success";
+
+              _this6.successmsg(title, message, type);
+
+              _this6.traerAnticipo();
+            } else {
+              var _title = "Error al Pagar Anticipos";
+              var _message = "Error al pagar las Anticipos";
+              var _type = "error";
+
+              _this6.successmsg(_title, _message, _type);
+            }
+          });
+        }
+      });
+    },
+    successmsg: function successmsg(title, message, type) {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire(title, message, type);
+    },
+    successmsgerror: function successmsgerror(error) {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+        position: "center",
+        title: error,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/remuneraciones/libroremuneracion.js?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/remuneraciones/libroremuneracion.js?vue&type=script&lang=js& ***!
@@ -10122,6 +10586,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
 
 
 
@@ -10152,6 +10618,7 @@ __webpack_require__.r(__webpack_exports__);
       alcance_liquido: 0,
       tableData: [],
       mesbusqueda: "",
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_5__["default"].prototype.$globalEmpresasSelected),
       title: "Remuneraciones",
       items: [{
         text: "Tables"
@@ -10425,7 +10892,7 @@ __webpack_require__.r(__webpack_exports__);
     traerRemuneracion: function traerRemuneracion() {
       var _this2 = this;
 
-      this.axios.get("/api/obtenerremuneracionmes/").then(function (response) {
+      this.axios.get("/api/obtenerremuneracionmes/".concat(this.id_empresa.id_empresa)).then(function (response) {
         console.log(response);
 
         _this2.llenartabla(response);
@@ -10436,7 +10903,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.mesbusqueda) {
         var mes = moment__WEBPACK_IMPORTED_MODULE_4___default()(this.mesbusqueda).format("YYYY-MM");
-        this.axios.get("/api/obtenerremuneracion/".concat(mes)).then(function (response) {
+        this.axios.get("/api/obtenerremuneracion/".concat(mes, "/").concat(this.id_empresa.id_empresa)).then(function (response) {
           console.log(response);
 
           _this3.llenartabla(response);
@@ -10481,7 +10948,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
 
 
 
@@ -10534,7 +11003,8 @@ __webpack_require__.r(__webpack_exports__);
         tipo_contrato: "",
         sueldo_minimo: 0,
         porcentajegratificacion: '',
-        total_descuentos: 0
+        total_descuentos: 0,
+        id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$globalEmpresasSelected)
       },
       impuestosutm: [],
       bonostemp: [],
@@ -10548,6 +11018,7 @@ __webpack_require__.r(__webpack_exports__);
       btnCreate: true,
       options: [],
       montosasignacionfamiliar: [],
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$globalEmpresasSelected),
       // tabla
       tableData: [],
       title: "Remuneraciones",
@@ -10605,70 +11076,70 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     form: {
       dias_trabajados: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       monto: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       afp_monto: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       salud_monto: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       asignacion_familiar: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       cantidad_horas_extras: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       porcentaje_hora_extra: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       afc_monto: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       uf: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       utm: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       impuesto_unico: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       gratificacion: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       participacion: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       anticipo: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       viaticos: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       alcance_liquido: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       otros: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       total_haberes: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       horas_extras_monto: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       total_imponible: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       sueldo_liquido: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       horas_semanales: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       }
     }
   },
@@ -10701,7 +11172,7 @@ __webpack_require__.r(__webpack_exports__);
     traerTrabajador: function traerTrabajador() {
       var _this = this;
 
-      this.axios.get("/api/obtenertrabajador/").then(function (response) {
+      this.axios.get("/api/obtenertrabajador/".concat(this.id_empresa.id_empresa)).then(function (response) {
         console.log(response);
         _this.options = response.data;
       });
@@ -10724,7 +11195,7 @@ __webpack_require__.r(__webpack_exports__);
     traerRemuneracion: function traerRemuneracion() {
       var _this4 = this;
 
-      this.axios.get("/api/obtenerremuneracion/").then(function (response) {
+      this.axios.get("/api/obtenerremuneracion/".concat(this.id_empresa.id_empresa)).then(function (response) {
         console.log(response);
         _this4.tableData = response.data;
       });
@@ -10802,6 +11273,8 @@ __webpack_require__.r(__webpack_exports__);
             this.successmsgerror("Total asignación familiar");
             return;
           }
+        } else {
+          var totalasignacion = 0;
         } // verificar porcentaje AFP
 
 
@@ -10913,6 +11386,8 @@ __webpack_require__.r(__webpack_exports__);
             this.successmsgerror("afc");
             return;
           }
+        } else {
+          var descuentoafc = 0;
         } // total haberes
 
 
@@ -10945,6 +11420,7 @@ __webpack_require__.r(__webpack_exports__);
 
         this.form.bonos = this.bonostemp;
         this.form.total_descuentos = descuentos;
+        this.form.id_empresa = this.form.id_empresa.id_empresa;
         this.axios.post("/api/crearremuneracion", this.form).then(function (res) {
           console.log(res);
           var title = "";
@@ -11134,7 +11610,8 @@ __webpack_require__.r(__webpack_exports__);
           monto: ""
         }],
         sueldo_liquido: "",
-        id_remuneracion: ""
+        id_remuneracion: "",
+        id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$globalEmpresasSelected)
       };
     },
     calculohoraextra: function calculohoraextra() {
@@ -11970,6 +12447,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../layouts/main */ "./resources/js/views/layouts/main.vue");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
 
 
 
@@ -11995,6 +12474,7 @@ __webpack_require__.r(__webpack_exports__);
         empresa: "",
         id_documento: ""
       },
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$globalEmpresasSelected),
       //TABLA DE DOCUMENTOS TRIBUTARIOS
       tableData: [],
       title: "Empresas",
@@ -12040,60 +12520,130 @@ __webpack_require__.r(__webpack_exports__);
         label: "Fecha Emisión",
         key: "fecha_emision",
         sortable: true
-      }, "acción"]
+      }, "acción"],
+      // tabla remuneraciones
+      itemsRemuneraciones: [{
+        text: "Tables"
+      }, {
+        text: "Remuneraciones",
+        active: true
+      }],
+      tableDataRemuneraciones: [],
+      totalRowsRemuneraciones: 1,
+      currentPageRemuneraciones: 1,
+      perPageRemuneraciones: 10,
+      pageOptionsRemuneraciones: [10, 25, 50, 100],
+      filterRemuneraciones: null,
+      filterOnRemuneraciones: [],
+      sortByRemuneraciones: "trabajador",
+      sortDescRemuneraciones: false,
+      fieldsRemuneraciones: [{
+        key: "trabajador",
+        sortable: true,
+        label: "Trabajador",
+        formatter: function formatter(trabajador) {
+          return "".concat(trabajador.nombres, " ").concat(trabajador.apellidos);
+        }
+      }, {
+        key: "total_imponible",
+        sortable: true,
+        label: "Total imponible",
+        formatter: function formatter(total_imponible) {
+          var formatter = new Intl.NumberFormat("es-CL", {
+            style: "currency",
+            currency: "CLP",
+            minimumFractionDigits: 0
+          });
+          return formatter.format(total_imponible);
+        }
+      }, {
+        key: "sueldo_liquido",
+        sortable: true,
+        label: "Sueldo Liquido",
+        formatter: function formatter(sueldo_liquido) {
+          var formatter = new Intl.NumberFormat("es-CL", {
+            style: "currency",
+            currency: "CLP",
+            minimumFractionDigits: 0
+          });
+          return formatter.format(sueldo_liquido);
+        }
+      }, {
+        key: "fecha",
+        sortable: true
+      }, "action"]
     };
+  },
+  computed: {
+    rows: function rows() {
+      return this.tableDataRemuneraciones.length;
+    }
   },
   mounted: function mounted() {
     this.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(localStorage.getItem("token"));
     this.totalRows = this.items.length;
+    this.totalRowsRemuneraciones = this.items.length;
     this.getInicialCompras();
+    this.traerRemuneracion();
   },
   methods: {
     onFiltered: function onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    getInicialCompras: function getInicialCompras() {
+    onFilteredRemuneraciones: function onFilteredRemuneraciones(filteredItems) {
+      this.totalRowsRemuneraciones = filteredItems.length;
+      this.currentPageRemuneraciones = 1;
+    },
+    traerRemuneracion: function traerRemuneracion() {
       var _this = this;
+
+      this.axios.get("/api/obtenerremuneracion/nopagadas/".concat(this.id_empresa.id_empresa)).then(function (response) {
+        console.log(response);
+        _this.tableDataRemuneraciones = response.data;
+      });
+    },
+    getInicialCompras: function getInicialCompras() {
+      var _this2 = this;
 
       this.axios.get("api/getTesoreriaComprasIncial/" + this.infoEmpresa.id_empresa).then(function (res) {
         res.data.cuentas.map(function (p) {
           if (p.manual_cuenta != null) {
-            p["codigo"] = '(S) ' + p.manual_cuenta.codigo;
+            p["codigo"] = "(S) " + p.manual_cuenta.codigo;
             p["nombre"] = p.manual_cuenta.nombre;
           } else if (p.mi_manual_cuenta != null) {
-            p["codigo"] = '(M) ' + p.mi_manual_cuenta.codigo;
+            p["codigo"] = "(M) " + p.mi_manual_cuenta.codigo;
             p["nombre"] = p.mi_manual_cuenta.nombre;
           }
 
           return p;
         });
-        _this.optionsOrigen = res.data.cuentas;
-        _this.optionsDestino = res.data.cuentas;
+        _this2.optionsOrigen = res.data.cuentas;
+        _this2.optionsDestino = res.data.cuentas;
         console.log(res.data.doc);
-        _this.tableData = res.data.doc;
+        _this2.tableData = res.data.doc;
         res.data.doc.map(function (p) {
-          p['descripcion'] = p.documento_tributario.descripcion;
+          p["descripcion"] = p.documento_tributario.descripcion;
 
           if (p.total_documento != null) {
-            p['total'] = '$' + p.total_documento;
+            p["total"] = "$" + p.total_documento;
           } else {
-            p['total'] = '$ -';
+            p["total"] = "$ -";
           }
 
-          p['proveedorName'] = p.encabezado.proveedor.razon_social;
-          p['encabezado'] = p.encabezado.num_encabezado;
+          p["proveedorName"] = p.encabezado.proveedor.razon_social;
+          p["encabezado"] = p.encabezado.num_encabezado;
         });
       })["catch"](function (error) {
         console.log("error", error);
         var title = "Crear subnivel";
         var message = "Error al crear el subnivel";
         var type = "error";
-        _this.modal = false;
+        _this2.modal = false;
 
-        _this.$v.form.$reset();
+        _this2.$v.form.$reset();
 
-        _this.successmsg(title, message, type);
+        _this2.successmsg(title, message, type);
       });
     },
     aprobarDocumento: function aprobarDocumento(data) {
@@ -12105,26 +12655,69 @@ __webpack_require__.r(__webpack_exports__);
       this.formAprobacion.f_emision = data.fecha_emision;
     },
     formSubmitAprobarPago: function formSubmitAprobarPago() {
-      var _this2 = this;
+      var _this3 = this;
 
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
-        title: 'Aprobar Pago',
+        title: "Aprobar Pago",
         text: "¿Esta seguro que que desea aprobar pago?",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#0b892c',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: "#0b892c",
+        cancelButtonColor: "#d33",
         cancelButtonText: "Cancelar",
-        confirmButtonText: 'Si, Aprobar!'
+        confirmButtonText: "Si, Aprobar!"
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this2.axios.post("api/aprobarPago", _this2.formAprobacion).then(function (res) {
+          _this3.axios.post("api/aprobarPago", _this3.formAprobacion).then(function (res) {
             console.log(res);
           })["catch"](function (error) {
             console.log("error", error);
           });
         }
       });
+    },
+    pagarremuneracion: function pagarremuneracion() {
+      var _this4 = this;
+
+      if (this.tableDataRemuneraciones.length > 0) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+          title: "Aprobar Pago",
+          text: "¿Esta seguro que que desea aprobar pago?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#0b892c",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Cancelar",
+          confirmButtonText: "Si, Aprobar!"
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            _this4.axios.get("api/pagarremuneraciones/".concat(_this4.id_empresa.id_empresa)).then(function (response) {
+              console.log(response);
+
+              if (response.data == 1) {
+                var title = "Exito al Pagar Remuneraciones";
+                var message = "Remuneraciones pagadas con éxito";
+                var type = "success";
+
+                _this4.successmsg(title, message, type);
+
+                _this4.traerRemuneracion();
+              } else {
+                var _title = "Error al Pagar Remuneraciones";
+                var _message = "Error al pagar las remuneraciones";
+                var _type = "error";
+
+                _this4.successmsg(_title, _message, _type);
+              }
+            });
+          }
+        });
+      } else {
+        this.successmsg('Error al Pagar Remuneraciones', 'No hay remuneraciones del mes en curso por pagar', 'error');
+      }
+    },
+    successmsg: function successmsg(title, message, type) {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire(title, message, type);
     }
   }
 });
@@ -12145,9 +12738,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../layouts/main */ "./resources/js/views/layouts/main.vue");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
 
 
 
@@ -12186,7 +12781,8 @@ __webpack_require__.r(__webpack_exports__);
         region_id: "",
         anturlpdf: "",
         fecha_fin_contrato: "",
-        tipo_contrato: ""
+        tipo_contrato: "",
+        id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$globalEmpresasSelected)
       },
       formcarga: [],
       formacargatemp: {
@@ -12227,6 +12823,7 @@ __webpack_require__.r(__webpack_exports__);
       }],
       optionsAfp: [],
       optionsParentezco: [],
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$globalEmpresasSelected),
       // tabla
       tableData: [],
       title: "Trabajador",
@@ -12262,93 +12859,93 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     form: {
       nombres: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       apellidos: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       direccional: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       estado_civil: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       nacionalidad: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       carga_familiar: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       salud: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       rut: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       celular: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       fecha_nacimiento: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       edad: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       fecha_contrato: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       sueldo_base: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       colacion: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       movilidad: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       url_pdf: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       afp_id: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       comuna_id: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       region_id: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       tipo_contrato: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       }
     },
     formacargatemp: {
       nombres: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       apellidos: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       rut: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       nacionalidad: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       fecha_nacimiento: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       parentezco: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       },
       tipo_carga: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_3__.required
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__.required
       }
     }
   },
@@ -12406,7 +13003,7 @@ __webpack_require__.r(__webpack_exports__);
     traerTrabajador: function traerTrabajador() {
       var _this5 = this;
 
-      this.axios.get("api/obtenertrabajador").then(function (response) {
+      this.axios.get("api/obtenertrabajador/".concat(this.id_empresa.id_empresa)).then(function (response) {
         _this5.tableData = response.data;
       });
     },
@@ -12566,6 +13163,7 @@ __webpack_require__.r(__webpack_exports__);
         fd.append("id_trabajador", this.form.id_trabajador);
         fd.append("tipo_contrato", this.form.tipo_contrato.tipo);
         fd.append("fecha_fin_contrato", this.form.fecha_fin_contrato);
+        fd.append("id_empresa", this.form.id_empresa.id_empresa);
         this.axios.post("/api/creartrabajador", fd, {
           headers: {
             "content-type": "multipart/form-data"
@@ -12717,7 +13315,8 @@ __webpack_require__.r(__webpack_exports__);
         comuna_id: "",
         region_id: "",
         fecha_fin_contrato: "",
-        tipo_contrato: ""
+        tipo_contrato: "",
+        id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$globalEmpresasSelected)
       };
       this.btnCreate = true;
     },
@@ -13226,15 +13825,29 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/core-js/internals/array-slice.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/core-js/internals/array-slice.js ***!
-  \*******************************************************/
+/***/ "./node_modules/core-js/internals/array-slice-simple.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/core-js/internals/array-slice-simple.js ***!
+  \**************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var uncurryThis = __webpack_require__(/*! ../internals/function-uncurry-this */ "./node_modules/core-js/internals/function-uncurry-this.js");
+var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
+var toAbsoluteIndex = __webpack_require__(/*! ../internals/to-absolute-index */ "./node_modules/core-js/internals/to-absolute-index.js");
+var lengthOfArrayLike = __webpack_require__(/*! ../internals/length-of-array-like */ "./node_modules/core-js/internals/length-of-array-like.js");
+var createProperty = __webpack_require__(/*! ../internals/create-property */ "./node_modules/core-js/internals/create-property.js");
 
-module.exports = uncurryThis([].slice);
+var Array = global.Array;
+var max = Math.max;
+
+module.exports = function (O, start, end) {
+  var length = lengthOfArrayLike(O);
+  var k = toAbsoluteIndex(start, length);
+  var fin = toAbsoluteIndex(end === undefined ? length : end, length);
+  var result = Array(max(fin - k, 0));
+  for (var n = 0; k < fin; k++, n++) createProperty(result, n, O[k]);
+  result.length = n;
+  return result;
+};
 
 
 /***/ }),
@@ -13663,13 +14276,15 @@ var ownKeys = __webpack_require__(/*! ../internals/own-keys */ "./node_modules/c
 var getOwnPropertyDescriptorModule = __webpack_require__(/*! ../internals/object-get-own-property-descriptor */ "./node_modules/core-js/internals/object-get-own-property-descriptor.js");
 var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "./node_modules/core-js/internals/object-define-property.js");
 
-module.exports = function (target, source) {
+module.exports = function (target, source, exceptions) {
   var keys = ownKeys(source);
   var defineProperty = definePropertyModule.f;
   var getOwnPropertyDescriptor = getOwnPropertyDescriptorModule.f;
   for (var i = 0; i < keys.length; i++) {
     var key = keys[i];
-    if (!hasOwn(target, key)) defineProperty(target, key, getOwnPropertyDescriptor(source, key));
+    if (!hasOwn(target, key) && !(exceptions && hasOwn(exceptions, key))) {
+      defineProperty(target, key, getOwnPropertyDescriptor(source, key));
+    }
   }
 };
 
@@ -13710,9 +14325,9 @@ var Iterators = __webpack_require__(/*! ../internals/iterators */ "./node_module
 
 var returnThis = function () { return this; };
 
-module.exports = function (IteratorConstructor, NAME, next) {
+module.exports = function (IteratorConstructor, NAME, next, ENUMERABLE_NEXT) {
   var TO_STRING_TAG = NAME + ' Iterator';
-  IteratorConstructor.prototype = create(IteratorPrototype, { next: createPropertyDescriptor(1, next) });
+  IteratorConstructor.prototype = create(IteratorPrototype, { next: createPropertyDescriptor(+!ENUMERABLE_NEXT, next) });
   setToStringTag(IteratorConstructor, TO_STRING_TAG, false, true);
   Iterators[TO_STRING_TAG] = returnThis;
   return IteratorConstructor;
@@ -14348,10 +14963,10 @@ module.exports = {
 var FunctionPrototype = Function.prototype;
 var bind = FunctionPrototype.bind;
 var call = FunctionPrototype.call;
-var callBind = bind && bind.bind(call);
+var uncurryThis = bind && bind.bind(call, call);
 
 module.exports = bind ? function (fn) {
-  return fn && callBind(call, fn);
+  return fn && uncurryThis(fn);
 } : function (fn) {
   return fn && function () {
     return call.apply(fn, arguments);
@@ -14579,7 +15194,7 @@ var createElement = __webpack_require__(/*! ../internals/document-create-element
 
 // Thank's IE8 for his funny defineProperty
 module.exports = !DESCRIPTORS && !fails(function () {
-  // eslint-disable-next-line es/no-object-defineproperty -- requied for testing
+  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
   return Object.defineProperty(createElement('div'), 'a', {
     get: function () { return 7; }
   }).a != 7;
@@ -14917,7 +15532,7 @@ var constructorRegExp = /^\s*(?:class|function)\b/;
 var exec = uncurryThis(constructorRegExp.exec);
 var INCORRECT_TO_STRING = !constructorRegExp.exec(noop);
 
-var isConstructorModern = function (argument) {
+var isConstructorModern = function isConstructor(argument) {
   if (!isCallable(argument)) return false;
   try {
     construct(noop, empty, argument);
@@ -14927,15 +15542,24 @@ var isConstructorModern = function (argument) {
   }
 };
 
-var isConstructorLegacy = function (argument) {
+var isConstructorLegacy = function isConstructor(argument) {
   if (!isCallable(argument)) return false;
   switch (classof(argument)) {
     case 'AsyncFunction':
     case 'GeneratorFunction':
     case 'AsyncGeneratorFunction': return false;
+  }
+  try {
     // we can't check .prototype since constructors produced by .bind haven't it
-  } return INCORRECT_TO_STRING || !!exec(constructorRegExp, inspectSource(argument));
+    // `Function#toString` throws on some built-it function in some legacy engines
+    // (for example, `DOMQuad` and similar in FF41-)
+    return INCORRECT_TO_STRING || !!exec(constructorRegExp, inspectSource(argument));
+  } catch (error) {
+    return true;
+  }
 };
+
+isConstructorLegacy.sham = true;
 
 // `IsConstructor` abstract operation
 // https://tc39.es/ecma262/#sec-isconstructor
@@ -15376,7 +16000,7 @@ module.exports = !$assign || fails(function () {
 
 /* global ActiveXObject -- old IE, WSH */
 var anObject = __webpack_require__(/*! ../internals/an-object */ "./node_modules/core-js/internals/an-object.js");
-var defineProperties = __webpack_require__(/*! ../internals/object-define-properties */ "./node_modules/core-js/internals/object-define-properties.js");
+var definePropertiesModule = __webpack_require__(/*! ../internals/object-define-properties */ "./node_modules/core-js/internals/object-define-properties.js");
 var enumBugKeys = __webpack_require__(/*! ../internals/enum-bug-keys */ "./node_modules/core-js/internals/enum-bug-keys.js");
 var hiddenKeys = __webpack_require__(/*! ../internals/hidden-keys */ "./node_modules/core-js/internals/hidden-keys.js");
 var html = __webpack_require__(/*! ../internals/html */ "./node_modules/core-js/internals/html.js");
@@ -15454,7 +16078,7 @@ module.exports = Object.create || function create(O, Properties) {
     // add "__proto__" for Object.getPrototypeOf polyfill
     result[IE_PROTO] = O;
   } else result = NullProtoObject();
-  return Properties === undefined ? result : defineProperties(result, Properties);
+  return Properties === undefined ? result : definePropertiesModule.f(result, Properties);
 };
 
 
@@ -15464,9 +16088,10 @@ module.exports = Object.create || function create(O, Properties) {
 /*!********************************************************************!*\
   !*** ./node_modules/core-js/internals/object-define-properties.js ***!
   \********************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
+var V8_PROTOTYPE_DEFINE_BUG = __webpack_require__(/*! ../internals/v8-prototype-define-bug */ "./node_modules/core-js/internals/v8-prototype-define-bug.js");
 var definePropertyModule = __webpack_require__(/*! ../internals/object-define-property */ "./node_modules/core-js/internals/object-define-property.js");
 var anObject = __webpack_require__(/*! ../internals/an-object */ "./node_modules/core-js/internals/an-object.js");
 var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ "./node_modules/core-js/internals/to-indexed-object.js");
@@ -15475,7 +16100,7 @@ var objectKeys = __webpack_require__(/*! ../internals/object-keys */ "./node_mod
 // `Object.defineProperties` method
 // https://tc39.es/ecma262/#sec-object.defineproperties
 // eslint-disable-next-line es/no-object-defineproperties -- safe
-module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperties(O, Properties) {
+exports.f = DESCRIPTORS && !V8_PROTOTYPE_DEFINE_BUG ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var props = toIndexedObject(Properties);
   var keys = objectKeys(Properties);
@@ -15498,16 +16123,37 @@ module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperti
 var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
 var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
 var IE8_DOM_DEFINE = __webpack_require__(/*! ../internals/ie8-dom-define */ "./node_modules/core-js/internals/ie8-dom-define.js");
+var V8_PROTOTYPE_DEFINE_BUG = __webpack_require__(/*! ../internals/v8-prototype-define-bug */ "./node_modules/core-js/internals/v8-prototype-define-bug.js");
 var anObject = __webpack_require__(/*! ../internals/an-object */ "./node_modules/core-js/internals/an-object.js");
 var toPropertyKey = __webpack_require__(/*! ../internals/to-property-key */ "./node_modules/core-js/internals/to-property-key.js");
 
 var TypeError = global.TypeError;
 // eslint-disable-next-line es/no-object-defineproperty -- safe
 var $defineProperty = Object.defineProperty;
+// eslint-disable-next-line es/no-object-getownpropertydescriptor -- safe
+var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+var ENUMERABLE = 'enumerable';
+var CONFIGURABLE = 'configurable';
+var WRITABLE = 'writable';
 
 // `Object.defineProperty` method
 // https://tc39.es/ecma262/#sec-object.defineproperty
-exports.f = DESCRIPTORS ? $defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = DESCRIPTORS ? V8_PROTOTYPE_DEFINE_BUG ? function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPropertyKey(P);
+  anObject(Attributes);
+  if (typeof O === 'function' && P === 'prototype' && 'value' in Attributes && WRITABLE in Attributes && !Attributes[WRITABLE]) {
+    var current = $getOwnPropertyDescriptor(O, P);
+    if (current && current[WRITABLE]) {
+      O[P] = Attributes.value;
+      Attributes = {
+        configurable: CONFIGURABLE in Attributes ? Attributes[CONFIGURABLE] : current[CONFIGURABLE],
+        enumerable: ENUMERABLE in Attributes ? Attributes[ENUMERABLE] : current[ENUMERABLE],
+        writable: false
+      };
+    }
+  } return $defineProperty(O, P, Attributes);
+} : $defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPropertyKey(P);
   anObject(Attributes);
@@ -15564,7 +16210,7 @@ exports.f = DESCRIPTORS ? $getOwnPropertyDescriptor : function getOwnPropertyDes
 var classof = __webpack_require__(/*! ../internals/classof-raw */ "./node_modules/core-js/internals/classof-raw.js");
 var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ "./node_modules/core-js/internals/to-indexed-object.js");
 var $getOwnPropertyNames = (__webpack_require__(/*! ../internals/object-get-own-property-names */ "./node_modules/core-js/internals/object-get-own-property-names.js").f);
-var arraySlice = __webpack_require__(/*! ../internals/array-slice */ "./node_modules/core-js/internals/array-slice.js");
+var arraySlice = __webpack_require__(/*! ../internals/array-slice-simple */ "./node_modules/core-js/internals/array-slice-simple.js");
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
   ? Object.getOwnPropertyNames(window) : [];
@@ -16011,7 +16657,7 @@ var UPDATES_LAST_INDEX_WRONG = (function () {
   return re1.lastIndex !== 0 || re2.lastIndex !== 0;
 })();
 
-var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y || stickyHelpers.BROKEN_CARET;
+var UNSUPPORTED_Y = stickyHelpers.BROKEN_CARET;
 
 // nonparticipating capturing group, copied from es5-shim's String#split patch.
 var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
@@ -16019,7 +16665,6 @@ var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
 var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG;
 
 if (PATCH) {
-  // eslint-disable-next-line max-statements -- TODO
   patchedExec = function exec(string) {
     var re = this;
     var state = getInternalState(re);
@@ -16134,7 +16779,7 @@ module.exports = function () {
 /*!*****************************************************************!*\
   !*** ./node_modules/core-js/internals/regexp-sticky-helpers.js ***!
   \*****************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
 var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
@@ -16142,18 +16787,30 @@ var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core
 // babel-minify and Closure Compiler transpiles RegExp('a', 'y') -> /a/y and it causes SyntaxError
 var $RegExp = global.RegExp;
 
-exports.UNSUPPORTED_Y = fails(function () {
+var UNSUPPORTED_Y = fails(function () {
   var re = $RegExp('a', 'y');
   re.lastIndex = 2;
   return re.exec('abcd') != null;
 });
 
-exports.BROKEN_CARET = fails(function () {
+// UC Browser bug
+// https://github.com/zloirock/core-js/issues/1008
+var MISSED_STICKY = UNSUPPORTED_Y || fails(function () {
+  return !$RegExp('a', 'y').sticky;
+});
+
+var BROKEN_CARET = UNSUPPORTED_Y || fails(function () {
   // https://bugzilla.mozilla.org/show_bug.cgi?id=773687
   var re = $RegExp('^r', 'gy');
   re.lastIndex = 2;
   return re.exec('str') != null;
 });
+
+module.exports = {
+  BROKEN_CARET: BROKEN_CARET,
+  MISSED_STICKY: MISSED_STICKY,
+  UNSUPPORTED_Y: UNSUPPORTED_Y
+};
 
 
 /***/ }),
@@ -16253,9 +16910,10 @@ var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ 
 
 var TO_STRING_TAG = wellKnownSymbol('toStringTag');
 
-module.exports = function (it, TAG, STATIC) {
-  if (it && !hasOwn(it = STATIC ? it : it.prototype, TO_STRING_TAG)) {
-    defineProperty(it, TO_STRING_TAG, { configurable: true, value: TAG });
+module.exports = function (target, TAG, STATIC) {
+  if (target && !STATIC) target = target.prototype;
+  if (target && !hasOwn(target, TO_STRING_TAG)) {
+    defineProperty(target, TO_STRING_TAG, { configurable: true, value: TAG });
   }
 };
 
@@ -16309,9 +16967,9 @@ var store = __webpack_require__(/*! ../internals/shared-store */ "./node_modules
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.19.1',
+  version: '3.20.2',
   mode: IS_PURE ? 'pure' : 'global',
-  copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
+  copyright: '© 2022 Denis Pushkarev (zloirock.ru)'
 });
 
 
@@ -16650,6 +17308,28 @@ module.exports = NATIVE_SYMBOL
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/v8-prototype-define-bug.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/core-js/internals/v8-prototype-define-bug.js ***!
+  \*******************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
+var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
+
+// V8 ~ Chrome 36-
+// https://bugs.chromium.org/p/v8/issues/detail?id=3334
+module.exports = DESCRIPTORS && fails(function () {
+  // eslint-disable-next-line es/no-object-defineproperty -- required for testing
+  return Object.defineProperty(function () { /* empty */ }, 'prototype', {
+    value: 42,
+    writable: false
+  }).prototype != 42;
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/well-known-symbol.js":
 /*!*************************************************************!*\
   !*** ./node_modules/core-js/internals/well-known-symbol.js ***!
@@ -16830,7 +17510,10 @@ var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ 
 var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
 var Iterators = __webpack_require__(/*! ../internals/iterators */ "./node_modules/core-js/internals/iterators.js");
 var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */ "./node_modules/core-js/internals/internal-state.js");
+var defineProperty = (__webpack_require__(/*! ../internals/object-define-property */ "./node_modules/core-js/internals/object-define-property.js").f);
 var defineIterator = __webpack_require__(/*! ../internals/define-iterator */ "./node_modules/core-js/internals/define-iterator.js");
+var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "./node_modules/core-js/internals/is-pure.js");
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
 
 var ARRAY_ITERATOR = 'Array Iterator';
 var setInternalState = InternalStateModule.set;
@@ -16872,12 +17555,17 @@ module.exports = defineIterator(Array, 'Array', function (iterated, kind) {
 // argumentsList[@@iterator] is %ArrayProto_values%
 // https://tc39.es/ecma262/#sec-createunmappedargumentsobject
 // https://tc39.es/ecma262/#sec-createmappedargumentsobject
-Iterators.Arguments = Iterators.Array;
+var values = Iterators.Arguments = Iterators.Array;
 
 // https://tc39.es/ecma262/#sec-array.prototype-@@unscopables
 addToUnscopables('keys');
 addToUnscopables('values');
 addToUnscopables('entries');
+
+// V8 ~ Chrome 45- bug
+if (!IS_PURE && DESCRIPTORS && values.name !== 'values') try {
+  defineProperty(values, 'name', { value: 'values' });
+} catch (error) { /* empty */ }
 
 
 /***/ }),
@@ -16926,7 +17614,7 @@ var defineProperty = (__webpack_require__(/*! ../internals/object-define-propert
 
 var FunctionPrototype = Function.prototype;
 var functionToString = uncurryThis(FunctionPrototype.toString);
-var nameRE = /^\s*function ([^ (]*)/;
+var nameRE = /function\b(?:\s|\/\*[\S\s]*?\*\/|\/\/[^\n\r]*[\n\r]+)*([^\s(/]*)/;
 var regExpExec = uncurryThis(nameRE.exec);
 var NAME = 'name';
 
@@ -17286,7 +17974,7 @@ var collection = __webpack_require__(/*! ../internals/collection */ "./node_modu
 var collectionWeak = __webpack_require__(/*! ../internals/collection-weak */ "./node_modules/core-js/internals/collection-weak.js");
 var isObject = __webpack_require__(/*! ../internals/is-object */ "./node_modules/core-js/internals/is-object.js");
 var isExtensible = __webpack_require__(/*! ../internals/object-is-extensible */ "./node_modules/core-js/internals/object-is-extensible.js");
-var enforceIternalState = (__webpack_require__(/*! ../internals/internal-state */ "./node_modules/core-js/internals/internal-state.js").enforce);
+var enforceInternalState = (__webpack_require__(/*! ../internals/internal-state */ "./node_modules/core-js/internals/internal-state.js").enforce);
 var NATIVE_WEAK_MAP = __webpack_require__(/*! ../internals/native-weak-map */ "./node_modules/core-js/internals/native-weak-map.js");
 
 var IS_IE11 = !global.ActiveXObject && 'ActiveXObject' in global;
@@ -17316,28 +18004,28 @@ if (NATIVE_WEAK_MAP && IS_IE11) {
   redefineAll(WeakMapPrototype, {
     'delete': function (key) {
       if (isObject(key) && !isExtensible(key)) {
-        var state = enforceIternalState(this);
+        var state = enforceInternalState(this);
         if (!state.frozen) state.frozen = new InternalWeakMap();
         return nativeDelete(this, key) || state.frozen['delete'](key);
       } return nativeDelete(this, key);
     },
     has: function has(key) {
       if (isObject(key) && !isExtensible(key)) {
-        var state = enforceIternalState(this);
+        var state = enforceInternalState(this);
         if (!state.frozen) state.frozen = new InternalWeakMap();
         return nativeHas(this, key) || state.frozen.has(key);
       } return nativeHas(this, key);
     },
     get: function get(key) {
       if (isObject(key) && !isExtensible(key)) {
-        var state = enforceIternalState(this);
+        var state = enforceInternalState(this);
         if (!state.frozen) state.frozen = new InternalWeakMap();
         return nativeHas(this, key) ? nativeGet(this, key) : state.frozen.get(key);
       } return nativeGet(this, key);
     },
     set: function set(key, value) {
       if (isObject(key) && !isExtensible(key)) {
-        var state = enforceIternalState(this);
+        var state = enforceInternalState(this);
         if (!state.frozen) state.frozen = new InternalWeakMap();
         nativeHas(this, key) ? nativeSet(this, key, value) : state.frozen.set(key, value);
       } else nativeSet(this, key, value);
@@ -59615,6 +60303,45 @@ component.options.__file = "resources/js/views/pages/indicadoresP/indicadores.vu
 
 /***/ }),
 
+/***/ "./resources/js/views/pages/libros/libro-diario.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-diario.vue ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _libro_diario_vue_vue_type_template_id_4a3157aa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libro-diario.vue?vue&type=template&id=4a3157aa& */ "./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa&");
+/* harmony import */ var _libro_diario_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./libro-diario.js?vue&type=script&lang=js& */ "./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _libro_diario_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _libro_diario_vue_vue_type_template_id_4a3157aa___WEBPACK_IMPORTED_MODULE_0__.render,
+  _libro_diario_vue_vue_type_template_id_4a3157aa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/pages/libros/libro-diario.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/views/pages/login/login.vue":
 /*!**************************************************!*\
   !*** ./resources/js/views/pages/login/login.vue ***!
@@ -59845,6 +60572,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/views/pages/proveedor/proveedor.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/pages/remuneraciones/anticipos.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/views/pages/remuneraciones/anticipos.vue ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _anticipos_vue_vue_type_template_id_ed8990ca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./anticipos.vue?vue&type=template&id=ed8990ca& */ "./resources/js/views/pages/remuneraciones/anticipos.vue?vue&type=template&id=ed8990ca&");
+/* harmony import */ var _anticipos_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./anticipos.js?vue&type=script&lang=js& */ "./resources/js/views/pages/remuneraciones/anticipos.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _anticipos_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _anticipos_vue_vue_type_template_id_ed8990ca___WEBPACK_IMPORTED_MODULE_0__.render,
+  _anticipos_vue_vue_type_template_id_ed8990ca___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/pages/remuneraciones/anticipos.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -60561,6 +61327,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_libro_diario_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./libro-diario.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_libro_diario_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/views/pages/manualDeCuenta/manual.js?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/views/pages/manualDeCuenta/manual.js?vue&type=script&lang=js& ***!
@@ -60638,6 +61420,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_proveedor_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./proveedor.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/proveedor/proveedor.js?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_proveedor_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/pages/remuneraciones/anticipos.js?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/pages/remuneraciones/anticipos.js?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_anticipos_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./anticipos.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/remuneraciones/anticipos.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_anticipos_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -61491,6 +62289,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa& ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_diario_vue_vue_type_template_id_4a3157aa___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_diario_vue_vue_type_template_id_4a3157aa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_diario_vue_vue_type_template_id_4a3157aa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./libro-diario.vue?vue&type=template&id=4a3157aa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa&");
+
+
+/***/ }),
+
 /***/ "./resources/js/views/pages/login/login.vue?vue&type=template&id=738fd489&":
 /*!*********************************************************************************!*\
   !*** ./resources/js/views/pages/login/login.vue?vue&type=template&id=738fd489& ***!
@@ -61589,6 +62404,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_proveedor_vue_vue_type_template_id_1035e59a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_proveedor_vue_vue_type_template_id_1035e59a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./proveedor.vue?vue&type=template&id=1035e59a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/proveedor/proveedor.vue?vue&type=template&id=1035e59a&");
+
+
+/***/ }),
+
+/***/ "./resources/js/views/pages/remuneraciones/anticipos.vue?vue&type=template&id=ed8990ca&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/views/pages/remuneraciones/anticipos.vue?vue&type=template&id=ed8990ca& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_anticipos_vue_vue_type_template_id_ed8990ca___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_anticipos_vue_vue_type_template_id_ed8990ca___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_anticipos_vue_vue_type_template_id_ed8990ca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./anticipos.vue?vue&type=template&id=ed8990ca& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/remuneraciones/anticipos.vue?vue&type=template&id=ed8990ca&");
 
 
 /***/ }),
@@ -78643,6 +79475,168 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("Layout", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("div", { staticClass: "row mb-4" }, [
+                _c("div", { staticClass: "col-3" }, [
+                  _c("h6", [_vm._v("Fecha")]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-3" }, [
+                  _c("h6", [_vm._v("Cuenta")]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-3" }, [
+                  _c("h6", [_vm._v("Debe")]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-3" }, [
+                  _c("h6", [_vm._v("Haber")]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.tableData, function (item, k) {
+                return _c(
+                  "div",
+                  {
+                    key: k,
+                    staticClass: "row",
+                    staticStyle: { border: "1px solid #eee" },
+                  },
+                  [
+                    _c("div", { staticClass: "col-3 mt-2" }, [
+                      _c("h6", [_vm._v(_vm._s(item.fecha_comprobante))]),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-3 mt-2" },
+                      _vm._l(item.detalles, function (item2, j) {
+                        return _c(
+                          "ul",
+                          {
+                            key: k + j,
+                            staticStyle: { "list-style": "none", padding: "0" },
+                          },
+                          [
+                            item2.plan_cuenta.manual_cuenta.nombre
+                              ? _c("li", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        item2.plan_cuenta.manual_cuenta.nombre
+                                      ) +
+                                      "\n                                "
+                                  ),
+                                ])
+                              : _c("li", [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        item2.plan_cuenta.manual_cuenta.nombre
+                                      ) +
+                                      "\n                                "
+                                  ),
+                                ]),
+                          ]
+                        )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-3 mt-2" },
+                      _vm._l(item.detalles, function (item2, j) {
+                        return _c(
+                          "ul",
+                          {
+                            key: k + j,
+                            staticStyle: { "list-style": "none", padding: "0" },
+                          },
+                          [
+                            _c("li", { staticClass: "nav-item" }, [
+                              _vm._v(_vm._s(item2.debe)),
+                            ]),
+                          ]
+                        )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-3 mt-2" },
+                      _vm._l(item.detalles, function (item2, j) {
+                        return _c(
+                          "ul",
+                          {
+                            key: k + j,
+                            staticStyle: { "list-style": "none", padding: "0" },
+                          },
+                          [_c("li", [_vm._v(_vm._s(item2.haber))])]
+                        )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "row mb-4" }, [
+                        _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-3" }, [
+                          _c("h6", [_vm._v("Totales")]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-3" }, [
+                          _c("h6", [_vm._v(_vm._s(item.deber))]),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-3" }, [
+                          _c("h6", [_vm._v(_vm._s(item.haber))]),
+                        ]),
+                      ]),
+                    ]),
+                  ]
+                )
+              }),
+            ],
+            2
+          ),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/login/login.vue?vue&type=template&id=738fd489&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/login/login.vue?vue&type=template&id=738fd489& ***!
@@ -83485,6 +84479,504 @@ var render = function () {
           ])
         : _vm._e(),
     ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/remuneraciones/anticipos.vue?vue&type=template&id=ed8990ca&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/remuneraciones/anticipos.vue?vue&type=template&id=ed8990ca& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("Layout", [
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _c("div", { staticClass: "col-lg-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("h4", { staticClass: "card-title" }, [
+                _vm._v("Anticipo Mes Actual"),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-5" }, [
+                _c("div", { staticClass: "col-12 col-lg-6" }, [
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "b-modal",
+                          rawName: "v-b-modal.crearanticipo",
+                          modifiers: { crearanticipo: true },
+                        },
+                      ],
+                      staticClass:
+                        "btn btn-success waves-effect waves-light float-start",
+                      attrs: { type: "button" },
+                      on: { click: _vm.modalNuevo },
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-plus-circle" }),
+                      _vm._v(
+                        "\n                Crear Anticipo\n              "
+                      ),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 col-lg-6" }, [
+                  _vm.xpagar == 1
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-success waves-effect waves-light float-end",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function ($event) {
+                              return _vm.pagaranticipo()
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                Pagar Anticipos\n              "
+                          ),
+                        ]
+                      )
+                    : _vm._e(),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "row mt-4" }, [
+                _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dataTables_length",
+                      attrs: { id: "tickets-table_length" },
+                    },
+                    [
+                      _c(
+                        "label",
+                        { staticClass: "d-inline-flex align-items-center" },
+                        [
+                          _vm._v(
+                            "\n                  Mostrar \n                  "
+                          ),
+                          _c("b-form-select", {
+                            attrs: { size: "sm", options: _vm.pageOptions },
+                            model: {
+                              value: _vm.perPage,
+                              callback: function ($$v) {
+                                _vm.perPage = $$v
+                              },
+                              expression: "perPage",
+                            },
+                          }),
+                          _vm._v(" entradas\n                "),
+                        ],
+                        1
+                      ),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "dataTables_filter text-md-end",
+                      attrs: { id: "tickets-table_filter" },
+                    },
+                    [
+                      _c(
+                        "label",
+                        { staticClass: "d-inline-flex align-items-center" },
+                        [
+                          _vm._v(
+                            "\n                  Buscar:\n                  "
+                          ),
+                          _c("b-form-input", {
+                            staticClass: "form-control form-control-sm ms-2",
+                            attrs: { type: "search", placeholder: "Buscar..." },
+                            model: {
+                              value: _vm.filter,
+                              callback: function ($$v) {
+                                _vm.filter = $$v
+                              },
+                              expression: "filter",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ]
+                  ),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "table-responsive mb-0" },
+                [
+                  _c("b-table", {
+                    attrs: {
+                      items: _vm.tableData,
+                      fields: _vm.fields,
+                      responsive: "sm",
+                      "per-page": _vm.perPage,
+                      "current-page": _vm.currentPage,
+                      "sort-by": _vm.sortBy,
+                      "sort-desc": _vm.sortDesc,
+                      filter: _vm.filter,
+                      "filter-included-fields": _vm.filterOn,
+                    },
+                    on: {
+                      "update:sortBy": function ($event) {
+                        _vm.sortBy = $event
+                      },
+                      "update:sort-by": function ($event) {
+                        _vm.sortBy = $event
+                      },
+                      "update:sortDesc": function ($event) {
+                        _vm.sortDesc = $event
+                      },
+                      "update:sort-desc": function ($event) {
+                        _vm.sortDesc = $event
+                      },
+                      filtered: _vm.onFiltered,
+                    },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "cell(action)",
+                        fn: function (data) {
+                          return [
+                            data.item.estado_pago == 0
+                              ? _c("ul", { staticClass: "list-inline mb-0" }, [
+                                  _c(
+                                    "li",
+                                    { staticClass: "list-inline-item" },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "b-modal",
+                                              rawName:
+                                                "v-b-modal.crearanticipo",
+                                              modifiers: {
+                                                crearanticipo: true,
+                                              },
+                                            },
+                                            {
+                                              name: "b-tooltip",
+                                              rawName: "v-b-tooltip.hover",
+                                              modifiers: { hover: true },
+                                            },
+                                          ],
+                                          staticClass: "px-2 text-primary",
+                                          attrs: {
+                                            href: "javascript:void(0);",
+                                            "data-toggle": "modal",
+                                            "data-target":
+                                              ".bs-example-crearanticipo",
+                                            title: "Editar",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.editar(data.item)
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "uil uil-pen font-size-18",
+                                          }),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "li",
+                                    { staticClass: "list-inline-item" },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          directives: [
+                                            {
+                                              name: "b-tooltip",
+                                              rawName: "v-b-tooltip.hover",
+                                              modifiers: { hover: true },
+                                            },
+                                          ],
+                                          staticClass: "px-2 text-danger",
+                                          attrs: {
+                                            href: "javascript:void(0);",
+                                            title: "Eliminar",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.eliminar(data.item)
+                                            },
+                                          },
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "uil uil-power font-size-18",
+                                          }),
+                                        ]
+                                      ),
+                                    ]
+                                  ),
+                                ])
+                              : _vm._e(),
+                          ]
+                        },
+                      },
+                    ]),
+                  }),
+                ],
+                1
+              ),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _vm.modal
+          ? _c(
+              "b-modal",
+              {
+                attrs: {
+                  id: "crearanticipo",
+                  size: "lg",
+                  title: _vm.titlemodal,
+                  "title-class": "font-18",
+                  "hide-footer": "",
+                },
+              },
+              [
+                _c(
+                  "form",
+                  {
+                    staticClass: "needs-validation",
+                    on: {
+                      submit: function ($event) {
+                        $event.preventDefault()
+                        return _vm.formSubmit.apply(null, arguments)
+                      },
+                    },
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c(
+                          "div",
+                          { staticClass: "mb-3" },
+                          [
+                            _c("label", [_vm._v("Trabajador")]),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.optionsTrabajador,
+                                "track-by": "id_trabajador",
+                                "custom-label": _vm.customLabel,
+                              },
+                              on: {
+                                input: function ($event) {
+                                  return _vm.sueldobase()
+                                },
+                              },
+                              model: {
+                                value: _vm.form.trabajador,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.form, "trabajador", $$v)
+                                },
+                                expression: "form.trabajador",
+                              },
+                            }),
+                            _vm._v(" "),
+                            !_vm.form.trabajador && _vm.submitted
+                              ? _c("span", { staticClass: "text-danger" }, [
+                                  _vm._v("Trabajador requerido."),
+                                ])
+                              : _vm._e(),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c(
+                          "div",
+                          { staticClass: "mb-3" },
+                          [
+                            _c("label", [_vm._v("Cuenta")]),
+                            _vm._v(" "),
+                            _c("multiselect", {
+                              attrs: {
+                                options: _vm.options,
+                                "track-by": "",
+                                "custom-label": _vm.customLabelCuenta,
+                              },
+                              model: {
+                                value: _vm.form.cuenta,
+                                callback: function ($$v) {
+                                  _vm.$set(_vm.form, "cuenta", $$v)
+                                },
+                                expression: "form.cuenta",
+                              },
+                            }),
+                            _vm._v(" "),
+                            !_vm.form.cuenta && _vm.submitted
+                              ? _c("span", { staticClass: "text-danger" }, [
+                                  _vm._v("Cuenta requerida."),
+                                ])
+                              : _vm._e(),
+                          ],
+                          1
+                        ),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "sueldobase" } }, [
+                            _vm._v("Sueldo Base"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.sueldo_base,
+                                expression: "sueldo_base",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              id: "sueldobase",
+                              type: "text",
+                              readonly: "",
+                            },
+                            domProps: { value: _vm.sueldo_base },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.sueldo_base = $event.target.value
+                              },
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("div", { staticClass: "mb-3" }, [
+                          _c("label", { attrs: { for: "monto" } }, [
+                            _vm._v("Monto"),
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.monto,
+                                expression: "form.monto",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid":
+                                _vm.submitted && _vm.$v.form.monto.$error,
+                            },
+                            attrs: { id: "monto", type: "text" },
+                            domProps: { value: _vm.form.monto },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "monto", $event.target.value)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _vm.submitted && _vm.$v.form.monto.$error
+                            ? _c("div", { staticClass: "invalid-feedback" }, [
+                                !_vm.$v.form.monto.required
+                                  ? _c("span", [_vm._v("Monto requeridos.")])
+                                  : _vm._e(),
+                              ])
+                            : _vm._e(),
+                        ]),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _vm.btnCreate === true
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary float-end",
+                            attrs: { type: "submit" },
+                          },
+                          [
+                            _c("i", { staticClass: "far fa-save" }),
+                            _vm._v(" Crear\n      "),
+                          ]
+                        )
+                      : _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary float-end",
+                            attrs: { type: "submit" },
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-sync" }),
+                            _vm._v(" Actualizar\n      "),
+                          ]
+                        ),
+                  ]
+                ),
+              ]
+            )
+          : _vm._e(),
+      ],
+      1
+    ),
   ])
 }
 var staticRenderFns = []
@@ -89835,283 +91327,591 @@ var render = function () {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body row" }, [
-              _c("div", { staticClass: "row mt-4" }, [
-                _c("div", { staticClass: "col-sm-12 col-md-6" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "dataTables_length",
-                      attrs: { id: "tickets-table_length" },
-                    },
-                    [
-                      _c(
-                        "label",
-                        { staticClass: "d-inline-flex align-items-center" },
-                        [
-                          _vm._v(
-                            "\n                  Show \n                  "
-                          ),
-                          _c("b-form-select", {
-                            attrs: { size: "sm", options: _vm.pageOptions },
-                            model: {
-                              value: _vm.perPage,
-                              callback: function ($$v) {
-                                _vm.perPage = $$v
-                              },
-                              expression: "perPage",
-                            },
-                          }),
-                          _vm._v(" entries\n                "),
-                        ],
-                        1
-                      ),
-                    ]
-                  ),
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-12 col-md-6" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "dataTables_filter text-md-end",
-                      attrs: { id: "tickets-table_filter" },
-                    },
-                    [
-                      _c(
-                        "label",
-                        { staticClass: "d-inline-flex align-items-center" },
-                        [
-                          _vm._v(
-                            "\n                  Search:\n                  "
-                          ),
-                          _c("b-form-input", {
-                            staticClass: "form-control form-control-sm ms-2",
-                            attrs: { type: "search", placeholder: "Search..." },
-                            model: {
-                              value: _vm.filter,
-                              callback: function ($$v) {
-                                _vm.filter = $$v
-                              },
-                              expression: "filter",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ]
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "table-responsive mb-0" },
-                [
-                  _c("b-table", {
-                    attrs: {
-                      items: _vm.tableData,
-                      fields: _vm.fields,
-                      responsive: "sm",
-                      "per-page": _vm.perPage,
-                      "current-page": _vm.currentPage,
-                      "sort-by": _vm.sortBy,
-                      "sort-desc": _vm.sortDesc,
-                      filter: _vm.filter,
-                      "filter-included-fields": _vm.filterOn,
-                    },
-                    on: {
-                      "update:sortBy": function ($event) {
-                        _vm.sortBy = $event
-                      },
-                      "update:sort-by": function ($event) {
-                        _vm.sortBy = $event
-                      },
-                      "update:sortDesc": function ($event) {
-                        _vm.sortDesc = $event
-                      },
-                      "update:sort-desc": function ($event) {
-                        _vm.sortDesc = $event
-                      },
-                      filtered: _vm.onFiltered,
-                    },
+        _c(
+          "div",
+          { staticClass: "col-12" },
+          [
+            _c(
+              "b-tabs",
+              {
+                attrs: {
+                  justified: "",
+                  "nav-class": "nav-tabs-custom",
+                  "content-class": "p-3 text-muted",
+                },
+              },
+              [
+                _c(
+                  "b-tab",
+                  {
+                    attrs: { active: "" },
                     scopedSlots: _vm._u([
                       {
-                        key: "cell(acción)",
-                        fn: function (data) {
+                        key: "title",
+                        fn: function () {
                           return [
-                            _c("ul", { staticClass: "list-inline mb-0" }, [
-                              _c("li", { staticClass: "list-inline-item" }, [
+                            _c(
+                              "span",
+                              { staticClass: "d-inline-block d-sm-none" },
+                              [_c("i", { staticClass: "fas fa-home" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticClass: "d-none d-sm-inline-block" },
+                              [_vm._v("Compras")]
+                            ),
+                          ]
+                        },
+                        proxy: true,
+                      },
+                    ]),
+                  },
+                  [
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card" }, [
+                      _c("div", { staticClass: "card-body row" }, [
+                        _c("div", { staticClass: "row mt-4" }, [
+                          _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "dataTables_length",
+                                attrs: { id: "tickets-table_length" },
+                              },
+                              [
                                 _c(
-                                  "a",
+                                  "label",
                                   {
-                                    directives: [
-                                      {
-                                        name: "b-modal",
-                                        rawName: "v-b-modal.aprobarpago",
-                                        modifiers: { aprobarpago: true },
+                                    staticClass:
+                                      "d-inline-flex align-items-center",
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Show \n                                            "
+                                    ),
+                                    _c("b-form-select", {
+                                      attrs: {
+                                        size: "sm",
+                                        options: _vm.pageOptions,
                                       },
-                                      {
-                                        name: "b-tooltip",
-                                        rawName: "v-b-tooltip.hover",
-                                        modifiers: { hover: true },
+                                      model: {
+                                        value: _vm.perPage,
+                                        callback: function ($$v) {
+                                          _vm.perPage = $$v
+                                        },
+                                        expression: "perPage",
                                       },
-                                    ],
-                                    staticClass: "px-0 text-success",
-                                    attrs: {
-                                      href: "javascript:void(0);",
-                                      "data-toggle": "modal",
-                                      "data-target": ".bs-example-aprobarpago",
-                                      title: "Pagar",
-                                    },
+                                    }),
+                                    _vm._v(
+                                      " entries\n                                        "
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "dataTables_filter text-md-end",
+                                attrs: { id: "tickets-table_filter" },
+                              },
+                              [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass:
+                                      "d-inline-flex align-items-center",
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Search:\n                                            "
+                                    ),
+                                    _c("b-form-input", {
+                                      staticClass:
+                                        "form-control form-control-sm ms-2",
+                                      attrs: {
+                                        type: "search",
+                                        placeholder: "Search...",
+                                      },
+                                      model: {
+                                        value: _vm.filter,
+                                        callback: function ($$v) {
+                                          _vm.filter = $$v
+                                        },
+                                        expression: "filter",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            ),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "table-responsive mb-0" },
+                          [
+                            _c("b-table", {
+                              attrs: {
+                                items: _vm.tableData,
+                                fields: _vm.fields,
+                                responsive: "sm",
+                                "per-page": _vm.perPage,
+                                "current-page": _vm.currentPage,
+                                "sort-by": _vm.sortBy,
+                                "sort-desc": _vm.sortDesc,
+                                filter: _vm.filter,
+                                "filter-included-fields": _vm.filterOn,
+                              },
+                              on: {
+                                "update:sortBy": function ($event) {
+                                  _vm.sortBy = $event
+                                },
+                                "update:sort-by": function ($event) {
+                                  _vm.sortBy = $event
+                                },
+                                "update:sortDesc": function ($event) {
+                                  _vm.sortDesc = $event
+                                },
+                                "update:sort-desc": function ($event) {
+                                  _vm.sortDesc = $event
+                                },
+                                filtered: _vm.onFiltered,
+                              },
+                              scopedSlots: _vm._u([
+                                {
+                                  key: "cell(acción)",
+                                  fn: function (data) {
+                                    return [
+                                      _c(
+                                        "ul",
+                                        { staticClass: "list-inline mb-0" },
+                                        [
+                                          _c(
+                                            "li",
+                                            { staticClass: "list-inline-item" },
+                                            [
+                                              _c(
+                                                "a",
+                                                {
+                                                  directives: [
+                                                    {
+                                                      name: "b-modal",
+                                                      rawName:
+                                                        "v-b-modal.aprobarpago",
+                                                      modifiers: {
+                                                        aprobarpago: true,
+                                                      },
+                                                    },
+                                                    {
+                                                      name: "b-tooltip",
+                                                      rawName:
+                                                        "v-b-tooltip.hover",
+                                                      modifiers: {
+                                                        hover: true,
+                                                      },
+                                                    },
+                                                  ],
+                                                  staticClass:
+                                                    "px-0 text-success",
+                                                  attrs: {
+                                                    href: "javascript:void(0);",
+                                                    "data-toggle": "modal",
+                                                    "data-target":
+                                                      ".bs-example-aprobarpago",
+                                                    title: "Pagar",
+                                                  },
+                                                  on: {
+                                                    click: function ($event) {
+                                                      return _vm.aprobarDocumento(
+                                                        data.item
+                                                      )
+                                                    },
+                                                  },
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "uil uil-file-check-alt font-size-18",
+                                                  }),
+                                                ]
+                                              ),
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "li",
+                                            { staticClass: "list-inline-item" },
+                                            [
+                                              _c(
+                                                "router-link",
+                                                {
+                                                  attrs: {
+                                                    to:
+                                                      "modificarDocumento/" +
+                                                      data.item.n_interno,
+                                                  },
+                                                },
+                                                [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      directives: [
+                                                        {
+                                                          name: "b-tooltip",
+                                                          rawName:
+                                                            "v-b-tooltip.hover",
+                                                          modifiers: {
+                                                            hover: true,
+                                                          },
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "px-0 text-warning",
+                                                      attrs: {
+                                                        href: "javascript:void(0);",
+                                                        title:
+                                                          "Ver Documentos Asosiados",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "uil uil-file-search-alt font-size-18",
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "li",
+                                            { staticClass: "list-inline-item" },
+                                            [
+                                              _c(
+                                                "router-link",
+                                                {
+                                                  attrs: {
+                                                    to:
+                                                      "modificarDocumento/" +
+                                                      data.item.n_interno,
+                                                  },
+                                                },
+                                                [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      directives: [
+                                                        {
+                                                          name: "b-tooltip",
+                                                          rawName:
+                                                            "v-b-tooltip.hover",
+                                                          modifiers: {
+                                                            hover: true,
+                                                          },
+                                                        },
+                                                      ],
+                                                      staticClass:
+                                                        "px-0 text-danger",
+                                                      attrs: {
+                                                        href: "javascript:void(0);",
+                                                        title: "Anular Compra",
+                                                      },
+                                                    },
+                                                    [
+                                                      _c("i", {
+                                                        staticClass:
+                                                          "uil uil-file-times-alt font-size-18",
+                                                      }),
+                                                    ]
+                                                  ),
+                                                ]
+                                              ),
+                                            ],
+                                            1
+                                          ),
+                                        ]
+                                      ),
+                                    ]
+                                  },
+                                },
+                              ]),
+                            }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "dataTables_paginate paging_simple_numbers float-end",
+                              },
+                              [
+                                _c(
+                                  "ul",
+                                  {
+                                    staticClass:
+                                      "pagination pagination-rounded mb-0",
+                                  },
+                                  [
+                                    _c("b-pagination", {
+                                      attrs: {
+                                        "total-rows": _vm.totalRows,
+                                        "per-page": _vm.perPage,
+                                      },
+                                      model: {
+                                        value: _vm.currentPage,
+                                        callback: function ($$v) {
+                                          _vm.currentPage = $$v
+                                        },
+                                        expression: "currentPage",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            ),
+                          ]),
+                        ]),
+                      ]),
+                    ]),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-tab",
+                  {
+                    scopedSlots: _vm._u([
+                      {
+                        key: "title",
+                        fn: function () {
+                          return [
+                            _c(
+                              "span",
+                              { staticClass: "d-inline-block d-sm-none" },
+                              [_c("i", { staticClass: "far fa-user" })]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticClass: "d-none d-sm-inline-block" },
+                              [_vm._v("Remuneraciones")]
+                            ),
+                          ]
+                        },
+                        proxy: true,
+                      },
+                    ]),
+                  },
+                  [
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card" }, [
+                      _c("div", { staticClass: "card-body row" }, [
+                        _c("div", { staticClass: "row mt-4" }, [
+                          _c("div", { staticClass: "col-12 mb-2" }, [
+                            _vm.tableDataRemuneraciones
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-success waves-effect waves-light float-end",
+                                    attrs: { type: "button" },
                                     on: {
                                       click: function ($event) {
-                                        return _vm.aprobarDocumento(data.item)
+                                        return _vm.pagarremuneracion()
                                       },
                                     },
                                   },
                                   [
-                                    _c("i", {
-                                      staticClass:
-                                        "uil uil-file-check-alt font-size-18",
-                                    }),
+                                    _vm._v(
+                                      "\n                                        Pagar Todas\n                                    "
+                                    ),
                                   ]
-                                ),
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "li",
-                                { staticClass: "list-inline-item" },
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      attrs: {
-                                        to:
-                                          "modificarDocumento/" +
-                                          data.item.n_interno,
-                                      },
-                                    },
-                                    [
-                                      _c(
-                                        "a",
-                                        {
-                                          directives: [
-                                            {
-                                              name: "b-tooltip",
-                                              rawName: "v-b-tooltip.hover",
-                                              modifiers: { hover: true },
-                                            },
-                                          ],
-                                          staticClass: "px-0 text-warning",
-                                          attrs: {
-                                            href: "javascript:void(0);",
-                                            title: "Ver Documentos Asosiados",
-                                          },
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass:
-                                              "uil uil-file-search-alt font-size-18",
-                                          }),
-                                        ]
-                                      ),
-                                    ]
-                                  ),
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "li",
-                                { staticClass: "list-inline-item" },
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      attrs: {
-                                        to:
-                                          "modificarDocumento/" +
-                                          data.item.n_interno,
-                                      },
-                                    },
-                                    [
-                                      _c(
-                                        "a",
-                                        {
-                                          directives: [
-                                            {
-                                              name: "b-tooltip",
-                                              rawName: "v-b-tooltip.hover",
-                                              modifiers: { hover: true },
-                                            },
-                                          ],
-                                          staticClass: "px-0 text-danger",
-                                          attrs: {
-                                            href: "javascript:void(0);",
-                                            title: "Anular Compra",
-                                          },
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass:
-                                              "uil uil-file-times-alt font-size-18",
-                                          }),
-                                        ]
-                                      ),
-                                    ]
-                                  ),
-                                ],
-                                1
-                              ),
-                            ]),
-                          ]
-                        },
-                      },
-                    ]),
-                  }),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "dataTables_paginate paging_simple_numbers float-end",
-                    },
-                    [
-                      _c(
-                        "ul",
-                        { staticClass: "pagination pagination-rounded mb-0" },
-                        [
-                          _c("b-pagination", {
-                            attrs: {
-                              "total-rows": _vm.totalRows,
-                              "per-page": _vm.perPage,
-                            },
-                            model: {
-                              value: _vm.currentPage,
-                              callback: function ($$v) {
-                                _vm.currentPage = $$v
+                                )
+                              : _vm._e(),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "dataTables_length",
+                                attrs: { id: "tickets-table_length" },
                               },
-                              expression: "currentPage",
-                            },
-                          }),
-                        ],
-                        1
-                      ),
-                    ]
-                  ),
-                ]),
-              ]),
-            ]),
-          ]),
-        ]),
+                              [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass:
+                                      "d-inline-flex align-items-center",
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Show \n                                            "
+                                    ),
+                                    _c("b-form-select", {
+                                      attrs: {
+                                        size: "sm",
+                                        options: _vm.pageOptions,
+                                      },
+                                      model: {
+                                        value: _vm.perPage,
+                                        callback: function ($$v) {
+                                          _vm.perPage = $$v
+                                        },
+                                        expression: "perPage",
+                                      },
+                                    }),
+                                    _vm._v(
+                                      " entries\n                                        "
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-sm-12 col-md-6" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "dataTables_filter text-md-end",
+                                attrs: { id: "tickets-table_filter" },
+                              },
+                              [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass:
+                                      "d-inline-flex align-items-center",
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                            Search:\n                                            "
+                                    ),
+                                    _c("b-form-input", {
+                                      staticClass:
+                                        "form-control form-control-sm ms-2",
+                                      attrs: {
+                                        type: "search",
+                                        placeholder: "Search...",
+                                      },
+                                      model: {
+                                        value: _vm.filter,
+                                        callback: function ($$v) {
+                                          _vm.filter = $$v
+                                        },
+                                        expression: "filter",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            ),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "table-responsive mb-0" },
+                          [
+                            _c("b-table", {
+                              attrs: {
+                                items: _vm.tableDataRemuneraciones,
+                                fields: _vm.fieldsRemuneraciones,
+                                responsive: "sm",
+                                "per-page": _vm.perPageRemuneraciones,
+                                "current-page": _vm.currentPageRemuneraciones,
+                                "sort-by": _vm.sortByRemuneraciones,
+                                "sort-desc": _vm.sortDescRemuneraciones,
+                                filter: _vm.filterRemuneraciones,
+                                "filter-included-fields":
+                                  _vm.filterOnRemuneraciones,
+                              },
+                              on: {
+                                "update:sortBy": function ($event) {
+                                  _vm.sortByRemuneraciones = $event
+                                },
+                                "update:sort-by": function ($event) {
+                                  _vm.sortByRemuneraciones = $event
+                                },
+                                "update:sortDesc": function ($event) {
+                                  _vm.sortDescRemuneraciones = $event
+                                },
+                                "update:sort-desc": function ($event) {
+                                  _vm.sortDescRemuneraciones = $event
+                                },
+                                filtered: _vm.onFilteredRemuneraciones,
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "dataTables_paginate paging_simple_numbers float-end",
+                              },
+                              [
+                                _c(
+                                  "ul",
+                                  {
+                                    staticClass:
+                                      "pagination pagination-rounded mb-0",
+                                  },
+                                  [
+                                    _c("b-pagination", {
+                                      attrs: {
+                                        "total-rows":
+                                          _vm.totalRowsRemuneraciones,
+                                        "per-page": _vm.perPageRemuneraciones,
+                                      },
+                                      model: {
+                                        value: _vm.currentPageRemuneraciones,
+                                        callback: function ($$v) {
+                                          _vm.currentPageRemuneraciones = $$v
+                                        },
+                                        expression:
+                                          "\n                                                    currentPageRemuneraciones\n                                                ",
+                                      },
+                                    }),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            ),
+                          ]),
+                        ]),
+                      ]),
+                    ]),
+                  ]
+                ),
+              ],
+              1
+            ),
+          ],
+          1
+        ),
       ]),
       _vm._v(" "),
       _vm.modalAprobacion
@@ -90311,7 +92111,7 @@ var render = function () {
                     },
                     [
                       _c("i", { staticClass: "far fa-save" }),
-                      _vm._v(" Aprobar\n              "),
+                      _vm._v(" Aprobar\n            "),
                     ]
                   ),
                 ]
@@ -95128,6 +96928,12 @@ var script$8 = {
       var value = new Date(date);
       return this.isDisabledTime(value) && this.isDisabledTime(value.setSeconds(0, 0)) && this.isDisabledTime(value.setSeconds(59, 999));
     },
+    isDisabledAMPM: function isDisabledAMPM(date) {
+      var value = new Date(date);
+      var minHour = value.getHours() < 12 ? 0 : 12;
+      var maxHour = minHour + 11;
+      return this.isDisabledTime(value) && this.isDisabledTime(value.setHours(minHour, 0, 0, 0)) && this.isDisabledTime(value.setHours(maxHour, 59, 59, 999));
+    },
     isDisabled: function isDisabled(date, type) {
       if (type === 'hour') {
         return this.isDisabledHour(date);
@@ -95135,6 +96941,10 @@ var script$8 = {
 
       if (type === 'minute') {
         return this.isDisabledMinute(date);
+      }
+
+      if (type === 'ampm') {
+        return this.isDisabledAMPM(date);
       }
 
       return this.isDisabledTime(date);
@@ -96333,19 +98143,19 @@ exports["default"] = _default;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
+exports.req = exports.regex = exports.ref = exports.len = void 0;
 Object.defineProperty(exports, "withParams", ({
   enumerable: true,
   get: function get() {
     return _withParams.default;
   }
 }));
-exports.regex = exports.ref = exports.len = exports.req = void 0;
 
 var _withParams = _interopRequireDefault(__webpack_require__(/*! ../withParams */ "./node_modules/vuelidate/lib/withParams.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var req = function req(value) {
   if (Array.isArray(value)) return !!value.length;
@@ -96443,7 +98253,7 @@ exports["default"] = void 0;
 
 var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
 
-var emailRegex = /^(?:[A-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+var emailRegex = /^(?:[A-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]{2,}(?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/i;
 
 var _default = (0, _common.regex)('email', emailRegex);
 
@@ -96460,6 +98270,8 @@ exports["default"] = _default;
 "use strict";
 
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
@@ -96475,10 +98287,10 @@ Object.defineProperty(exports, "alphaNum", ({
     return _alphaNum.default;
   }
 }));
-Object.defineProperty(exports, "numeric", ({
+Object.defineProperty(exports, "and", ({
   enumerable: true,
   get: function get() {
-    return _numeric.default;
+    return _and.default;
   }
 }));
 Object.defineProperty(exports, "between", ({
@@ -96487,10 +98299,23 @@ Object.defineProperty(exports, "between", ({
     return _between.default;
   }
 }));
+Object.defineProperty(exports, "decimal", ({
+  enumerable: true,
+  get: function get() {
+    return _decimal.default;
+  }
+}));
 Object.defineProperty(exports, "email", ({
   enumerable: true,
   get: function get() {
     return _email.default;
+  }
+}));
+exports.helpers = void 0;
+Object.defineProperty(exports, "integer", ({
+  enumerable: true,
+  get: function get() {
+    return _integer.default;
   }
 }));
 Object.defineProperty(exports, "ipAddress", ({
@@ -96511,10 +98336,40 @@ Object.defineProperty(exports, "maxLength", ({
     return _maxLength.default;
   }
 }));
+Object.defineProperty(exports, "maxValue", ({
+  enumerable: true,
+  get: function get() {
+    return _maxValue.default;
+  }
+}));
 Object.defineProperty(exports, "minLength", ({
   enumerable: true,
   get: function get() {
     return _minLength.default;
+  }
+}));
+Object.defineProperty(exports, "minValue", ({
+  enumerable: true,
+  get: function get() {
+    return _minValue.default;
+  }
+}));
+Object.defineProperty(exports, "not", ({
+  enumerable: true,
+  get: function get() {
+    return _not.default;
+  }
+}));
+Object.defineProperty(exports, "numeric", ({
+  enumerable: true,
+  get: function get() {
+    return _numeric.default;
+  }
+}));
+Object.defineProperty(exports, "or", ({
+  enumerable: true,
+  get: function get() {
+    return _or.default;
   }
 }));
 Object.defineProperty(exports, "required", ({
@@ -96547,49 +98402,6 @@ Object.defineProperty(exports, "url", ({
     return _url.default;
   }
 }));
-Object.defineProperty(exports, "or", ({
-  enumerable: true,
-  get: function get() {
-    return _or.default;
-  }
-}));
-Object.defineProperty(exports, "and", ({
-  enumerable: true,
-  get: function get() {
-    return _and.default;
-  }
-}));
-Object.defineProperty(exports, "not", ({
-  enumerable: true,
-  get: function get() {
-    return _not.default;
-  }
-}));
-Object.defineProperty(exports, "minValue", ({
-  enumerable: true,
-  get: function get() {
-    return _minValue.default;
-  }
-}));
-Object.defineProperty(exports, "maxValue", ({
-  enumerable: true,
-  get: function get() {
-    return _maxValue.default;
-  }
-}));
-Object.defineProperty(exports, "integer", ({
-  enumerable: true,
-  get: function get() {
-    return _integer.default;
-  }
-}));
-Object.defineProperty(exports, "decimal", ({
-  enumerable: true,
-  get: function get() {
-    return _decimal.default;
-  }
-}));
-exports.helpers = void 0;
 
 var _alpha = _interopRequireDefault(__webpack_require__(/*! ./alpha */ "./node_modules/vuelidate/lib/validators/alpha.js"));
 
@@ -96637,7 +98449,9 @@ var helpers = _interopRequireWildcard(__webpack_require__(/*! ./common */ "./nod
 
 exports.helpers = helpers;
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -97098,7 +98912,7 @@ exports["default"] = void 0;
 
 var _common = __webpack_require__(/*! ./common */ "./node_modules/vuelidate/lib/validators/common.js");
 
-var urlRegex = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i;
+var urlRegex = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/i;
 
 var _default = (0, _common.regex)('url', urlRegex);
 
@@ -97140,7 +98954,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.withParams = void 0;
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var root = typeof window !== 'undefined' ? window : typeof __webpack_require__.g !== 'undefined' ? __webpack_require__.g : {};
 

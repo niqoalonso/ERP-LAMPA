@@ -85,7 +85,7 @@ class TrabajadorController extends Controller
                                                         'url_pdf' =>$pdf,
                                                         'afp_id' =>$request->afp_id,
                                                         'comuna_id' =>$request->comuna_id,
-                                                        'estudiante_id' => $estudiante->id_estudiante
+                                                        'empresa_id' => $request->id_empresa
                                                     ]);
 
                 return $trabajador;
@@ -123,13 +123,13 @@ class TrabajadorController extends Controller
         }
     }
 
-    public function show(Trabajador $trabajador)
+    public function show($id)
     {
-        $userlogin = Auth::user();
+        // $userlogin = Auth::user();
 
-        $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
+        // $estudiante = Estudiante::where('user_id', $userlogin->id)->first();
 
-        return Trabajador::where('estudiante_id',$estudiante->id_estudiante)->with('trabajorcarga','comuna','afp')->get();
+        return Trabajador::where('empresa_id',$id)->with('trabajorcarga','comuna','afp')->get();
     }
 
     public function destroy(Trabajador $trabajador)

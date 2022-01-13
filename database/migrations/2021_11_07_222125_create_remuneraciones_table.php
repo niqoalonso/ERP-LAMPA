@@ -42,8 +42,8 @@ class CreateRemuneracionesTable extends Migration
             $table->unsignedBigInteger('trabajador_id');
             $table->foreign('trabajador_id')->references('id_trabajador')->on('trabajadors');
             $table->integer('estado_pago')->nullable()->default(0);
-            $table->unsignedBigInteger('estudiante_id');
-            $table->foreign('estudiante_id')->references('id_estudiante')->on('estudiantes');
+            $table->unsignedBigInteger('empresa_id')->nullable();
+            $table->foreign('empresa_id')->references('id_empresa')->on('empresas');
             $table->timestamps();
         });
     }

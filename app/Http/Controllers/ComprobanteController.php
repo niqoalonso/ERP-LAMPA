@@ -20,12 +20,12 @@ class ComprobanteController extends Controller
     public function getComprobantes($id)
     {
         $datos = Comprobante::where('empresa_id', $id)->get();
-        $datos->load('TipoComprobante', 'UnidadNegocio');
+        $datos->load('TipoComprobante', 'UnidadNegocio','Detalles.PlanCuenta.ManualCuenta','Detalles.PlanCuenta.MiManualCuenta');
         return $datos;
     }
 
     public function GenerarCodigo(){
-        do {            
+        do {
             $number = rand(0,99999);
             $codigo = Comprobante::select('codigo')->where('codigo', $number)->first();
         } while (!empty($codigo->codigo));
@@ -34,7 +34,7 @@ class ComprobanteController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         Comprobante::create(['codigo' => $this->GenerarCodigo(),'glosa' => $request->glosa, 'fecha_comprobante' => $request->fecha_comprobante, 'empresa_id' => $request->idEmpresa['id_empresa'],
                              'unidadnegocio_id' => $request->unidadnegocio['id_unidadnegocio'], 'tipocomprobante_id' => $request->comprobante['id_tipocomprobante']]);
         return  $this->successResponse('Unidad de Negocio añadida exitosamente', false);

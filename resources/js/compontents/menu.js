@@ -151,6 +151,13 @@ export const menuItems = [
         parentId: 8,
         permiso: Vue.prototype.$CrearEmpresa,
       },
+      {
+        id: 8.4,
+        label: "Anticipos",
+        link: "/anticipos",
+        parentId: 8,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
     ]
   },
 
@@ -278,6 +285,22 @@ export const menuItems = [
         label: "Comprobantes",
         link: "/asiento-inicial",
         parentId: 6,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
+    ],
+  },
+
+  {
+    id: 11,
+    label: "Libros",
+    icon: "fas fa-network-wired",
+    permiso: Vue.prototype.$CrearEmpresa,
+    subItems: [
+      {
+        id: 11.1,
+        label: "Libros Diario",
+        link: "/libro-diario",
+        parentId: 11,
         permiso: Vue.prototype.$CrearEmpresa,
       },
     ],

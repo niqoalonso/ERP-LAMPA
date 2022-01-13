@@ -2,6 +2,7 @@ import Layout from "../../layouts/main";
 import Swal from "sweetalert2";
 import { required } from "vuelidate/lib/validators";
 import Multiselect from "vue-multiselect";
+import Vue from 'vue';
 
 export default {
     components: { Layout, Multiselect },
@@ -36,6 +37,7 @@ export default {
                 anturlpdf: "",
                 fecha_fin_contrato: "",
                 tipo_contrato: "",
+                id_empresa: JSON.parse(Vue.prototype.$globalEmpresasSelected),
             },
             formcarga: [],
             formacargatemp: {
@@ -64,6 +66,7 @@ export default {
             optionsTipoCarga: [{ tipo: "Especial" }, { tipo: "Normal" }],
             optionsAfp: [],
             optionsParentezco: [],
+            id_empresa: JSON.parse(Vue.prototype.$globalEmpresasSelected),
 
             // tabla
 
@@ -257,7 +260,7 @@ export default {
 
         traerTrabajador() {
             this.axios
-                .get(`api/obtenertrabajador`)
+                .get(`api/obtenertrabajador/${this.id_empresa.id_empresa}`)
                 .then((response) => {
                     this.tableData = response.data;
                 });
@@ -417,6 +420,7 @@ export default {
                 fd.append("id_trabajador", this.form.id_trabajador);
                 fd.append("tipo_contrato", this.form.tipo_contrato.tipo);
                 fd.append("fecha_fin_contrato", this.form.fecha_fin_contrato);
+                fd.append("id_empresa", this.form.id_empresa.id_empresa);
                 this.axios
                     .post(`/api/creartrabajador`, fd, {
                         headers: {
@@ -571,6 +575,7 @@ export default {
                     region_id: "",
                     fecha_fin_contrato: "",
                     tipo_contrato: "",
+                    id_empresa: JSON.parse(Vue.prototype.$globalEmpresasSelected),
                 });
             this.btnCreate = true;
         },
