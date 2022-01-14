@@ -60,7 +60,7 @@
                                     :key="k + j"
                                     style="list-style: none; padding: 0;"
                                 >
-                                    <li class="nav-item">{{ item2.debe }}</li>
+                                    <li class="nav-item">{{ item2.debe | toCurrency }}</li>
                                 </ul>
                             </div>
                             <div class="col-3 mt-2">
@@ -69,7 +69,7 @@
                                     :key="k + j"
                                     style="list-style: none; padding: 0;"
                                 >
-                                    <li>{{ item2.haber }}</li>
+                                    <li>{{ item2.haber | toCurrency}}</li>
                                 </ul>
                             </div>
 
@@ -82,10 +82,10 @@
                                         <h6>Totales</h6>
                                     </div>
                                     <div class="col-3">
-                                        <h6>{{ item.deber }}</h6>
+                                        <h6>{{ item.deber | toCurrency}}</h6>
                                     </div>
                                     <div class="col-3">
-                                        <h6>{{ item.haber }}</h6>
+                                        <h6>{{ item.haber | toCurrency}}</h6>
                                     </div>
                                 </div>
                             </div>

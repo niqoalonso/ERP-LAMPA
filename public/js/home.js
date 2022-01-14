@@ -10452,10 +10452,13 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.$v.form.$invalid) {
         this.form.id_empresa = this.id_empresa.id_empresa;
-        console.log(this.form);
 
-        if (parseInt(this.form.monto) > parseInt(this.sueldo_base)) {
-          this.successmsgerror("El monto del anticipo no puede ser mayor al sueldo base");
+        if (parseInt(this.form.monto) >= parseInt(this.sueldo_base)) {
+          this.successmsgerror("El monto del anticipo no puede ser mayor o igual al sueldo base");
+          return;
+        } else if (this.form.cuenta.manualcuenta_id != 1 || this.form.cuenta.manualcuenta_id != 2) {
+          this.successmsgerror("La cuenta selecciona, no corresponde para este tipo de acción");
+          return;
         } else {
           this.axios.post("/api/crearanticipo", this.form).then(function (res) {
             console.log(res);
@@ -79578,7 +79581,7 @@ var render = function () {
                           },
                           [
                             _c("li", { staticClass: "nav-item" }, [
-                              _vm._v(_vm._s(item2.debe)),
+                              _vm._v(_vm._s(_vm._f("toCurrency")(item2.debe))),
                             ]),
                           ]
                         )
@@ -79596,7 +79599,11 @@ var render = function () {
                             key: k + j,
                             staticStyle: { "list-style": "none", padding: "0" },
                           },
-                          [_c("li", [_vm._v(_vm._s(item2.haber))])]
+                          [
+                            _c("li", [
+                              _vm._v(_vm._s(_vm._f("toCurrency")(item2.haber))),
+                            ]),
+                          ]
                         )
                       }),
                       0
@@ -79611,11 +79618,15 @@ var render = function () {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-3" }, [
-                          _c("h6", [_vm._v(_vm._s(item.deber))]),
+                          _c("h6", [
+                            _vm._v(_vm._s(_vm._f("toCurrency")(item.deber))),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-3" }, [
-                          _c("h6", [_vm._v(_vm._s(item.haber))]),
+                          _c("h6", [
+                            _vm._v(_vm._s(_vm._f("toCurrency")(item.haber))),
+                          ]),
                         ]),
                       ]),
                     ]),

@@ -167,6 +167,7 @@ class RemuneracionesController extends Controller
         $sis =0 ;
         $mutual = 0;
         $afcempresa = 0;
+        $totalhaber = 0;
 
         foreach ($remuneraciones as $key => $value) {
 
@@ -207,13 +208,14 @@ class RemuneracionesController extends Controller
                 $afcempresa = $afcempresa + round( ($value["total_imponible"] * 3) /100 );
             }
 
-        
+
             $afp = $afp + $value["afp_monto"];
             $afc = $afc + $value["afc_monto"];
             $salud = $salud + $value["fonasa_monto"];
             $impunico = $impunico + $value["impuesto_unico"];
             $anticipo = $anticipo + $value["anticipo"];
             $sueldoliquido = $sueldoliquido + $value["sueldo_liquido"];
+            $totalhaber = $totalhaber + $value["total_haber"];
 
         }
 
@@ -221,9 +223,11 @@ class RemuneracionesController extends Controller
 
         $totalremuneracion = $sueldobase + $horaextras + $gratificacion + $bonos + $colacion + $movilizacion + $viaticos;
 
-        $prev = $afp + $afc + $salud;
+        $totalafc = $afc + $afcempresa;
 
-        $xpagar = round( $totalremuneracion - $prev - $anticipo - $impunico );
+        $prev = $afp + $afc + $salud + $totalafc + $sis + $mutual;
+
+        $xpagar = $sueldoliquido;
 
         $debe = $totalremuneracion + $asigfam + $leyessociales;
         $haber = $prev + $impunico + $anticipo + $xpagar;

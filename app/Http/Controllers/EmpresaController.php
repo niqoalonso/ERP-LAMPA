@@ -11,6 +11,7 @@ use App\Models\PersonalAccessTokens;
 use App\Models\SolicitudEmpresa;
 use App\Models\SubNivel;
 use App\Models\UnidadNegocio;
+use App\Models\PlanCuenta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -353,6 +354,16 @@ class EmpresaController extends Controller
             SolicitudEmpresa::where('id_solicitud',$idsolicitud)->update([
                 'estado_id' => 11
             ]);
+
+            // pasamos las cuentas por defecto que debe tener cada empresa
+
+            $plancuenta = [13,14,15,16,17,18,19,1,2];
+
+            for ($i=0; $i < count($plancuenta) ; $i++) {
+                PlanCuenta::create([
+                    'empresa_id' => $id,
+                    'manualcuenta_id' => $plancuenta[$i]]);
+            }
 
             return $this->successResponse('Empresa aprobada exitosamente', true);
         }else{
