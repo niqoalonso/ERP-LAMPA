@@ -184,8 +184,8 @@
                                         <button
                                             type="button"
                                             class="btn btn-success waves-effect waves-light float-end"
-                                            @click="pagarremuneracion()"
-                                            v-if="tableDataRemuneraciones"
+                                            v-b-modal.pagarremuneraciones
+                                            @click="modalNuevo"
                                         >
                                             Pagar Todas
                                         </button>
@@ -363,5 +363,81 @@
                 </button>
             </form>
         </b-modal>
+
+
+        <!-- modal pagar remuneraciones -->
+
+      <b-modal
+      id="pagarremuneraciones"
+      size="lg"
+      title="Pagar Remuneraciones"
+      title-class="font-18"
+      hide-footer
+      v-if="modal"
+    >
+      <form class="needs-validation" @submit.prevent="formSubmitRemuneraciones">
+
+        <div class="row">
+
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="fecha">Fecha</label>
+              <input
+                id="fecha"
+                v-model="formRemuneraciones.fecha"
+                type="date"
+                class="form-control"
+                :class="{
+                  'is-invalid': submitted && $v.formRemuneraciones.fecha.$error,
+                }"
+              />
+              <div
+                v-if="submitted && $v.formRemuneraciones.fecha.$error"
+                class="invalid-feedback"
+              >
+                <span v-if="!$v.formRemuneraciones.fecha.required"
+                  >Fecha requeridos.</span
+                >
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Cuenta</label>
+              <multiselect
+                v-model="formRemuneraciones.cuenta"
+                :options="optionsCuentas"
+                track-by=""
+                :custom-label="customLabelCuenta"
+
+              ></multiselect>
+              <span
+              class="text-danger"
+                  v-if="
+                    !formRemuneraciones.cuenta && submitted
+                  "
+                  >Cuenta requerida.</span
+                >
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+
+        <button class="btn btn-primary float-end" type="submit">
+          <i class="far fa-save"></i> Pagar
+        </button>
+
+      </form>
+    </b-modal>
+
+
+      <!-- modal modal pagar remuneraciones -->
     </Layout>
 </template>

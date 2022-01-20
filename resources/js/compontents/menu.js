@@ -303,6 +303,20 @@ export const menuItems = [
         parentId: 11,
         permiso: Vue.prototype.$CrearEmpresa,
       },
+      {
+        id: 11.2,
+        label: "Libros Caja",
+        link: "/libro-caja",
+        parentId: 11,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
+      {
+        id: 11.3,
+        label: "Libros Banco",
+        link: "/libro-banco",
+        parentId: 11,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
     ],
   },
 

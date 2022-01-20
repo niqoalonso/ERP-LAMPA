@@ -2698,6 +2698,18 @@ var menuItems = [{
     link: "/libro-diario",
     parentId: 11,
     permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
+  }, {
+    id: 11.2,
+    label: "Libros Caja",
+    link: "/libro-caja",
+    parentId: 11,
+    permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
+  }, {
+    id: 11.3,
+    label: "Libros Banco",
+    link: "/libro-banco",
+    parentId: 11,
+    permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
   }]
 }];
 
@@ -8310,6 +8322,229 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-banco.js?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-banco.js?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _layouts_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../layouts/main */ "./resources/js/views/layouts/main.vue");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Layout: _layouts_main__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Multiselect: (vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default()),
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      mesbusqueda: "",
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_5__["default"].prototype.$globalEmpresasSelected),
+      infodata: [],
+      totaldebe: 0,
+      totalhaber: 0
+    };
+  },
+  mounted: function mounted() {
+    this.traerinfocaja();
+  },
+  methods: {
+    traerinfocaja: function traerinfocaja() {
+      var _this = this;
+
+      this.axios.get("/api/obtenerinfocaja/".concat(this.id_empresa.id_empresa, "/2")).then(function (response) {
+        console.log(response);
+
+        _this.trabajarrespuesta(response);
+      });
+    },
+    busqueda: function busqueda() {
+      var _this2 = this;
+
+      if (this.mesbusqueda) {
+        var mes = moment__WEBPACK_IMPORTED_MODULE_4___default()(this.mesbusqueda).format("YYYY-MM");
+        this.axios.get("/api/obtenerinfocaja/".concat(mes, "/").concat(this.id_empresa.id_empresa, "/2")).then(function (response) {
+          console.log(response);
+
+          _this2.trabajarrespuesta(response);
+        });
+      }
+    },
+    trabajarrespuesta: function trabajarrespuesta(response) {
+      var _this3 = this;
+
+      this.infodata = [];
+      this.totalhaber = 0;
+      this.totaldebe = 0; // eliminar los que no tengan detalles
+
+      var detalles = response.data.filter(function (item) {
+        return item.detalle_comprobantes;
+      });
+      detalles.map(function (p, i) {
+        if (p.detalle_comprobantes.length > 0) {
+          p.detalle_comprobantes.map(function (j) {
+            j["fecha_comprobante"] = p.fecha_comprobante;
+            j["glosa_comprobante"] = p.glosa;
+
+            _this3.infodata.push(j);
+
+            return j;
+          });
+        } // crear nueva propiedad y asigno el valor
+
+
+        return p;
+      });
+      this.calculototales();
+      console.log(this.infodata);
+    },
+    calculototales: function calculototales() {
+      var _this4 = this;
+
+      this.infodata.forEach(function (element) {
+        if (element.debe > 0) {
+          _this4.totalhaber = _this4.totalhaber + element.debe;
+        }
+
+        if (element.haber > 0 && element.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 && element.plan_cuenta.manual_cuenta.id_manual_cuenta != 2) {
+          _this4.totaldebe = _this4.totaldebe + element.haber;
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-caja.js?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-caja.js?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _layouts_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../layouts/main */ "./resources/js/views/layouts/main.vue");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Layout: _layouts_main__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Multiselect: (vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default()),
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      mesbusqueda: "",
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_5__["default"].prototype.$globalEmpresasSelected),
+      infodata: [],
+      totaldebe: 0,
+      totalhaber: 0
+    };
+  },
+  mounted: function mounted() {
+    this.traerinfocaja();
+  },
+  methods: {
+    traerinfocaja: function traerinfocaja() {
+      var _this = this;
+
+      this.axios.get("/api/obtenerinfocaja/".concat(this.id_empresa.id_empresa, "/1")).then(function (response) {
+        console.log(response);
+
+        _this.trabajarrespuesta(response);
+      });
+    },
+    busqueda: function busqueda() {
+      var _this2 = this;
+
+      if (this.mesbusqueda) {
+        var mes = moment__WEBPACK_IMPORTED_MODULE_4___default()(this.mesbusqueda).format("YYYY-MM");
+        this.axios.get("/api/obtenerinfocaja/".concat(mes, "/").concat(this.id_empresa.id_empresa, "/1")).then(function (response) {
+          console.log(response);
+
+          _this2.trabajarrespuesta(response);
+        });
+      }
+    },
+    trabajarrespuesta: function trabajarrespuesta(response) {
+      var _this3 = this;
+
+      this.infodata = [];
+      this.totalhaber = 0;
+      this.totaldebe = 0; // eliminar los que no tengan detalles
+
+      var detalles = response.data.filter(function (item) {
+        return item.detalle_comprobantes;
+      });
+      detalles.map(function (p, i) {
+        if (p.detalle_comprobantes.length > 0) {
+          p.detalle_comprobantes.map(function (j) {
+            j["fecha_comprobante"] = p.fecha_comprobante;
+            j["glosa_comprobante"] = p.glosa;
+
+            _this3.infodata.push(j);
+
+            return j;
+          });
+        } // crear nueva propiedad y asigno el valor
+
+
+        return p;
+      });
+      this.calculototales();
+    },
+    calculototales: function calculototales() {
+      var _this4 = this;
+
+      this.infodata.forEach(function (element) {
+        if (element.debe > 0) {
+          _this4.totalhaber = _this4.totalhaber + element.debe;
+        }
+
+        if (element.haber > 0 && element.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 && element.plan_cuenta.manual_cuenta.id_manual_cuenta != 2) {
+          _this4.totaldebe = _this4.totaldebe + element.haber;
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js& ***!
@@ -10456,65 +10691,68 @@ __webpack_require__.r(__webpack_exports__);
         if (parseInt(this.form.monto) >= parseInt(this.sueldo_base)) {
           this.successmsgerror("El monto del anticipo no puede ser mayor o igual al sueldo base");
           return;
-        } else if (this.form.cuenta.manualcuenta_id != 1 || this.form.cuenta.manualcuenta_id != 2) {
+        }
+
+        if (this.form.cuenta.manual_cuenta.id_manual_cuenta == 1 || this.form.cuenta.manual_cuenta.id_manual_cuenta == 2) {} else {
+          console.log(this.form.cuenta.manual_cuenta.id_manual_cuenta);
           this.successmsgerror("La cuenta selecciona, no corresponde para este tipo de acción");
           return;
-        } else {
-          this.axios.post("/api/crearanticipo", this.form).then(function (res) {
-            console.log(res);
-            var title = "";
-            var message = "";
-            var type = "";
+        }
 
-            if (res.data) {
-              if (_this5.form.id_anticipo == "") {
-                title = "Crear Anticipo";
-                message = "Anticipo creada con exito";
-                type = "success";
-              } else {
-                title = "Editar Anticipo";
-                message = "Anticipo editada con exito";
-                type = "success";
-              }
+        this.axios.post("/api/crearanticipo", this.form).then(function (res) {
+          console.log(res);
+          var title = "";
+          var message = "";
+          var type = "";
 
-              _this5.modal = false;
-              _this5.btnCreate = false;
-              _this5.submitted = false;
-              _this5.sueldo_base = "";
-
-              _this5.$v.form.$reset();
-
-              _this5.traerAnticipo();
-
-              _this5.successmsg(title, message, type);
-            }
-          })["catch"](function (error) {
-            console.log("error", error);
-            var title = "";
-            var message = "";
-            var type = "";
-
-            if (_this5.form.id_remuneracion) {
-              title = "Crear Remuneración";
-              message = "Remuneración  creada con exito";
-              type = "error";
+          if (res.data) {
+            if (_this5.form.id_anticipo == "") {
+              title = "Crear Anticipo";
+              message = "Anticipo creada con exito";
+              type = "success";
             } else {
-              title = "Editar Remuneración";
-              message = "Remuneración  editada con exito";
-              type = "error";
+              title = "Editar Anticipo";
+              message = "Anticipo editada con exito";
+              type = "success";
             }
 
             _this5.modal = false;
             _this5.btnCreate = false;
             _this5.submitted = false;
+            _this5.sueldo_base = "";
 
             _this5.$v.form.$reset();
 
             _this5.traerAnticipo();
 
             _this5.successmsg(title, message, type);
-          });
-        }
+          }
+        })["catch"](function (error) {
+          console.log("error", error);
+          var title = "";
+          var message = "";
+          var type = "";
+
+          if (_this5.form.id_remuneracion) {
+            title = "Crear Remuneración";
+            message = "Remuneración  creada con exito";
+            type = "error";
+          } else {
+            title = "Editar Remuneración";
+            message = "Remuneración  editada con exito";
+            type = "error";
+          }
+
+          _this5.modal = false;
+          _this5.btnCreate = false;
+          _this5.submitted = false;
+
+          _this5.$v.form.$reset();
+
+          _this5.traerAnticipo();
+
+          _this5.successmsg(title, message, type);
+        });
       }
     },
     pagaranticipo: function pagaranticipo() {
@@ -12450,7 +12688,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../layouts/main */ "./resources/js/views/layouts/main.vue");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+
+
 
 
 
@@ -12477,7 +12720,15 @@ __webpack_require__.r(__webpack_exports__);
         empresa: "",
         id_documento: ""
       },
-      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$globalEmpresasSelected),
+      formRemuneraciones: {
+        fecha: "",
+        cuenta: "",
+        id_empresa: ""
+      },
+      optionsCuentas: [],
+      submitted: false,
+      modal: false,
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_4__["default"].prototype.$globalEmpresasSelected),
       //TABLA DE DOCUMENTOS TRIBUTARIOS
       tableData: [],
       title: "Empresas",
@@ -12577,6 +12828,16 @@ __webpack_require__.r(__webpack_exports__);
       }, "action"]
     };
   },
+  validations: {
+    formRemuneraciones: {
+      fecha: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__.required
+      },
+      cuenta: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__.required
+      }
+    }
+  },
   computed: {
     rows: function rows() {
       return this.tableDataRemuneraciones.length;
@@ -12588,8 +12849,13 @@ __webpack_require__.r(__webpack_exports__);
     this.totalRowsRemuneraciones = this.items.length;
     this.getInicialCompras();
     this.traerRemuneracion();
+    this.traerPlan();
   },
   methods: {
+    customLabelCuenta: function customLabelCuenta(_ref) {
+      var manual_cuenta = _ref.manual_cuenta;
+      return "".concat(manual_cuenta.nombre);
+    },
     onFiltered: function onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
@@ -12598,16 +12864,24 @@ __webpack_require__.r(__webpack_exports__);
       this.totalRowsRemuneraciones = filteredItems.length;
       this.currentPageRemuneraciones = 1;
     },
-    traerRemuneracion: function traerRemuneracion() {
+    traerPlan: function traerPlan() {
       var _this = this;
+
+      this.axios.get("/api/getPlanCuenta/".concat(this.id_empresa.id_empresa)).then(function (response) {
+        console.log(response);
+        _this.optionsCuentas = response.data;
+      });
+    },
+    traerRemuneracion: function traerRemuneracion() {
+      var _this2 = this;
 
       this.axios.get("/api/obtenerremuneracion/nopagadas/".concat(this.id_empresa.id_empresa)).then(function (response) {
         console.log(response);
-        _this.tableDataRemuneraciones = response.data;
+        _this2.tableDataRemuneraciones = response.data;
       });
     },
     getInicialCompras: function getInicialCompras() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.axios.get("api/getTesoreriaComprasIncial/" + this.infoEmpresa.id_empresa).then(function (res) {
         res.data.cuentas.map(function (p) {
@@ -12621,10 +12895,10 @@ __webpack_require__.r(__webpack_exports__);
 
           return p;
         });
-        _this2.optionsOrigen = res.data.cuentas;
-        _this2.optionsDestino = res.data.cuentas;
+        _this3.optionsOrigen = res.data.cuentas;
+        _this3.optionsDestino = res.data.cuentas;
         console.log(res.data.doc);
-        _this2.tableData = res.data.doc;
+        _this3.tableData = res.data.doc;
         res.data.doc.map(function (p) {
           p["descripcion"] = p.documento_tributario.descripcion;
 
@@ -12642,11 +12916,11 @@ __webpack_require__.r(__webpack_exports__);
         var title = "Crear subnivel";
         var message = "Error al crear el subnivel";
         var type = "error";
-        _this2.modal = false;
+        _this3.modal = false;
 
-        _this2.$v.form.$reset();
+        _this3.$v.form.$reset();
 
-        _this2.successmsg(title, message, type);
+        _this3.successmsg(title, message, type);
       });
     },
     aprobarDocumento: function aprobarDocumento(data) {
@@ -12658,7 +12932,7 @@ __webpack_require__.r(__webpack_exports__);
       this.formAprobacion.f_emision = data.fecha_emision;
     },
     formSubmitAprobarPago: function formSubmitAprobarPago() {
-      var _this3 = this;
+      var _this4 = this;
 
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
         title: "Aprobar Pago",
@@ -12671,7 +12945,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: "Si, Aprobar!"
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this3.axios.post("api/aprobarPago", _this3.formAprobacion).then(function (res) {
+          _this4.axios.post("api/aprobarPago", _this4.formAprobacion).then(function (res) {
             console.log(res);
           })["catch"](function (error) {
             console.log("error", error);
@@ -12679,8 +12953,84 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
+    formSubmitRemuneraciones: function formSubmitRemuneraciones() {
+      var _this5 = this;
+
+      if (this.tableDataRemuneraciones.length > 0) {
+        this.submitted = true;
+        this.$v.formRemuneraciones.$touch();
+
+        if (!this.$v.formRemuneraciones.$invalid) {
+          var fecha_hoy = moment__WEBPACK_IMPORTED_MODULE_3___default()().format("YYYY-MM-DD");
+
+          if (this.formRemuneraciones.cuenta.manual_cuenta.id_manual_cuenta == 1 || this.formRemuneraciones.cuenta.manual_cuenta.id_manual_cuenta == 2) {} else {
+            console.log(this.formRemuneraciones.cuenta.manual_cuenta.id_manual_cuenta);
+            this.successmsgerror("La cuenta selecciona, no corresponde para este tipo de acción");
+            return;
+          }
+
+          if (this.formRemuneraciones.fecha >= fecha_hoy) {
+            this.formRemuneraciones.id_empresa = this.id_empresa.id_empresa;
+            console.log(this.formRemuneraciones);
+            this.axios.post("/api/pagarremuneraciones", this.formRemuneraciones).then(function (res) {
+              console.log(res);
+              var title = "";
+              var message = "";
+              var type = "";
+
+              if (res.data) {
+                title = "Pagar Remuneraciones";
+                message = "Remuneraciones pagadas con éxito";
+                type = "success";
+                _this5.modal = false;
+                _this5.submitted = false;
+
+                _this5.$v.formRemuneraciones.$reset();
+
+                _this5.traerRemuneracion();
+
+                _this5.successmsg(title, message, type);
+              }
+            })["catch"](function (error) {
+              console.log("error", error);
+              var title = "";
+              var message = "";
+              var type = "";
+              title = "Pagar Remuneraciones";
+              message = "Error al pagar las remuneraciones";
+              type = "error";
+              _this5.modal = false;
+              _this5.submitted = false;
+
+              _this5.$v.formRemuneraciones.$reset();
+
+              _this5.traerRemuneracion();
+
+              _this5.successmsg(title, message, type);
+            });
+          } else {
+            this.successmsg("Error al Pagar Remuneraciones", "La fecha no pude ser menor al dia de hoy.", "error");
+          }
+        }
+      } else {
+        this.successmsg("Error al Pagar Remuneraciones", "No hay remuneraciones del mes en curso por pagar", "error");
+      }
+    },
+    modalNuevo: function modalNuevo() {
+      if (this.tableDataRemuneraciones.length > 0) {
+        this.modal = true;
+        this.formRemuneraciones = {
+          fecha: "",
+          cuenta: "",
+          id_empresa: ""
+        }, this.submitted = false;
+        this.modal = true;
+      } else {
+        this.successmsg("Error al Pagar Remuneraciones", "No hay remuneraciones del mes en curso por pagar", "error");
+      }
+    },
     pagarremuneracion: function pagarremuneracion() {
-      var _this4 = this;
+      var _this6 = this;
 
       if (this.tableDataRemuneraciones.length > 0) {
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
@@ -12694,7 +13044,7 @@ __webpack_require__.r(__webpack_exports__);
           confirmButtonText: "Si, Aprobar!"
         }).then(function (result) {
           if (result.isConfirmed) {
-            _this4.axios.get("api/pagarremuneraciones/".concat(_this4.id_empresa.id_empresa)).then(function (response) {
+            _this6.axios.get("api/pagarremuneraciones/".concat(_this6.id_empresa.id_empresa)).then(function (response) {
               console.log(response);
 
               if (response.data == 1) {
@@ -12702,25 +13052,34 @@ __webpack_require__.r(__webpack_exports__);
                 var message = "Remuneraciones pagadas con éxito";
                 var type = "success";
 
-                _this4.successmsg(title, message, type);
+                _this6.successmsg(title, message, type);
 
-                _this4.traerRemuneracion();
+                _this6.traerRemuneracion();
               } else {
                 var _title = "Error al Pagar Remuneraciones";
                 var _message = "Error al pagar las remuneraciones";
                 var _type = "error";
 
-                _this4.successmsg(_title, _message, _type);
+                _this6.successmsg(_title, _message, _type);
               }
             });
           }
         });
       } else {
-        this.successmsg('Error al Pagar Remuneraciones', 'No hay remuneraciones del mes en curso por pagar', 'error');
+        this.successmsg("Error al Pagar Remuneraciones", "No hay remuneraciones del mes en curso por pagar", "error");
       }
     },
     successmsg: function successmsg(title, message, type) {
       sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire(title, message, type);
+    },
+    successmsgerror: function successmsgerror(error) {
+      sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+        position: "center",
+        title: error,
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000
+      });
     }
   }
 });
@@ -60306,6 +60665,84 @@ component.options.__file = "resources/js/views/pages/indicadoresP/indicadores.vu
 
 /***/ }),
 
+/***/ "./resources/js/views/pages/libros/libro-banco.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-banco.vue ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _libro_banco_vue_vue_type_template_id_675a367c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libro-banco.vue?vue&type=template&id=675a367c& */ "./resources/js/views/pages/libros/libro-banco.vue?vue&type=template&id=675a367c&");
+/* harmony import */ var _libro_banco_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./libro-banco.js?vue&type=script&lang=js& */ "./resources/js/views/pages/libros/libro-banco.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _libro_banco_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _libro_banco_vue_vue_type_template_id_675a367c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _libro_banco_vue_vue_type_template_id_675a367c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/pages/libros/libro-banco.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/pages/libros/libro-caja.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-caja.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _libro_caja_vue_vue_type_template_id_3ae04864___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libro-caja.vue?vue&type=template&id=3ae04864& */ "./resources/js/views/pages/libros/libro-caja.vue?vue&type=template&id=3ae04864&");
+/* harmony import */ var _libro_caja_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./libro-caja.js?vue&type=script&lang=js& */ "./resources/js/views/pages/libros/libro-caja.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _libro_caja_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _libro_caja_vue_vue_type_template_id_3ae04864___WEBPACK_IMPORTED_MODULE_0__.render,
+  _libro_caja_vue_vue_type_template_id_3ae04864___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/pages/libros/libro-caja.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/views/pages/libros/libro-diario.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/views/pages/libros/libro-diario.vue ***!
@@ -61330,6 +61767,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/pages/libros/libro-banco.js?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-banco.js?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_libro_banco_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./libro-banco.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-banco.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_libro_banco_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/pages/libros/libro-caja.js?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-caja.js?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_libro_caja_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./libro-caja.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-caja.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_libro_caja_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js&":
 /*!**********************************************************************************!*\
   !*** ./resources/js/views/pages/libros/libro-diario.js?vue&type=script&lang=js& ***!
@@ -62288,6 +62757,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_indicadores_vue_vue_type_template_id_1f55d88b___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_indicadores_vue_vue_type_template_id_1f55d88b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./indicadores.vue?vue&type=template&id=1f55d88b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/indicadoresP/indicadores.vue?vue&type=template&id=1f55d88b&");
+
+
+/***/ }),
+
+/***/ "./resources/js/views/pages/libros/libro-banco.vue?vue&type=template&id=675a367c&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-banco.vue?vue&type=template&id=675a367c& ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_banco_vue_vue_type_template_id_675a367c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_banco_vue_vue_type_template_id_675a367c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_banco_vue_vue_type_template_id_675a367c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./libro-banco.vue?vue&type=template&id=675a367c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-banco.vue?vue&type=template&id=675a367c&");
+
+
+/***/ }),
+
+/***/ "./resources/js/views/pages/libros/libro-caja.vue?vue&type=template&id=3ae04864&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-caja.vue?vue&type=template&id=3ae04864& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_caja_vue_vue_type_template_id_3ae04864___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_caja_vue_vue_type_template_id_3ae04864___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_caja_vue_vue_type_template_id_3ae04864___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./libro-caja.vue?vue&type=template&id=3ae04864& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-caja.vue?vue&type=template&id=3ae04864&");
 
 
 /***/ }),
@@ -79478,6 +79981,496 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-banco.vue?vue&type=template&id=675a367c&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-banco.vue?vue&type=template&id=675a367c& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("Layout", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-4" }, [
+        _c(
+          "div",
+          { staticClass: "form-group mb-3" },
+          [
+            _c("label", [_vm._v("Selecciona el mes")]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("date-picker", {
+              attrs: {
+                type: "month",
+                lang: "es",
+                confirm: "",
+                placeholder: "Selecciona mes",
+              },
+              on: {
+                input: function ($event) {
+                  return _vm.busqueda()
+                },
+              },
+              model: {
+                value: _vm.mesbusqueda,
+                callback: function ($$v) {
+                  _vm.mesbusqueda = $$v
+                },
+                expression: "mesbusqueda",
+              },
+            }),
+          ],
+          1
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12 text-center" }, [
+                _c("h6", [_vm._v("BANCO")]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-6 col-12 text-center" },
+                [
+                  _c("h6", { staticClass: "mb-2" }, [_vm._v("DEBE")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row mb-4" }, [
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Fecha")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Operacion")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Cuenta")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Monto")]),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.infodata, function (item, k) {
+                    return _c("div", { key: k, staticClass: "row mb-4" }, [
+                      item.haber > 0 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [_vm._v(_vm._s(item.fecha_comprobante))]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.haber > 0 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [_vm._v(_vm._s(item.glosa_comprobante))]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.haber > 0 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(
+                                    item.plan_cuenta.manual_cuenta.nombre
+                                  ) +
+                                  "\n                                    "
+                              ),
+                            ]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.haber > 0 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [
+                              _vm._v(_vm._s(_vm._f("toCurrency")(item.haber))),
+                            ]),
+                          ])
+                        : _vm._e(),
+                    ])
+                  }),
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-6 col-12 text-center" },
+                [
+                  _c("h6", { staticClass: "mb-2" }, [_vm._v("HABER")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row mb-4" }, [
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Fecha")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Operacion")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Cuenta")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Monto")]),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.infodata, function (item, k) {
+                    return _c("div", { key: k, staticClass: "row mb-4" }, [
+                      item.debe > 0
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [_vm._v(_vm._s(item.fecha_comprobante))]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.debe > 0
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [_vm._v(_vm._s(item.glosa_comprobante))]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.debe > 0
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(
+                                    item.plan_cuenta.manual_cuenta.nombre
+                                  ) +
+                                  "\n                                    "
+                              ),
+                            ]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.debe > 0
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [
+                              _vm._v(_vm._s(_vm._f("toCurrency")(item.debe))),
+                            ]),
+                          ])
+                        : _vm._e(),
+                    ])
+                  }),
+                ],
+                2
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
+                _c("div", { staticClass: "row mb-4" }, [
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [
+                    _c("h6", [
+                      _vm._v(_vm._s(_vm._f("toCurrency")(_vm.totaldebe))),
+                    ]),
+                  ]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
+                _c("div", { staticClass: "row mb-4" }, [
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [
+                    _c("h6", [
+                      _vm._v(_vm._s(_vm._f("toCurrency")(_vm.totalhaber))),
+                    ]),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-caja.vue?vue&type=template&id=3ae04864&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-caja.vue?vue&type=template&id=3ae04864& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("Layout", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-4" }, [
+        _c(
+          "div",
+          { staticClass: "form-group mb-3" },
+          [
+            _c("label", [_vm._v("Selecciona el mes")]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("date-picker", {
+              attrs: {
+                type: "month",
+                lang: "es",
+                confirm: "",
+                placeholder: "Selecciona mes",
+              },
+              on: {
+                input: function ($event) {
+                  return _vm.busqueda()
+                },
+              },
+              model: {
+                value: _vm.mesbusqueda,
+                callback: function ($$v) {
+                  _vm.mesbusqueda = $$v
+                },
+                expression: "mesbusqueda",
+              },
+            }),
+          ],
+          1
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12 text-center" }, [
+                _c("h6", [_vm._v("CAJA")]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-6 col-12 text-center" },
+                [
+                  _c("h6", { staticClass: "mb-2" }, [_vm._v("DEBE")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row mb-4" }, [
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Fecha")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Operacion")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Cuenta")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Monto")]),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.infodata, function (item, k) {
+                    return _c("div", { key: k, staticClass: "row mb-4" }, [
+                      item.haber > 0 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [_vm._v(_vm._s(item.fecha_comprobante))]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.haber > 0 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [_vm._v(_vm._s(item.glosa_comprobante))]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.haber > 0 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(
+                                    item.plan_cuenta.manual_cuenta.nombre
+                                  ) +
+                                  "\n                                    "
+                              ),
+                            ]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.haber > 0 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1 &&
+                      item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [
+                              _vm._v(_vm._s(_vm._f("toCurrency")(item.haber))),
+                            ]),
+                          ])
+                        : _vm._e(),
+                    ])
+                  }),
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-6 col-12 text-center" },
+                [
+                  _c("h6", { staticClass: "mb-2" }, [_vm._v("HABER")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row mb-4" }, [
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Fecha")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Operacion")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Cuenta")]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-3" }, [
+                      _c("h6", [_vm._v("Monto")]),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.infodata, function (item, k) {
+                    return _c("div", { key: k, staticClass: "row mb-4" }, [
+                      item.debe > 0
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [_vm._v(_vm._s(item.fecha_comprobante))]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.debe > 0
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [_vm._v(_vm._s(item.glosa_comprobante))]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.debe > 0
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(
+                                    item.plan_cuenta.manual_cuenta.nombre
+                                  ) +
+                                  "\n                                    "
+                              ),
+                            ]),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      item.debe > 0
+                        ? _c("div", { staticClass: "col-3" }, [
+                            _c("h6", [
+                              _vm._v(_vm._s(_vm._f("toCurrency")(item.debe))),
+                            ]),
+                          ])
+                        : _vm._e(),
+                    ])
+                  }),
+                ],
+                2
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
+                _c("div", { staticClass: "row mb-4" }, [
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [
+                    _c("h6", [
+                      _vm._v(_vm._s(_vm._f("toCurrency")(_vm.totaldebe))),
+                    ]),
+                  ]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
+                _c("div", { staticClass: "row mb-4" }, [
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [_c("h6")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3" }, [
+                    _c("h6", [
+                      _vm._v(_vm._s(_vm._f("toCurrency")(_vm.totalhaber))),
+                    ]),
+                  ]),
+                ]),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa& ***!
@@ -91734,26 +92727,27 @@ var render = function () {
                       _c("div", { staticClass: "card-body row" }, [
                         _c("div", { staticClass: "row mt-4" }, [
                           _c("div", { staticClass: "col-12 mb-2" }, [
-                            _vm.tableDataRemuneraciones
-                              ? _c(
-                                  "button",
+                            _c(
+                              "button",
+                              {
+                                directives: [
                                   {
-                                    staticClass:
-                                      "btn btn-success waves-effect waves-light float-end",
-                                    attrs: { type: "button" },
-                                    on: {
-                                      click: function ($event) {
-                                        return _vm.pagarremuneracion()
-                                      },
-                                    },
+                                    name: "b-modal",
+                                    rawName: "v-b-modal.pagarremuneraciones",
+                                    modifiers: { pagarremuneraciones: true },
                                   },
-                                  [
-                                    _vm._v(
-                                      "\n                                        Pagar Todas\n                                    "
-                                    ),
-                                  ]
-                                )
-                              : _vm._e(),
+                                ],
+                                staticClass:
+                                  "btn btn-success waves-effect waves-light float-end",
+                                attrs: { type: "button" },
+                                on: { click: _vm.modalNuevo },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Pagar Todas\n                                    "
+                                ),
+                              ]
+                            ),
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-12 col-md-6" }, [
@@ -92123,6 +93117,129 @@ var render = function () {
                     [
                       _c("i", { staticClass: "far fa-save" }),
                       _vm._v(" Aprobar\n            "),
+                    ]
+                  ),
+                ]
+              ),
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.modal
+        ? _c(
+            "b-modal",
+            {
+              attrs: {
+                id: "pagarremuneraciones",
+                size: "lg",
+                title: "Pagar Remuneraciones",
+                "title-class": "font-18",
+                "hide-footer": "",
+              },
+            },
+            [
+              _c(
+                "form",
+                {
+                  staticClass: "needs-validation",
+                  on: {
+                    submit: function ($event) {
+                      $event.preventDefault()
+                      return _vm.formSubmitRemuneraciones.apply(null, arguments)
+                    },
+                  },
+                },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "mb-3" }, [
+                        _c("label", { attrs: { for: "fecha" } }, [
+                          _vm._v("Fecha"),
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formRemuneraciones.fecha,
+                              expression: "formRemuneraciones.fecha",
+                            },
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid":
+                              _vm.submitted &&
+                              _vm.$v.formRemuneraciones.fecha.$error,
+                          },
+                          attrs: { id: "fecha", type: "date" },
+                          domProps: { value: _vm.formRemuneraciones.fecha },
+                          on: {
+                            input: function ($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.formRemuneraciones,
+                                "fecha",
+                                $event.target.value
+                              )
+                            },
+                          },
+                        }),
+                        _vm._v(" "),
+                        _vm.submitted && _vm.$v.formRemuneraciones.fecha.$error
+                          ? _c("div", { staticClass: "invalid-feedback" }, [
+                              !_vm.$v.formRemuneraciones.fecha.required
+                                ? _c("span", [_vm._v("Fecha requeridos.")])
+                                : _vm._e(),
+                            ])
+                          : _vm._e(),
+                      ]),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "mb-3" },
+                        [
+                          _c("label", [_vm._v("Cuenta")]),
+                          _vm._v(" "),
+                          _c("multiselect", {
+                            attrs: {
+                              options: _vm.optionsCuentas,
+                              "track-by": "",
+                              "custom-label": _vm.customLabelCuenta,
+                            },
+                            model: {
+                              value: _vm.formRemuneraciones.cuenta,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.formRemuneraciones, "cuenta", $$v)
+                              },
+                              expression: "formRemuneraciones.cuenta",
+                            },
+                          }),
+                          _vm._v(" "),
+                          !_vm.formRemuneraciones.cuenta && _vm.submitted
+                            ? _c("span", { staticClass: "text-danger" }, [
+                                _vm._v("Cuenta requerida."),
+                              ])
+                            : _vm._e(),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary float-end",
+                      attrs: { type: "submit" },
+                    },
+                    [
+                      _c("i", { staticClass: "far fa-save" }),
+                      _vm._v(" Pagar\n    "),
                     ]
                   ),
                 ]

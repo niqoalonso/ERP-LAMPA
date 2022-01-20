@@ -377,6 +377,24 @@ const routes = [
           ),
         meta: { requiresAuth: true },
       },
+      {
+        path: "/libro-caja",
+        name: "libro caja",
+        component: () =>
+          import(
+            /* webpackChunkName: "home" */ "./views/pages/libros/libro-caja.vue"
+          ),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "/libro-banco",
+        name: "libro banco",
+        component: () =>
+          import(
+            /* webpackChunkName: "home" */ "./views/pages/libros/libro-banco.vue"
+          ),
+        meta: { requiresAuth: true },
+      },
   ];
 
 const router = new VueRouter({
@@ -734,6 +752,20 @@ router.beforeEach((to, from, next) => {
         }
 
         case "libro diario":
+        if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
+          return true;
+        } else {
+          return false;
+        }
+
+        case "libro caja":
+        if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
+          return true;
+        } else {
+          return false;
+        }
+
+        case "libro banco":
         if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
           return true;
         } else {

@@ -140,11 +140,11 @@ class RemuneracionesController extends Controller
 
     // pagar remuneraciones del mes en curso
 
-    public function pagarremuneraciones($id){
+    public function pagarremuneraciones(Request $request){
 
         // traemos las remuneraciones no pagadas del mes en curso
 
-        $remuneraciones = $this->shownopagadas($id);
+        $remuneraciones = $this->shownopagadas($request->id_empresa);
 
         // return $remuneraciones;
 
@@ -235,8 +235,8 @@ class RemuneracionesController extends Controller
         $comprobante = Comprobante::create([
                                             'codigo' => $this->GenerarCodigo(),
                                             'glosa' => 'Centralizacion de la remuneracion del mes',
-                                            'fecha_comprobante' => date('Y-m-d'),
-                                            'empresa_id' => $id,
+                                            'fecha_comprobante' => $request->fecha,
+                                            'empresa_id' => $request->id_empresa,
                                             'unidadnegocio_id' => 1,
                                             'tipocomprobante_id' => 2,
                                             'haber' => $haber ,
@@ -275,7 +275,7 @@ class RemuneracionesController extends Controller
             // capturar año en curso
             $year = date('Y');
 
-            Remuneraciones::where('empresa_id',$id)
+            Remuneraciones::where('empresa_id',$request->id_empresa)
                             ->whereYear('created_at', $year)
                             ->whereMonth('created_at', $month)->update([
                                 'estado_pago' => 1
@@ -285,6 +285,46 @@ class RemuneracionesController extends Controller
                 'estado_id' => 3
             ]);
 
+            $comprobanteant = $comprobante->id_comprobante;
+
+
+            $comprobante = Comprobante::create([
+                'codigo' => $this->GenerarCodigo(),
+                'glosa' => 'Pago de las remuneraciones del mes',
+                'fecha_comprobante' => $request->fecha,
+                'empresa_id' => $request->id_empresa,
+                'unidadnegocio_id' => 1,
+                'tipocomprobante_id' => 2,
+                'haber' => $xpagar,
+                'deber' => $xpagar
+                ]);
+
+            $items = [
+                ["glosa" => 'Pago Remuneraciones', 'debe' => $xpagar, 'haber' => 0, 'plancuenta' => 7],
+                ["glosa" => $request->cuenta["manual_cuenta"]["nombre"], 'debe' => 0, 'haber' => $xpagar, 'plancuenta' => $request->cuenta["id_plan_cuenta"]]
+            ];
+            for ($i=0; $i < count($items) ; $i++) {
+
+                $detalle = DetalleComprobante::create([
+                    'comprobante_id' => $comprobante->id_comprobante,
+                    'n_detalle' => ($i + 1),
+                    'plancuenta_id'  =>  $items[$i]["plancuenta"],
+                    'centrocosto_id' => 2,
+                    'unidadnegocio_id' => 1,
+                    'glosa'          => $items[$i]["glosa"],
+                    'debe'           => $items[$i]["debe"],
+                    'haber'          =>  $items[$i]["haber"],
+                    'estado_pago'    => 1
+                ]);
+
+            }
+
+            // actualizar el estado de pago del detalle de remuneraciones por pagar
+
+
+            DetalleComprobante::where([['comprobante_id', $comprobanteant],['plancuenta_id',7]])->update([
+                'estado_pago' => 1
+            ]);
 
             return 1;
         }else{

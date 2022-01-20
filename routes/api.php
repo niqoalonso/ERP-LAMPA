@@ -193,7 +193,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('crearremuneracion',[RemuneracionesController::class,'store']);
     Route::get('obtenerremuneracionmes/{id}',[RemuneracionesController::class,'remuneracionmes']);
     Route::get('obtenerremuneracion/{date}/{id}',[RemuneracionesController::class,'busquedaremuneracion']);
-    Route::get('pagarremuneraciones/{id}',[RemuneracionesController::class,'pagarremuneraciones']);
+    Route::post('pagarremuneraciones',[RemuneracionesController::class,'pagarremuneraciones']);
 
 
     //TipoDocumento
@@ -251,6 +251,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('obteneranticipo/{id}',[AnticipoController::class,'show']);
     Route::delete('eliminaranticipo/{anticipo}', [AnticipoController::class, 'destroy']);
     Route::get('pagaranticipo/{id}',[AnticipoController::class,'pagaranticipo']);
-    
+
+    // libro caja
+
+    Route::get('obtenerinfocaja/{id}/{cuenta}',[ComprobanteController::class,'librocajames']);
+    Route::get('obtenerinfocaja/{date}/{id}/{cuenta}',[ComprobanteController::class,'busquedalibraocaja']);
+
 });
 

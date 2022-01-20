@@ -243,22 +243,30 @@ export default {
             if (!this.$v.form.$invalid) {
                 this.form.id_empresa = this.id_empresa.id_empresa;
 
+
                 if (parseInt(this.form.monto) >= parseInt(this.sueldo_base)) {
                     this.successmsgerror(
                         "El monto del anticipo no puede ser mayor o igual al sueldo base"
                     );
 
                     return;
-                } else if(this.form.cuenta.manualcuenta_id != 1 || this.form.cuenta.manualcuenta_id != 2 ){
+                }
 
+
+                if(this.form.cuenta.manual_cuenta.id_manual_cuenta == 1 || this.form.cuenta.manual_cuenta.id_manual_cuenta == 2 ){
+
+
+                }else{
+
+                    console.log(this.form.cuenta.manual_cuenta.id_manual_cuenta)
                     this.successmsgerror(
                         "La cuenta selecciona, no corresponde para este tipo de acción"
                     );
 
                     return;
+                }
 
-                } else {
-                    this.axios
+                this.axios
                         .post(`/api/crearanticipo`, this.form)
                         .then((res) => {
                             console.log(res);
@@ -310,7 +318,7 @@ export default {
                             this.traerAnticipo();
                             this.successmsg(title, message, type);
                         });
-                }
+
             }
         },
 

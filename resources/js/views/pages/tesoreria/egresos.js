@@ -1,7 +1,9 @@
 import Swal from "sweetalert2";
 import Layout from "../../layouts/main";
 import Multiselect from "vue-multiselect";
+import moment from "moment";
 import Vue from "vue";
+import { required } from "vuelidate/lib/validators";
 export default {
     components: {
         Layout,
@@ -26,6 +28,14 @@ export default {
                 empresa: "",
                 id_documento: "",
             },
+            formRemuneraciones: {
+                fecha: "",
+                cuenta: "",
+                id_empresa: "",
+            },
+            optionsCuentas: [],
+            submitted: false,
+            modal: false,
             id_empresa: JSON.parse(Vue.prototype.$globalEmpresasSelected),
 
             //TABLA DE DOCUMENTOS TRIBUTARIOS
@@ -149,6 +159,17 @@ export default {
         };
     },
 
+    validations: {
+        formRemuneraciones: {
+            fecha: {
+                required,
+            },
+            cuenta: {
+                required,
+            },
+        },
+    },
+
     computed: {
         rows() {
             return this.tableDataRemuneraciones.length;
@@ -164,8 +185,12 @@ export default {
 
         this.getInicialCompras();
         this.traerRemuneracion();
+        this.traerPlan();
     },
     methods: {
+        customLabelCuenta({ manual_cuenta }) {
+            return `${manual_cuenta.nombre}`;
+        },
         onFiltered(filteredItems) {
             this.totalRows = filteredItems.length;
             this.currentPage = 1;
@@ -174,6 +199,15 @@ export default {
         onFilteredRemuneraciones(filteredItems) {
             this.totalRowsRemuneraciones = filteredItems.length;
             this.currentPageRemuneraciones = 1;
+        },
+
+        traerPlan() {
+            this.axios
+                .get(`/api/getPlanCuenta/${this.id_empresa.id_empresa}`)
+                .then((response) => {
+                    console.log(response);
+                    this.optionsCuentas = response.data;
+                });
         },
 
         traerRemuneracion() {
@@ -270,51 +304,173 @@ export default {
             });
         },
 
-        pagarremuneracion() {
-            if(this.tableDataRemuneraciones.length > 0 ){
+        formSubmitRemuneraciones() {
+            if (this.tableDataRemuneraciones.length > 0) {
+                this.submitted = true;
+                this.$v.formRemuneraciones.$touch();
 
-            Swal.fire({
-                title: "Aprobar Pago",
-                text: "¿Esta seguro que que desea aprobar pago?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#0b892c",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "Cancelar",
-                confirmButtonText: "Si, Aprobar!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.axios
-                        .get(
-                            `api/pagarremuneraciones/${this.id_empresa.id_empresa}`
-                        )
-                        .then((response) => {
-                            console.log(response);
-                            if (response.data == 1) {
-                                const title = "Exito al Pagar Remuneraciones";
-                                const message =
-                                    "Remuneraciones pagadas con éxito";
-                                const type = "success";
-                                this.successmsg(title, message, type);
+                if (!this.$v.formRemuneraciones.$invalid) {
+                    var fecha_hoy = moment().format("YYYY-MM-DD");
+                    if (
+                        this.formRemuneraciones.cuenta.manual_cuenta
+                            .id_manual_cuenta == 1 ||
+                        this.formRemuneraciones.cuenta.manual_cuenta
+                            .id_manual_cuenta == 2
+                    ) {
+                    } else {
+                        console.log(
+                            this.formRemuneraciones.cuenta.manual_cuenta
+                                .id_manual_cuenta
+                        );
+                        this.successmsgerror(
+                            "La cuenta selecciona, no corresponde para este tipo de acción"
+                        );
+
+                        return;
+                    }
+
+                    if (this.formRemuneraciones.fecha >= fecha_hoy) {
+                        this.formRemuneraciones.id_empresa =
+                            this.id_empresa.id_empresa;
+
+                        console.log(this.formRemuneraciones);
+
+                        this.axios
+                            .post(
+                                `/api/pagarremuneraciones`,
+                                this.formRemuneraciones
+                            )
+                            .then((res) => {
+                                console.log(res);
+
+                                let title = "";
+                                let message = "";
+                                let type = "";
+                                if (res.data) {
+                                    title = "Pagar Remuneraciones";
+                                    message =
+                                        "Remuneraciones pagadas con éxito";
+                                    type = "success";
+
+                                    this.modal = false;
+                                    this.submitted = false;
+
+                                    this.$v.formRemuneraciones.$reset();
+                                    this.traerRemuneracion();
+                                    this.successmsg(title, message, type);
+                                }
+                            })
+                            .catch((error) => {
+                                console.log("error", error);
+
+                                let title = "";
+                                let message = "";
+                                let type = "";
+                                title = "Pagar Remuneraciones";
+                                message = "Error al pagar las remuneraciones";
+                                type = "error";
+
+                                this.modal = false;
+                                this.submitted = false;
+                                this.$v.formRemuneraciones.$reset();
                                 this.traerRemuneracion();
-                            } else {
-                                const title = "Error al Pagar Remuneraciones";
-                                const message =
-                                    "Error al pagar las remuneraciones";
-                                const type = "error";
                                 this.successmsg(title, message, type);
-                            }
-                        });
+                            });
+                    } else {
+                        this.successmsg(
+                            "Error al Pagar Remuneraciones",
+                            "La fecha no pude ser menor al dia de hoy.",
+                            "error"
+                        );
+                    }
                 }
-            });
-        }else{
+            } else {
+                this.successmsg(
+                    "Error al Pagar Remuneraciones",
+                    "No hay remuneraciones del mes en curso por pagar",
+                    "error"
+                );
+            }
+        },
 
-            this.successmsg('Error al Pagar Remuneraciones', 'No hay remuneraciones del mes en curso por pagar', 'error');
-        }
+        modalNuevo() {
+            if (this.tableDataRemuneraciones.length > 0) {
+                this.modal = true;
+                (this.formRemuneraciones = {
+                    fecha: "",
+                    cuenta: "",
+                    id_empresa: "",
+                }),
+                this.submitted = false;
+                    (this.modal = true);
+            } else {
+                this.successmsg(
+                    "Error al Pagar Remuneraciones",
+                    "No hay remuneraciones del mes en curso por pagar",
+                    "error"
+                );
+            }
+        },
+
+        pagarremuneracion() {
+            if (this.tableDataRemuneraciones.length > 0) {
+                Swal.fire({
+                    title: "Aprobar Pago",
+                    text: "¿Esta seguro que que desea aprobar pago?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#0b892c",
+                    cancelButtonColor: "#d33",
+                    cancelButtonText: "Cancelar",
+                    confirmButtonText: "Si, Aprobar!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.axios
+                            .get(
+                                `api/pagarremuneraciones/${this.id_empresa.id_empresa}`
+                            )
+                            .then((response) => {
+                                console.log(response);
+                                if (response.data == 1) {
+                                    const title =
+                                        "Exito al Pagar Remuneraciones";
+                                    const message =
+                                        "Remuneraciones pagadas con éxito";
+                                    const type = "success";
+                                    this.successmsg(title, message, type);
+                                    this.traerRemuneracion();
+                                } else {
+                                    const title =
+                                        "Error al Pagar Remuneraciones";
+                                    const message =
+                                        "Error al pagar las remuneraciones";
+                                    const type = "error";
+                                    this.successmsg(title, message, type);
+                                }
+                            });
+                    }
+                });
+            } else {
+                this.successmsg(
+                    "Error al Pagar Remuneraciones",
+                    "No hay remuneraciones del mes en curso por pagar",
+                    "error"
+                );
+            }
         },
 
         successmsg(title, message, type) {
             Swal.fire(title, message, type);
+        },
+
+        successmsgerror(error) {
+            Swal.fire({
+                position: "center",
+                title: error,
+                icon: "error",
+                showConfirmButton: false,
+                timer: 2000,
+            });
         },
     },
 };

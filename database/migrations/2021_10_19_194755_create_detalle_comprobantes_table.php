@@ -27,6 +27,7 @@ class CreateDetalleComprobantesTable extends Migration
             $table->foreign('proveedor_id')->references('id_proveedor')->on('proveedors');
             $table->integer('debe')->nullable();
             $table->integer('haber')->nullable();
+            $table->integer('estado_pago')->nullable()->default(0);
             $table->timestamps();
         });
     }
