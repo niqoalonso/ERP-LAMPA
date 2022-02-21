@@ -6,6 +6,7 @@ use App\Models\BonosRemuneracion;
 use App\Models\Comprobante;
 use App\Models\DetalleComprobante;
 use App\Models\Estudiante;
+use App\Models\PlanCuenta;
 use App\Models\Remuneraciones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -243,14 +244,22 @@ class RemuneracionesController extends Controller
                                             'deber' => $debe
                                             ]);
 
+        $planremuneracion = PlanCuenta::where('manualcuenta_id', 13)->first();
+        $planasigfam = PlanCuenta::where('manualcuenta_id', 14)->first();
+        $planleyessociales = PlanCuenta::where('manualcuenta_id', 15)->first();
+        $planprev = PlanCuenta::where('manualcuenta_id', 16)->first();
+        $planimpunico = PlanCuenta::where('manualcuenta_id', 17)->first();
+        $plananticipo = PlanCuenta::where('manualcuenta_id', 18)->first();
+        $planxpagar = PlanCuenta::where('manualcuenta_id', 19)->first();
+
         $items = [
-            ["glosa" => 'Remuneracion', 'debe' => $totalremuneracion, 'haber' => 0, 'plancuenta' => 1],
-            ["glosa" => 'Asig Fam', 'debe' => $asigfam, 'haber' => 0, 'plancuenta' => 2],
-            ["glosa" => 'Leyes Sociales', 'debe' => $leyessociales, 'haber' => 0, 'plancuenta' => 3],
-            ["glosa" => 'Institucion PREV', 'debe' => 0, 'haber' => $prev, 'plancuenta' => 4],
-            ["glosa" => 'Impuesto Unico', 'debe' => 0, 'haber' => $impunico, 'plancuenta' => 5],
-            ["glosa" => 'Anticipo', 'debe' => 0, 'haber' => $anticipo, 'plancuenta' => 6],
-            ["glosa" => 'Remuneracion por pagar', 'debe' => 0, 'haber' => $xpagar, 'plancuenta' => 7]
+            ["glosa" => 'Remuneracion', 'debe' => $totalremuneracion, 'haber' => 0, 'plancuenta' => $planremuneracion->id_plan_cuenta],
+            ["glosa" => 'Asig Fam', 'debe' => $asigfam, 'haber' => 0, 'plancuenta' => $planasigfam->id_plan_cuenta],
+            ["glosa" => 'Leyes Sociales', 'debe' => $leyessociales, 'haber' => 0, 'plancuenta' => $planleyessociales->id_plan_cuenta],
+            ["glosa" => 'Institucion PREV', 'debe' => 0, 'haber' => $prev, 'plancuenta' => $planprev->id_plan_cuenta],
+            ["glosa" => 'Impuesto Unico', 'debe' => 0, 'haber' => $impunico, 'plancuenta' => $planimpunico->id_plan_cuenta],
+            ["glosa" => 'Anticipo', 'debe' => 0, 'haber' => $anticipo, 'plancuenta' => $plananticipo->id_plan_cuenta],
+            ["glosa" => 'Remuneracion por pagar', 'debe' => 0, 'haber' => $xpagar, 'plancuenta' => $planxpagar->id_plan_cuenta]
         ];
 
         for ($i=0; $i < count($items) ; $i++) {
@@ -300,7 +309,7 @@ class RemuneracionesController extends Controller
                 ]);
 
             $items = [
-                ["glosa" => 'Pago Remuneraciones', 'debe' => $xpagar, 'haber' => 0, 'plancuenta' => 7],
+                ["glosa" => 'Pago Remuneraciones', 'debe' => $xpagar, 'haber' => 0, 'plancuenta' => $planxpagar->id_plan_cuenta],
                 ["glosa" => $request->cuenta["manual_cuenta"]["nombre"], 'debe' => 0, 'haber' => $xpagar, 'plancuenta' => $request->cuenta["id_plan_cuenta"]]
             ];
             for ($i=0; $i < count($items) ; $i++) {
@@ -322,7 +331,7 @@ class RemuneracionesController extends Controller
             // actualizar el estado de pago del detalle de remuneraciones por pagar
 
 
-            DetalleComprobante::where([['comprobante_id', $comprobanteant],['plancuenta_id',7]])->update([
+            DetalleComprobante::where([['comprobante_id', $comprobanteant],['plancuenta_id',$planxpagar->id_plan_cuenta]])->update([
                 'estado_pago' => 1
             ]);
 

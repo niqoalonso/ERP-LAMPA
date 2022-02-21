@@ -6,6 +6,7 @@ use App\Http\Requests\Anticipo\AnticipoRequest;
 use App\Models\Anticipo;
 use App\Models\Comprobante;
 use App\Models\DetalleComprobante;
+use App\Models\PlanCuenta;
 use Illuminate\Http\Request;
 
 date_default_timezone_set("America/Santiago");
@@ -54,20 +55,20 @@ class AnticipoController extends Controller
          $totalcaja = 0;
          $totalbanco = 0;
          $totalmonto = 0;
-         $idplancaja = 8; // por defecto
-         $idplanbanco = 9; // por defecto
-         $idplananticipo = 6; 
+         $idplancaja = PlanCuenta::where('manualcuenta_id', 1)->first();
+         $idplanbanco = PlanCuenta::where('manualcuenta_id', 2)->first();
+         $idplananticipo = PlanCuenta::where('manualcuenta_id', 18)->first();
 
         $anticipo = Anticipo::where([['empresa_id', $id],['estado_pago',0]])
                             ->whereYear('created_at', $year)
                             ->whereMonth('created_at', $month)
                             ->with('trabajador','plancuenta.ManualCuenta')
                             ->get();
-        
+
         foreach ($anticipo as $key => $value) {
 
-            // manualcuenta_id = 1 es caja - manualcuenta_id = 2 
-            
+            // manualcuenta_id = 1 es caja - manualcuenta_id = 2
+
             if($value["plancuenta"]["manualcuenta_id"] == 1){
 
                 $totalcaja = round($totalcaja + $value["monto"]) ;
@@ -96,9 +97,9 @@ class AnticipoController extends Controller
             ]);
 
         $items = [
-            ["glosa" => 'Anticipo', 'debe' => $totalmonto, 'haber' => 0, 'plancuenta' => $idplananticipo],
-            ["glosa" => 'Caja', 'debe' => 0, 'haber' => $totalcaja, 'plancuenta' => $idplancaja],
-            ["glosa" => 'Bono', 'debe' => 0, 'haber' => $totalbanco, 'plancuenta' => $idplanbanco]
+            ["glosa" => 'Anticipo', 'debe' => $totalmonto, 'haber' => 0, 'plancuenta' => $idplananticipo->id_plan_cuenta],
+            ["glosa" => 'Caja', 'debe' => 0, 'haber' => $totalcaja, 'plancuenta' => $idplancaja->id_plan_cuenta],
+            ["glosa" => 'Bono', 'debe' => 0, 'haber' => $totalbanco, 'plancuenta' => $idplanbanco->id_plan_cuenta]
         ];
 
         for ($i=0; $i < count($items) ; $i++) {
@@ -150,7 +151,7 @@ class AnticipoController extends Controller
 
             return 0;
         }
-        
+
 
     }
 

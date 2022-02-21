@@ -257,5 +257,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('obtenerinfocaja/{id}/{cuenta}',[ComprobanteController::class,'librocajames']);
     Route::get('obtenerinfocaja/{date}/{id}/{cuenta}',[ComprobanteController::class,'busquedalibraocaja']);
 
+    // cerrar caja
+
+    Route::post('cerrarcaja',[ComprobanteController::class,'cerrarcaja']);
+
+    // libro mayor
+
+    Route::get('obtenerinfocuenta/{id}',[ComprobanteController::class,'obtenerinfocuenta']);
+
 });
 

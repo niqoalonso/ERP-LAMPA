@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-3 mt-2">
                                 <ul
-                                    v-for="(item2, j) in item.detalles"
+                                    v-for="(item2, j) in item.detalle_comprobantes"
                                     :key="k + j"
                                     style="list-style: none; padding: 0;"
                                 >
@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-3 mt-2">
                                 <ul
-                                    v-for="(item2, j) in item.detalles"
+                                    v-for="(item2, j) in item.detalle_comprobantes"
                                     :key="k + j"
                                     style="list-style: none; padding: 0;"
                                 >
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-3 mt-2">
                                 <ul
-                                    v-for="(item2, j) in item.detalles"
+                                    v-for="(item2, j) in item.detalle_comprobantes"
                                     :key="k + j"
                                     style="list-style: none; padding: 0;"
                                 >

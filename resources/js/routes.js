@@ -395,6 +395,15 @@ const routes = [
           ),
         meta: { requiresAuth: true },
       },
+      {
+        path: "/libro-mayor",
+        name: "libro mayor",
+        component: () =>
+          import(
+            /* webpackChunkName: "home" */ "./views/pages/libros/libro-mayor.vue"
+          ),
+        meta: { requiresAuth: true },
+      },
   ];
 
 const router = new VueRouter({
@@ -766,6 +775,13 @@ router.beforeEach((to, from, next) => {
         }
 
         case "libro banco":
+        if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
+          return true;
+        } else {
+          return false;
+        }
+
+        case "libro mayor":
         if (rol == "Administrador" || rol == "Docente" || rol == "Estudiante") {
           return true;
         } else {

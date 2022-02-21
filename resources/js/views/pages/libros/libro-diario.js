@@ -54,7 +54,11 @@ export default {
                 .get(`/api/getComprobantes/` + this.id_empresa.id_empresa)
                 .then((response) => {
                     console.log(response);
-                    this.tableData = response.data;
+                    // eliminar los que no tengan detalles
+                    let detalles = response.data.filter(item => item.detalle_comprobantes);
+
+                    console.log(detalles)
+                    this.tableData = detalles;
                 });
         },
     },

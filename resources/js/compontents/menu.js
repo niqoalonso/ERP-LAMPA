@@ -317,6 +317,13 @@ export const menuItems = [
         parentId: 11,
         permiso: Vue.prototype.$CrearEmpresa,
       },
+      {
+        id: 11.4,
+        label: "Libros Mayor",
+        link: "/libro-mayor",
+        parentId: 11,
+        permiso: Vue.prototype.$CrearEmpresa,
+      },
     ],
   },
 

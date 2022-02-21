@@ -2710,6 +2710,12 @@ var menuItems = [{
     link: "/libro-banco",
     parentId: 11,
     permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
+  }, {
+    id: 11.4,
+    label: "Libros Mayor",
+    link: "/libro-mayor",
+    parentId: 11,
+    permiso: vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.$CrearEmpresa
   }]
 }];
 
@@ -8539,6 +8545,48 @@ __webpack_require__.r(__webpack_exports__);
           _this4.totaldebe = _this4.totaldebe + element.haber;
         }
       });
+    },
+    cerrarcaja: function cerrarcaja() {
+      var _this5 = this;
+
+      console.log(this.infodata);
+      var caja = this.infodata.filter(function (item) {
+        return item.debe > 0;
+      }); // const totales = caja.reduce((acumulador, valorActual) => {
+      //     const elementoYaExiste = acumulador.find(elemento => elemento.plancuenta_id === valorActual.plancuenta_id);
+      //     if (elementoYaExiste) {
+      //       return acumulador.map((elemento) => {
+      //         if (elemento.plancuenta_id === valorActual.plancuenta_id) {
+      //           return {
+      //             ...elemento,
+      //             total: valorActual.debe + elemento.debe
+      //           }
+      //         }
+      //         return elemento;
+      //       });
+      //     }
+      //     return [...acumulador, valorActual];
+      //   }, []);
+      //   console.log(totales)
+
+      return;
+      var form = {
+        totales: totales,
+        arrays: caja
+      };
+      this.axios.post("/api/cerrarcaja", form).then(function (res) {
+        console.log(res);
+      })["catch"](function (error) {
+        console.log("error", error);
+        var title = "";
+        var message = "";
+        var type = "";
+        title = "Cerrar caja";
+        message = "Error al cerrar caja";
+        type = "error";
+
+        _this5.successmsg(title, message, type);
+      });
     }
   }
 });
@@ -8618,8 +8666,96 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.axios.get("/api/getComprobantes/" + this.id_empresa.id_empresa).then(function (response) {
+        console.log(response); // eliminar los que no tengan detalles
+
+        var detalles = response.data.filter(function (item) {
+          return item.detalle_comprobantes;
+        });
+        console.log(detalles);
+        _this.tableData = detalles;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-mayor.js?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-mayor.js?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _layouts_main__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../layouts/main */ "./resources/js/views/layouts/main.vue");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
+/* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Layout: _layouts_main__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Multiselect: (vue_multiselect__WEBPACK_IMPORTED_MODULE_2___default()),
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  data: function data() {
+    return {
+      mesbusqueda: "",
+      id_empresa: JSON.parse(vue__WEBPACK_IMPORTED_MODULE_5__["default"].prototype.$globalEmpresasSelected),
+      infodata: []
+    };
+  },
+  mounted: function mounted() {
+    this.traerinfo();
+  },
+  methods: {
+    traerinfo: function traerinfo() {
+      var _this = this;
+
+      this.axios.get("/api/obtenerinfocuenta/".concat(this.id_empresa.id_empresa)).then(function (response) {
         console.log(response);
-        _this.tableData = response.data;
+        var data = response.data;
+
+        for (var i = 0; i < data.length; i++) {
+          var totaldebe = 0;
+          var totalhaber = 0;
+
+          for (var j = 0; j < data[i]["detalle_comprobantes"].length; j++) {
+            totaldebe = totaldebe + data[i]["detalle_comprobantes"][j]["debe"];
+            totalhaber = totalhaber + data[i]["detalle_comprobantes"][j]["haber"];
+          }
+
+          data[i]["totaldebe"] = totaldebe;
+          data[i]["totalhaber"] = totalhaber;
+          var sa = 0;
+          var saldodeudor = 0;
+
+          if (totalhaber > totaldebe) {
+            sa = totalhaber - totaldebe;
+          } else {
+            saldodeudor = totaldebe - totalhaber;
+          }
+
+          data[i]["saldodeudor"] = saldodeudor;
+          data[i]["sa"] = sa;
+        }
+
+        console.log(data);
+        _this.infodata = response.data;
       });
     }
   }
@@ -60782,6 +60918,45 @@ component.options.__file = "resources/js/views/pages/libros/libro-diario.vue"
 
 /***/ }),
 
+/***/ "./resources/js/views/pages/libros/libro-mayor.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-mayor.vue ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _libro_mayor_vue_vue_type_template_id_20d3f549___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./libro-mayor.vue?vue&type=template&id=20d3f549& */ "./resources/js/views/pages/libros/libro-mayor.vue?vue&type=template&id=20d3f549&");
+/* harmony import */ var _libro_mayor_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./libro-mayor.js?vue&type=script&lang=js& */ "./resources/js/views/pages/libros/libro-mayor.js?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _libro_mayor_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _libro_mayor_vue_vue_type_template_id_20d3f549___WEBPACK_IMPORTED_MODULE_0__.render,
+  _libro_mayor_vue_vue_type_template_id_20d3f549___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/pages/libros/libro-mayor.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/views/pages/login/login.vue":
 /*!**************************************************!*\
   !*** ./resources/js/views/pages/login/login.vue ***!
@@ -61815,6 +61990,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/views/pages/libros/libro-mayor.js?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-mayor.js?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_libro_mayor_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./libro-mayor.js?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./resources/js/views/pages/libros/libro-mayor.js?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_libro_mayor_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/views/pages/manualDeCuenta/manual.js?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/views/pages/manualDeCuenta/manual.js?vue&type=script&lang=js& ***!
@@ -62808,6 +62999,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_diario_vue_vue_type_template_id_4a3157aa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_diario_vue_vue_type_template_id_4a3157aa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./libro-diario.vue?vue&type=template&id=4a3157aa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-diario.vue?vue&type=template&id=4a3157aa&");
+
+
+/***/ }),
+
+/***/ "./resources/js/views/pages/libros/libro-mayor.vue?vue&type=template&id=20d3f549&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/views/pages/libros/libro-mayor.vue?vue&type=template&id=20d3f549& ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_mayor_vue_vue_type_template_id_20d3f549___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_mayor_vue_vue_type_template_id_20d3f549___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_libro_mayor_vue_vue_type_template_id_20d3f549___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./libro-mayor.vue?vue&type=template&id=20d3f549& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-mayor.vue?vue&type=template&id=20d3f549&");
 
 
 /***/ }),
@@ -80278,6 +80486,24 @@ var render = function () {
         ),
       ]),
       _vm._v(" "),
+      _c("div", { staticClass: "col-4" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-4" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success waves-effect waves-light float-end",
+            attrs: { type: "button" },
+            on: {
+              click: function ($event) {
+                return _vm.cerrarcaja()
+              },
+            },
+          },
+          [_vm._v("\n                Cerrar Caja\n            ")]
+        ),
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "col-lg-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
@@ -80529,7 +80755,7 @@ var render = function () {
                     _c(
                       "div",
                       { staticClass: "col-3 mt-2" },
-                      _vm._l(item.detalles, function (item2, j) {
+                      _vm._l(item.detalle_comprobantes, function (item2, j) {
                         return _c(
                           "ul",
                           {
@@ -80565,7 +80791,7 @@ var render = function () {
                     _c(
                       "div",
                       { staticClass: "col-3 mt-2" },
-                      _vm._l(item.detalles, function (item2, j) {
+                      _vm._l(item.detalle_comprobantes, function (item2, j) {
                         return _c(
                           "ul",
                           {
@@ -80585,7 +80811,7 @@ var render = function () {
                     _c(
                       "div",
                       { staticClass: "col-3 mt-2" },
-                      _vm._l(item.detalles, function (item2, j) {
+                      _vm._l(item.detalle_comprobantes, function (item2, j) {
                         return _c(
                           "ul",
                           {
@@ -80629,6 +80855,154 @@ var render = function () {
             ],
             2
           ),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-mayor.vue?vue&type=template&id=20d3f549&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/pages/libros/libro-mayor.vue?vue&type=template&id=20d3f549& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("Layout", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "div",
+              { staticClass: "row row-cols-2 row-cols-md-4 g-4" },
+              _vm._l(_vm.infodata, function (item, i) {
+                return _c("div", { key: i, staticClass: "col-md-3 col-sm-6" }, [
+                  _c("div", { staticClass: "card mt-3 h-100" }, [
+                    _c(
+                      "div",
+                      { staticClass: "card-body" },
+                      [
+                        _c(
+                          "h5",
+                          {
+                            staticClass:
+                              "card-title text-center text-uppercase mb-4",
+                          },
+                          [_vm._v(_vm._s(item.manual_cuenta.nombre))]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c(
+                            "div",
+                            { staticClass: "col-6 text-center fw-bold" },
+                            [_vm._v("DEBE")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-6 text-center fw-bold" },
+                            [_vm._v("HABER")]
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(item.detalle_comprobantes, function (item2, j) {
+                          return _c(
+                            "div",
+                            { key: j, staticClass: "row border-bottom" },
+                            [
+                              _c("div", { staticClass: "col-6 text-center" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("toCurrency")(item2.debe))
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-6 text-center" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("toCurrency")(item2.haber))
+                                ),
+                              ]),
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row mt-2" }, [
+                          _c("div", { staticClass: "col-6 text-center" }, [
+                            _vm._v(
+                              _vm._s(_vm._f("toCurrency")(item.totaldebe))
+                            ),
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-6 text-center" }, [
+                            _vm._v(
+                              _vm._s(_vm._f("toCurrency")(item.totalhaber))
+                            ),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        item.saldodeudor > 0
+                          ? _c("div", { staticClass: "row mt-2 border" }, [
+                              _c(
+                                "div",
+                                { staticClass: "col-6 text-center fw-bold" },
+                                [_vm._v("Saldo Deudor")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-6 text-center" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("toCurrency")(item.saldodeudor))
+                                ),
+                              ]),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.sa > 0
+                          ? _c("div", { staticClass: "row mt-2 border" }, [
+                              _c("div", { staticClass: "col-6 text-center" }, [
+                                _vm._v(_vm._s(_vm._f("toCurrency")(item.sa))),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "col-6 text-center fw-bold" },
+                                [_vm._v("Saldo Acreedor")]
+                              ),
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        item.sa == item.saldodeudor
+                          ? _c("div", { staticClass: "row mt-2 border" }, [
+                              _c(
+                                "div",
+                                { staticClass: "col-12 text-center fw-bold" },
+                                [_vm._v("Cuenta Saldada")]
+                              ),
+                            ])
+                          : _vm._e(),
+                      ],
+                      2
+                    ),
+                  ]),
+                ])
+              }),
+              0
+            ),
+          ]),
         ]),
       ]),
     ]),

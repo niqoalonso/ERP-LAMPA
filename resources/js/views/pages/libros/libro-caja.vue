@@ -17,6 +17,16 @@
                     ></date-picker>
                 </div>
             </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <button
+                    type="button"
+                    class="btn btn-success waves-effect waves-light float-end"
+                    @click="cerrarcaja()"
+                >
+                    Cerrar Caja
+                </button>
+            </div>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
@@ -51,9 +61,10 @@
                                         class="col-3"
                                         v-if="
                                             item.haber > 0 &&
-                                            item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1
-                                            &&
-                                            item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                                            item.plan_cuenta.manual_cuenta
+                                                .id_manual_cuenta != 1 &&
+                                            item.plan_cuenta.manual_cuenta
+                                                .id_manual_cuenta != 2
                                         "
                                     >
                                         <h6>{{ item.fecha_comprobante }}</h6>
@@ -62,9 +73,10 @@
                                         class="col-3"
                                         v-if="
                                             item.haber > 0 &&
-                                            item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1
-                                            &&
-                                            item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                                            item.plan_cuenta.manual_cuenta
+                                                .id_manual_cuenta != 1 &&
+                                            item.plan_cuenta.manual_cuenta
+                                                .id_manual_cuenta != 2
                                         "
                                     >
                                         <h6>{{ item.glosa_comprobante }}</h6>
@@ -73,9 +85,10 @@
                                         class="col-3"
                                         v-if="
                                             item.haber > 0 &&
-                                            item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1
-                                            &&
-                                            item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                                            item.plan_cuenta.manual_cuenta
+                                                .id_manual_cuenta != 1 &&
+                                            item.plan_cuenta.manual_cuenta
+                                                .id_manual_cuenta != 2
                                         "
                                     >
                                         <h6>
@@ -89,9 +102,10 @@
                                         class="col-3"
                                         v-if="
                                             item.haber > 0 &&
-                                            item.plan_cuenta.manual_cuenta.id_manual_cuenta != 1
-                                            &&
-                                            item.plan_cuenta.manual_cuenta.id_manual_cuenta != 2
+                                            item.plan_cuenta.manual_cuenta
+                                                .id_manual_cuenta != 1 &&
+                                            item.plan_cuenta.manual_cuenta
+                                                .id_manual_cuenta != 2
                                         "
                                     >
                                         <h6>{{ item.haber | toCurrency }}</h6>
@@ -136,7 +150,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-3" v-if="item.debe > 0">
-                                        <h6>{{ item.debe | toCurrency}}</h6>
+                                        <h6>{{ item.debe | toCurrency }}</h6>
                                     </div>
                                 </div>
                             </div>
